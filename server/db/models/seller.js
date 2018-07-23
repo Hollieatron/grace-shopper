@@ -8,3 +8,4 @@ const Seller = db.define('seller', {
 })
 
 module.exports = Seller
+
