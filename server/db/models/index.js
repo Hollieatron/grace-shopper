@@ -18,8 +18,8 @@ Product.hasOne(Seller)
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
 
 // review
-Review.hasOne(User)
-Review.hasOne(Product)
+Review.belongsTo(User)
+Review.belongsTo(Product)
 
 module.exports = {
   User,
