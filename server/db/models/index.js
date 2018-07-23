@@ -7,19 +7,21 @@ const Seller = require('./seller')
 
 // user
 User.hasMany(Review)
+User.belongsTo(Product);
 
 // product
 Product.belongsToMany(Category, {through: 'ProductCategory'})
-Product.hasMany(Review)
+Product.belongsTo(Review)
 Product.hasOne(Manufacturer)
 Product.hasOne(Seller)
+Product.belongsTo(User);
 
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
 
 // review
-Review.belongsTo(User)
-Review.belongsTo(Product)
+Review.hasOne(User)
+Review.hasOne(Product)
 
 module.exports = {
   User,
