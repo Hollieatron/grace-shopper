@@ -15,3 +15,5 @@ const Product = db.define('product', {
     type: Sequelize.TEXT
   }
 })
+
+module.exports = Product
