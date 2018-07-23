@@ -9,10 +9,13 @@ const Seller = require('./seller')
 User.hasMany(Review)
 
 // product
-Product.hasMany(Category)
+Product.belongsToMany(Category, {through: 'ProductCategory'})
 Product.hasMany(Review)
 Product.hasOne(Manufacturer)
 Product.hasOne(Seller)
+
+// category
+Category.belongsToMany(Product, {through: 'CategoryProduct'})
 
 // review
 Review.hasOne(User)
