@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "graceshopper",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "A sales site for soon to figure out products",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -33,7 +33,7 @@
       "git add"
     ]
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Hollieatron",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.3",
