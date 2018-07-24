@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../../history'
 
 /**
  * ACTION TYPES
@@ -34,14 +33,14 @@ const getCategory = category => ({
  */
 export const fetchCategories = () => {
   return async dispatch => {
-    const {data} = await axios.get(`/api/categories/${id}`)
-    dispatch(getCategory(data))
+    const {data} = await axios.get(`/api/categories`)
+    dispatch(getCategories(data))
   }
 }
 
 export const fetchCategory = id => {
   return async dispatch => {
-    const {data} = await axios.get('/api/categories')
+    const {data} = await axios.get(`/api/categories/${id}`)
     dispatch(getCategory(data))
   }
 }
@@ -52,9 +51,9 @@ export const fetchCategory = id => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_CATEGORIES:
-      return action.product
+      return action.categories
     case GET_CATEGORY:
-      return action.product
+      return action.category
     default:
       return state
   }

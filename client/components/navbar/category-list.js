@@ -1,27 +1,32 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Dropdown, Icon} from 'semantic-ui-react'
+import {Dropdown} from 'semantic-ui-react'
+import {fetchCategories} from '../../store'
 
-export default () => {
-  return (
-    <Dropdown item icon="th list" simple>
-      <Dropdown.Menu>
-        <Dropdown.Item>
-          <Icon name="dropdown" />
-          <span className="text">New</span>
+class CategoryList extends React.Component {
+  componentDidMount() {
+    this.props.getCategories();
+  }
 
-          <Dropdown.Menu>
-            <Dropdown.Item>Document</Dropdown.Item>
-            <Dropdown.Item>Image</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown.Item>
-        <Dropdown.Item>Open</Dropdown.Item>
-        <Dropdown.Item>Save...</Dropdown.Item>
-        <Dropdown.Item>Edit Permissions</Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Header>Export</Dropdown.Header>
-        <Dropdown.Item>Share</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  )
+  render() {
+    const {categories} = this.props
+    console.log(categories);
+    return (
+      <Dropdown item icon="th list" simple>
+        <Dropdown.Menu>
+          {categories.length > 0 ? categories.map(category => <Dropdown.Item key={category.id}>{category.name}</Dropdown.Item>) : <Dropdown.Item>No Categories</Dropdown.Item>}
+        </Dropdown.Menu>
+      </Dropdown>
+    )
+  }
 }
+
+const mapState = state => ({
+  categories: state.categories
+})
+
+const mapDispatch = dispatch => ({
+  getCategories: () => dispatch(fetchCategories())
+})
+
+export default connect(mapState, mapDispatch)(CategoryList)

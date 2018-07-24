@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import Search from './search'
 import CategoryList from './category-list'
-import {Menu, Button} from 'semantic-ui-react'
+import {Menu, Button, Icon} from 'semantic-ui-react'
 import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -18,11 +19,23 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           onClick={handleClick}
         />
       ) : (
-        <Menu.Item>
-          <Button primary>Sign up</Button>
-          <Button>Log-in</Button>
+        <Menu.Item >
+          <Button as={Link} to="/signup" primary>
+            Sign up
+          </Button>
+          <Button as={Link} to="/login">
+            Log In
+          </Button>
         </Menu.Item>
       )}
+      <Menu.Item>
+        <Button animated="vertical">
+          <Button.Content hidden>Shop</Button.Content>
+          <Button.Content visible>
+            <Icon name="shop" />
+          </Button.Content>
+        </Button>
+      </Menu.Item>
     </Menu.Menu>
   </Menu>
 )
