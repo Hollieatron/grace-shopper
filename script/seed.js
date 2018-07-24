@@ -42,12 +42,14 @@ async function seed() {
   //   User.create({email: 'murphy@email.com', password: '123'})
   // ])
 
-  const productPromise = Product.bulkCreate(productData)
-  const userPromise = User.bulkCreate(userData)
-  const reviewPromise = Review.bulkCreate(reviewData)
-  const sellerPromise = Seller.bulkCreate(sellerData)
-  const manufacturerPromise = Manufacturer.bulkCreate(manufacturerData)
-  const categoryPromise = Category.bulkCreate(categoryData)
+  const productPromise = Product.bulkCreate(productData, {returning: true})
+  const userPromise = User.bulkCreate(userData, {returning: true})
+  const reviewPromise = Review.bulkCreate(reviewData, {returning: true})
+  const sellerPromise = Seller.bulkCreate(sellerData, {returning: true})
+  const manufacturerPromise = Manufacturer.bulkCreate(manufacturerData, {
+    returning: true
+  })
+  const categoryPromise = Category.bulkCreate(categoryData, {returning: true})
 
   await Promise.all([
     productPromise,
@@ -70,7 +72,7 @@ async function seed() {
   //random categories for products
   await Promise.all(
     products.map(product => {
-      const randomCategories = categories.sort(shuffle).slice(0, 2)
+      const randomCategories = categories.sort(shuffle).slice(0, 10)
 
       return product.setCategories(randomCategories)
     })
@@ -104,7 +106,7 @@ async function seed() {
   //random products for categories
   await Promise.all(
     categories.map(category => {
-      const randomProducts = products.sort(shuffle).slice(0, 9)
+      const randomProducts = products.sort(shuffle).slice(0, 99)
       return category.setProducts(randomProducts)
     })
   )
@@ -112,7 +114,7 @@ async function seed() {
   //random users for reviews
   await Promise.all(
     reviews.map(review => {
-      const randomUsers = users.sort(shuffle).slice(0, 1)
+      const randomUsers = users.sort(shuffle).slice(0, 4)
 
       return review.setUser(randomUsers[0])
     })
