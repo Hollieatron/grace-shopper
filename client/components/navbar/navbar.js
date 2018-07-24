@@ -1,30 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import Search from './search'
+import CategoryList from './category-list'
+import {Menu, Button} from 'semantic-ui-react'
+import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <nav>
+  <Menu attached="top">
+    <CategoryList />
+    <Search />
+    <Menu.Menu position="right">
       {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
+        <Menu.Item
+          name="logout"
+          active={activeItem === 'logout'}
+          onClick={handleClick}
+        />
       ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
+        <Menu.Item>
+          <Button primary>Sign up</Button>
+          <Button>Log-in</Button>
+        </Menu.Item>
       )}
-    </nav>
-    <hr />
-  </div>
+    </Menu.Menu>
+  </Menu>
 )
 
 /**
@@ -38,7 +38,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    handleClick: () => {
       dispatch(logout())
     }
   }
