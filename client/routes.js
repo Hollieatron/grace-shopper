@@ -2,7 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, ProductForm} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  ProductCatalog,
+  ProductForm
+} from './components'
 import {me} from './store'
 
 /**
@@ -27,6 +33,7 @@ class Routes extends Component {
           path="/admin/products/edit/:id"
           render={routeProps => <ProductForm id={routeProps.match.params.id} />}
         />
+        <Route path="/products" component={ProductCatalog} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
