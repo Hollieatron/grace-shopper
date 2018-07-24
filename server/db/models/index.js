@@ -14,6 +14,7 @@ Product.hasMany(Review)
 Product.belongsTo(Manufacturer)
 Product.belongsTo(Seller)
 
+
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
 
