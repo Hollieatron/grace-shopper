@@ -11,7 +11,6 @@ class CategoryList extends React.Component {
 
   render() {
     const {categories} = this.props
-    console.log(categories)
     return (
       <Dropdown item icon="th list" simple>
         <Dropdown.Menu>

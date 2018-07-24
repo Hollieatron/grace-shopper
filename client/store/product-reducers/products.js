@@ -16,7 +16,8 @@ const initialProducts = [
     name: '',
     price: 0.0,
     description: '',
-    imageUrl: ''
+    imageUrl: '',
+    categories: []
   }
 ]
 
