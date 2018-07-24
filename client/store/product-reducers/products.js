@@ -23,21 +23,21 @@ const initialProducts = [
 /**
  * ACTION CREATORS
  */
-const getProducts = (products) => ({
+const getProducts = products => ({
   type: GET_PRODUCTS,
   products
 })
-
 
 /**
  * THUNK CREATORS
  */
 
- export const fetchProducts = () => async dispatch => {
-  const res = axios.get('/api/products')
-  const products = res.data;
-  return dispatch(getProducts(products))
- }
+export const fetchProducts = () => {
+  return async dispatch => {
+    const {data} = await axios.get('/api/products')
+    dispatch(getProducts(data))
+  }
+}
 
 /**
  * REDUCER
