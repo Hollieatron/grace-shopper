@@ -8,7 +8,7 @@ const CategoryCard = ({id, name, imageUrl}) => {
       <Image src={imageUrl} />
       <Card.Content>
         <Card.Header>
-          <Link to={`/${id}/products/`}>{name}</Link>
+          <Link to={`/catalog/${id}/products/`}>{name}</Link>
         </Card.Header>
       </Card.Content>
     </Card>

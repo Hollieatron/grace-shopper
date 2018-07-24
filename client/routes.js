@@ -37,7 +37,7 @@ class Routes extends Component {
           path="/admin/products/edit/:id"
           render={routeProps => <ProductForm id={routeProps.match.params.id} />}
         />
-        <Route path="/products" component={ProductCatalog} />
+        <Route path="/catalog/:categoryId/products" component={ProductCatalog} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
