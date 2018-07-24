@@ -12,3 +12,5 @@ export {default as Navbar} from './navbar/navbar'
 export {default as ProductGrid} from './products/product-grid'
 export {default as ProductCatalog} from './products/product-catalog'
 export {default as SingleProductPage} from './products/single-product-page'
+
+export {default as CategoryGrid} from './categories/category-grid'

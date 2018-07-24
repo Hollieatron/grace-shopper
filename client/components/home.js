@@ -1,25 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import {CategoryGrid} from './index'
 
-/**
- * COMPONENT
- */
-export const Home = props => {
+const Home = () => {
   return (
     <div>
       <h3>Welcome!</h3>
+      <CategoryGrid />
     </div>
   )
 }
 
-/**
- * CONTAINER
- */
-const mapState = state => {
-  return {
-    email: state.user.email
-  }
-}
-
-export default connect(mapState)(Home)
+export default Home
