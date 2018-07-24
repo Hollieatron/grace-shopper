@@ -10,7 +10,7 @@ User.hasMany(Review)
 
 // product
 Product.belongsToMany(Category, {through: 'ProductCategory'})
-Product.belongsTo(Review)
+Product.hasMany(Review)
 Product.hasOne(Manufacturer)
 Product.hasOne(Seller)
 
@@ -19,7 +19,7 @@ Category.belongsToMany(Product, {through: 'CategoryProduct'})
 
 // review
 Review.belongsTo(User)
-Review.hasOne(Product)
+Review.belongsTo(Product)
 
 // seller
 Seller.belongsTo(Product)
