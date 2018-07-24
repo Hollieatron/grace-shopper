@@ -38,7 +38,7 @@ export const fetchProduct = id => {
 
 export const postProduct = product => {
   return async dispatch => {
-    const {data} = await axios.post('/api/products', product)
+    const {data} = await axios.post('/api/admin/products', product)
     dispatch(addProduct(data))
     history.push(`/products/product/${data.id}`)
   }
@@ -47,7 +47,7 @@ export const postProduct = product => {
 export const putProduct = product => {
   return async dispatch => {
     const {data} = await axios.put(
-      `/api/products/product/edit/${product.id}`,
+      `/api/admin/products/edit/${product.id}`,
       product
     )
     dispatch(editProduct(data))
