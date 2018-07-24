@@ -10,8 +10,8 @@ export const GET_CATEGORY = 'GET_CATEGORY'
  * INITIAL STATE
  */
 const initialState = {
-  categories: [],
-  currentCategory: {}
+  categories: [{id: 0, name: ''}],
+  currentCategory: {id: 0, name: ''}
 }
 
 /**
