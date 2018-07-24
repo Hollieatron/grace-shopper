@@ -2,12 +2,12 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Category = db.define('category', {
-    name: {
-        type: Sequelize.STRING
-    },
-    imageUrl: {
-        type: Sequelize.STRING
-    }
+  name: {
+    type: Sequelize.STRING
+  },
+  imageUrl: {
+    type: Sequelize.STRING
+  }
 })
 
 module.exports = Category

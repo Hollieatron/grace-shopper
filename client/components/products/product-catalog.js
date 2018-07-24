@@ -21,22 +21,19 @@ class ProductCatalog extends Component {
 
   render() {
     const {products} = this.props
-    const categoryId = this.props.match.params.categoryId
+    const categoryId = Number(this.props.match.params.categoryId)
     const renderProducts =
       categoryId > 0
         ? products.filter(product => {
             for (let i = 0; i < product.categories.length; i++) {
-              console.log(
-                product.categories[i].id,
-                'product << >> category',
-                categoryId
-              )
               if (product.categories[i].id === categoryId) {
                 return product
               }
             }
           })
         : products
+        console.log(products)
+        console.log(renderProducts)
     return (
       <Container style={styles.container}>
         <Header as="h1">Products</Header>
