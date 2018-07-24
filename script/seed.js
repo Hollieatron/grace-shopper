@@ -71,7 +71,6 @@ async function seed() {
   await Promise.all(
     products.map(product => {
       const randomCategories = categories.sort(shuffle).slice(0, 2)
-
       return product.setCategories(randomCategories)
     })
   )

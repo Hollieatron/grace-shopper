@@ -9,6 +9,9 @@ import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <Menu attached="top">
+    <Menu.Item name="home" as={Link} to="/">
+      Home
+    </Menu.Item>
     <CategoryList />
     <Search />
     <Menu.Menu position="right">
@@ -19,7 +22,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           onClick={handleClick}
         />
       ) : (
-        <Menu.Item >
+        <Menu.Item>
           <Button as={Link} to="/signup" primary>
             Sign up
           </Button>
