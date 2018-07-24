@@ -1,15 +1,16 @@
 import axios from 'axios'
-import history from '../history'
+import history from '../../history'
 
 /**
  * ACTION TYPES
  */
 import {ADD_PRODUCT, EDIT_PRODUCT} from './product'
+const GET_PRODUCTS = 'GET_PRODUCTS'
 
 /**
  * INITIAL STATE
  */
-const allProducts = [
+const initialProducts = [
   {
     id: 0,
     name: '',
@@ -22,15 +23,26 @@ const allProducts = [
 /**
  * ACTION CREATORS
  */
+const getProducts = (products) => ({
+  type: GET_PRODUCTS,
+  products
+})
+
 
 /**
  * THUNK CREATORS
  */
 
+ export const fetchProducts = () => async dispatch => {
+  const res = axios.get('/api/products')
+  const products = res.data;
+  return dispatch(getProducts(products))
+ }
+
 /**
  * REDUCER
  */
-export default function(state = allProducts, action) {
+export default function(state = initialProducts, action) {
   switch (action.type) {
     case ADD_PRODUCT:
       return [...state, action.product]
@@ -40,6 +52,8 @@ export default function(state = allProducts, action) {
           ? {...product, product: action.product}
           : product
       })
+    case GET_PRODUCTS:
+      return action.products
     default:
       return state
   }
