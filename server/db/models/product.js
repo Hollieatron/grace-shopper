@@ -3,7 +3,8 @@ const db = require('../db')
 
 const Product = db.define('product', {
   name: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   price: {
     type: Sequelize.INTEGER
@@ -11,7 +12,7 @@ const Product = db.define('product', {
   description: {
     type: Sequelize.TEXT
   },
-  image: {
+  imageUrl: {
     type: Sequelize.TEXT
   }
 })
