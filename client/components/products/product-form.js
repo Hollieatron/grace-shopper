@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {fetchProduct, postProduct, putProduct} from '../store/product'
+import {fetchProduct, postProduct, putProduct} from '../../store/product-reducers/product'
 
 const mapState = state => ({
   product: state.product
