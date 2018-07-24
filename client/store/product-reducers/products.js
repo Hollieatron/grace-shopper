@@ -16,7 +16,7 @@ const initialProducts = [
     name: '',
     price: 0.0,
     description: '',
-    image: ''
+    imageUrl: ''
   }
 ]
 
@@ -32,11 +32,9 @@ const getProducts = products => ({
  * THUNK CREATORS
  */
 
-export const fetchProducts = () => {
-  return async dispatch => {
-    const {data} = await axios.get('/api/products')
-    dispatch(getProducts(data))
-  }
+export const fetchProducts = () => async dispatch => {
+  const {data} = await axios.get('/api/products')
+  dispatch(getProducts(data))
 }
 
 /**

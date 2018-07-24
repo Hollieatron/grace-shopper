@@ -16,7 +16,7 @@ const singleProduct = {
   name: '',
   price: 0.0,
   description: '',
-  image: ''
+  imageUrl: ''
 }
 
 /**
