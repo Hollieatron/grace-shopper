@@ -30,6 +30,7 @@ const {
  *
  * Now that you've got the main idea, check it out in practice below!
  */
+const shuffle = () => 0.5 - Math.random()
 
 async function seed() {
   await db.sync({force: true})
@@ -56,6 +57,83 @@ async function seed() {
     manufacturerPromise,
     categoryPromise
   ])
+
+  await db.sync()
+
+  const products = await Product.findAll()
+  const categories = await Category.findAll()
+  const users = await User.findAll()
+  const sellers = await Seller.findAll()
+  const reviews = await Review.findAll()
+  const manufacturers = await Manufacturer.findAll()
+
+  //random categories for products
+  await Promise.all(
+    products.map(product => {
+      const randomCategories = categories.sort(shuffle).slice(0, 2)
+
+      return product.setCategories(randomCategories)
+    })
+  )
+
+  //random reviews for products
+  await Promise.all(
+    products.map(product => {
+      const randomReviews = reviews.sort(shuffle).slice(0, 2)
+      return product.setReviews(randomReviews)
+    })
+  )
+
+  //random sellers for products
+  await Promise.all(
+    products.map(product => {
+      const randomSellers = sellers.sort(shuffle).slice(0, 2)
+      return product.setSeller(randomSellers[0])
+    })
+  )
+
+  //random manufacturer for products
+  await Promise.all(
+    products.map(product => {
+      const randomManufacturers = manufacturers.sort(shuffle).slice(0, 2)
+
+      return product.setManufacturer(randomManufacturers[0])
+    })
+  )
+
+  //random products for categories
+  await Promise.all(
+    categories.map(category => {
+      const randomProducts = products.sort(shuffle).slice(0, 9)
+      return category.setProducts(randomProducts)
+    })
+  )
+
+  //random users for reviews
+  await Promise.all(
+    reviews.map(review => {
+      const randomUsers = users.sort(shuffle).slice(0, 1)
+
+      return review.setUser(randomUsers[0])
+    })
+  )
+
+  //random products for manufacturers
+  // await Promise.all(
+  //   manufacturers.map(manufacturer => {
+  //     const randomProducts = products.sort(shuffle).slice(0, 9)
+
+  //     return manufacturer.setProducts(randomProducts)
+  //   })
+  // )
+  //random products for sellers
+  // await Promise.all(
+  //   sellers.map(seller => {
+  //     const randomProducts = products.sort(shuffle).slice(0, 2)
+
+  //     return seller.setProducts(randomProducts)
+  //   })
+  // )
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
