@@ -1,4 +1,4 @@
-const productsData = [
+const productData = [
   {
     name: 'Chivas Regal - 12 Year Old',
     price: 95.31,
@@ -71,7 +71,7 @@ const productsData = [
   }
 ]
 
-const usersData = [
+const userData = [
   {
     firstName: 'Emlynn',
     lastName: 'Vasse',
@@ -92,7 +92,7 @@ const usersData = [
   }
 ]
 
-const reviewsData = [
+const reviewData = [
   {
     title:
       'Proin risus. Praesent lectus. Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio.',
@@ -118,23 +118,23 @@ const reviewsData = [
 
 const sellerData = [{name: 'Dazzlesphere'}, {name: 'Leenti'}, {name: 'Ainyx'}]
 
-const companyData = [
+const manufacturerData = [
   {name: 'Buzzbean'},
   {name: 'Plambee'},
   {name: 'Twitterwire'}
 ]
 
-const catagoriesData = [
+const categoryData = [
   {name: 'Lion, mountain'},
   {name: 'Ground legaan'},
   {name: 'Dassie'}
 ]
 
 module.exports = {
-  productsData,
-  usersData,
-  reviewsData,
+  productData,
+  userData,
+  reviewData,
   sellerData,
-  companyData,
-  catagoriesData
+  manufacturerData,
+  categoryData
 }
