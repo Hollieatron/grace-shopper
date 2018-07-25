@@ -4,13 +4,14 @@ module.exports = router
 
 router.post('/products', async (req, res, next) => {
   try {
-    const {name, price, description, image} = req.body
+    const {name, price, description, image, categoryId} = req.body
     const product = await Product.create({
       name,
       price,
       description,
       image
     })
+    product.setCategories(categoryId)
     res.status(200).send(product)
   } catch (err) {
     next(err)

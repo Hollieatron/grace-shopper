@@ -28,10 +28,10 @@ class ProductForm extends Component {
 
   handleProductFormSubmit = data => {
     const {addProduct, editProduct, id} = this.props
-    const {name, price, description, image} = data
+    const {name, price, description, image, categoryId} = data
 
-    if (id) editProduct({id, name, price, description, image})
-    else addProduct({name, price, description, image})
+    if (id) editProduct({id, name, price, description, image, categoryId})
+    else addProduct({name, price, description, image, categoryId})
   }
 
   render() {
