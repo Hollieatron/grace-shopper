@@ -11,7 +11,10 @@ const Review = db.define('review', {
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      len: [200]
+    }
   }
 })
 

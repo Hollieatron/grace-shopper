@@ -7,13 +7,21 @@ const Product = db.define('product', {
     allowNull: false
   },
   price: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: false
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    allowNull: false
   },
   imageUrl: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+    defaultValue: 'https://robohash.org/default.png'
+  },
+  inventory: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 0
   }
 })
 
