@@ -17,8 +17,13 @@ class CategoryList extends React.Component {
           {categories.length > 0 ? (
             categories.map(category => {
               return (
-                <Dropdown.Item key={category.id}>
-                  <Link to={`/catalog/${category.id}/products`}>{category.name}</Link>
+                <Dropdown.Item
+                  key={category.id}
+                  as={Link}
+                  to={`/catalog/${category.id}/products`}
+                >
+                  {/* <Link to={`/catalog/${category.id}/products`}>{category.name}</Link> */}
+                  {category.name}
                 </Dropdown.Item>
               )
             })

@@ -35,10 +35,8 @@ class SingleProductPage extends Component {
                 Add to Cart
               </Button>
               {user.isAdmin ? (
-                <Button basic color="blue">
-                  <Link to={`/admin/products/edit/${product.id}`}>
+                <Button as={Link} to={`/admin/products/edit/${product.id}`} basic color="blue">
                     Edit Product
-                  </Link>
                 </Button>
               ) : (
                 ''
