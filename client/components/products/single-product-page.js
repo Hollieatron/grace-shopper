@@ -2,15 +2,7 @@ import React, {Component} from 'react'
 import {fetchProduct} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {
-  Image,
-  List,
-  Container,
-  Button,
-  Grid,
-  Header,
-  Segment
-} from 'semantic-ui-react'
+import {Image, Button, Grid, Header, Segment, Label} from 'semantic-ui-react'
 
 class SingleProductPage extends Component {
   componentDidMount() {
@@ -33,7 +25,11 @@ class SingleProductPage extends Component {
             </Grid.Column>
             <Grid.Column>
               <Header as="h2">{product.name}</Header>
-              <Segment>{'Price: $' + product.price}</Segment>
+
+              <Label.Group tag>
+                <Label as="a">{'$' + product.price}</Label>
+              </Label.Group>
+
               <Segment>{product.description}</Segment>
               <Button basic color="red">
                 Add to Cart
