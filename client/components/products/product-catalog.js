@@ -22,7 +22,6 @@ class ProductCatalog extends Component {
   }
 
   render() {
-
     const {products, user} = this.props
     const categoryId = Number(this.props.match.params.categoryId)
     const renderProducts =
