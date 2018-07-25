@@ -2,8 +2,13 @@ import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {fetchProduct, postProduct, putProduct} from '../../store/product-reducers/product'
-import CategoryDropdown from './category-dropdown';
+import {
+  fetchProduct,
+  postProduct,
+  putProduct
+} from '../../store/product-reducers/product'
+import CategoryDropdown from './category-dropdown'
+import {Form} from 'semantic-ui-react'
 
 const mapState = state => ({
   product: state.product
@@ -33,7 +38,7 @@ class ProductForm extends Component {
     const {pristine, reset, submitting, handleSubmit} = this.props
     return (
       <div>
-        <form onSubmit={handleSubmit(this.handleProductFormSubmit.bind(this))}>
+        <Form onSubmit={handleSubmit(this.handleProductFormSubmit.bind(this))}>
           <label>Name:</label>
           <Field
             name="name"
@@ -66,7 +71,7 @@ class ProductForm extends Component {
             placeholder="Image URL"
           />
 
-          <Field name="categoryId" component="select" style={{ fontSize: 21 }}>
+          <Field name="categoryId" component="select" style={{fontSize: 21}}>
             <CategoryDropdown />
           </Field>
 
@@ -80,7 +85,7 @@ class ProductForm extends Component {
           >
             Clear
           </button>
-        </form>
+        </Form>
       </div>
     )
   }

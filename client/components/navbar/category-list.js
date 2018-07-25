@@ -18,9 +18,7 @@ class CategoryList extends React.Component {
             categories.map(category => {
               return (
                 <Dropdown.Item key={category.id}>
-                  <Link to={`/catalog/${category.id}/products`}>
-                    {category.name}
-                  </Link>
+                  <Link to={`/catalog/${category.id}/products`}>{category.name}</Link>
                 </Dropdown.Item>
               )
             })

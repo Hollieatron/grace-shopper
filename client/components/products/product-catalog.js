@@ -34,6 +34,8 @@ class ProductCatalog extends Component {
             }
           })
         : products
+    console.log(products.length, 'length')
+    console.log(renderProducts.length, 'render')
     return (
       <Container style={styles.container}>
         <Header as="h1">
