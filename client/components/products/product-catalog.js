@@ -7,7 +7,6 @@ import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   products: state.products,
-  category: state.currentCategory,
   user: state.user
 })
 
@@ -34,25 +33,58 @@ class ProductCatalog extends Component {
             }
           })
         : products
-    return (
-      <Container style={styles.container}>
-        <Header as="h1">
-          Products
-          {user.isAdmin ? (
-            <Button as={Link} to="/admin/products/add" basic color="green" style={styles.button}>
-              Add A Product
-            </Button>
-          ) : (
-            ''
-          )}
-        </Header>
-        <ProductGrid products={renderProducts} />
-        <Divider />
-        <Container textAlign="center">
-          <Pagination defaultActivePage={1} totalPages={3} />
+    if (renderProducts.length > 0) {
+      return (
+        <Container style={styles.container}>
+          <Header as="h1">
+            Products
+            {user.isAdmin ? (
+              <Button
+                as={Link}
+                to="/admin/products/add"
+                basic
+                color="green"
+                style={styles.button}
+              >
+                Add A Product
+              </Button>
+            ) : (
+              ''
+            )}
+          </Header>
+          <ProductGrid products={renderProducts} />
+          <Divider />
+          <Container textAlign="center">
+            <Pagination defaultActivePage={1} totalPages={3} />
+          </Container>
         </Container>
-      </Container>
-    )
+      )
+    } else {
+      return (
+        <Container style={styles.container}>
+          <Header as="h1">
+            Products
+            {user.isAdmin ? (
+              <Button
+                as={Link}
+                to="/admin/products/add"
+                basic
+                color="green"
+                style={styles.button}
+              >
+                Add A Product
+              </Button>
+            ) : (
+              ''
+            )}
+          </Header>
+          <Divider />
+          <Container textAlign="center">
+            <Pagination defaultActivePage={1} totalPages={3} />
+          </Container>
+        </Container>
+      )
+    }
   }
 }
 

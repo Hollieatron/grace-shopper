@@ -1,10 +1,22 @@
 const router = require('express').Router()
 const {Product, Category} = require('../../db/models')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({include: [Category]})
+    const products = await Product.findAll(
+      {
+        where: {
+          inventory: {
+            [Op.gt]: 0
+          }
+        }
+      },
+      {include: [Category]}
+    )
     res.json(products)
   } catch (err) {
     next(err)
