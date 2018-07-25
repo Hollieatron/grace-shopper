@@ -22,7 +22,6 @@ class ProductCatalog extends Component {
   }
 
   render() {
-
     const {products, user} = this.props
     const categoryId = Number(this.props.match.params.categoryId)
     const renderProducts =
@@ -35,8 +34,6 @@ class ProductCatalog extends Component {
             }
           })
         : products
-        console.log('products', products)
-        console.log('renderProducts', renderProducts)
     return (
       <Container style={styles.container}>
         <Header as="h1">
