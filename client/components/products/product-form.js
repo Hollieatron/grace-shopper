@@ -3,6 +3,7 @@ import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchProduct, postProduct, putProduct} from '../../store/product-reducers/product'
+import CategoryDropdown from './category-dropdown';
 
 const mapState = state => ({
   product: state.product
@@ -64,6 +65,10 @@ class ProductForm extends Component {
             type="text"
             placeholder="Image URL"
           />
+
+          <Field name="categoryId" component="select" style={{ fontSize: 21 }}>
+            <CategoryDropdown />
+          </Field>
 
           <button type="submit" disabled={submitting}>
             Submit
