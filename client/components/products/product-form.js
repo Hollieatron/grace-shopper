@@ -1,27 +1,30 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {
-  fetchProduct,
-  postProduct,
-  putProduct
-} from '../../store/product-reducers/product'
+import {withRouter, BrowserRouter} from 'react-router-dom'
+import {fetchProduct, postProduct, putProduct, me} from '../../store'
 import CategoryCheckbox from './category-checkbox'
 import {Form} from 'semantic-ui-react'
 
 const mapState = state => ({
-  product: state.product
+  product: state.product,
+  user: state.user
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
   getProduct: id => dispatch(fetchProduct(id)),
   addProduct: data => dispatch(postProduct(data)),
-  editProduct: data => dispatch(putProduct(data, ownProps.history))
+  editProduct: data => dispatch(putProduct(data, ownProps.history)),
+  getUser: () => dispatch(me())
 })
 
 class ProductForm extends Component {
   componentDidMount() {
+    const {user} = this.props
+    console.log(user.isAdmin)
+    if (!user.isAdmin) {
+      this.props.history.push('/')
+    }
     const {id, getProduct} = this.props
     if (id) getProduct(id)
   }
