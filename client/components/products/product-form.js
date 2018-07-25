@@ -80,7 +80,7 @@ class ProductForm extends Component {
           />
 
           <label>Categories:</label>
-          <CategoryCheckbox />
+          <CategoryCheckbox product={product.categories} />
 
           <button type="submit" disabled={submitting}>
             Submit
