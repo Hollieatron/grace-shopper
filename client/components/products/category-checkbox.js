@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {fetchCategories} from '../../store'
+import {Field} from 'redux-form'
 
-class CategoryDropdown extends React.Component {
+class CategoryCheckbox extends React.Component {
   componentDidMount() {
     this.props.getCategories()
   }
@@ -13,9 +14,14 @@ class CategoryDropdown extends React.Component {
       <Fragment>
         {categories.length > 0
           ? categories.map(category => (
-              <option key={category.id} value={parseInt(category.id, 10)}>
-                {category.name}
-              </option>
+              <div>
+                <Field
+                  name={`category.${category.id}`}
+                  component="input"
+                  type="checkbox"
+                />
+                <label>{category.name}</label>
+              </div>
             ))
           : ''}
       </Fragment>
@@ -31,4 +37,4 @@ const mapDispatch = dispatch => ({
   getCategories: () => dispatch(fetchCategories())
 })
 
-export default connect(mapState, mapDispatch)(CategoryDropdown)
+export default connect(mapState, mapDispatch)(CategoryCheckbox)
