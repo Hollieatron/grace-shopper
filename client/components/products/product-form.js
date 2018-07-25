@@ -7,7 +7,7 @@ import {
   postProduct,
   putProduct
 } from '../../store/product-reducers/product'
-import CategoryDropdown from './category-dropdown'
+import CategoryCheckbox from './category-checkbox'
 import {Form} from 'semantic-ui-react'
 
 const mapState = state => ({
@@ -28,10 +28,9 @@ class ProductForm extends Component {
 
   handleProductFormSubmit = data => {
     const {addProduct, editProduct, id} = this.props
-    const {name, price, description, image, categoryId} = data
-
-    if (id) editProduct({id, name, price, description, image, categoryId})
-    else addProduct({name, price, description, image, categoryId})
+    const {name, price, description, image, category} = data
+    if (id) editProduct({id, name, price, description, image, category})
+    else addProduct({name, price, description, image, category})
   }
 
   render() {
@@ -71,9 +70,8 @@ class ProductForm extends Component {
             placeholder="Image URL"
           />
 
-          <Field name="categoryId" component="select" style={{fontSize: 21}}>
-            <CategoryDropdown />
-          </Field>
+          <label>Categories:</label>
+          <CategoryCheckbox />
 
           <button type="submit" disabled={submitting}>
             Submit

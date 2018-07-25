@@ -6,7 +6,6 @@ router.get('/', async (req, res, next) => {
   try {
     //
     const products = await Product.findAll({include: [Category]})
-    
 
     res.json(products)
   } catch (err) {
@@ -17,9 +16,7 @@ router.get('/', async (req, res, next) => {
 router.get('/product/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const product = await Product.find({
-      where: {id: id}
-    })
+    const product = await Product.findById(id)
     res.status(200).json(product)
   } catch (err) {
     next(err)

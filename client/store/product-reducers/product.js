@@ -40,6 +40,7 @@ export const postProduct = product => {
   return async dispatch => {
     const {data} = await axios.post('/api/admin/products', product)
     dispatch(addProduct(data))
+    console.log(data, 'data')
     history.push(`/products/product/${data.id}`)
   }
 }
