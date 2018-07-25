@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {fetchProduct} from '../../store'
 import {connect} from 'react-redux'
-import {Image, List, Container, Button} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
+import {Image, Button, Grid, Header, Segment, Label} from 'semantic-ui-react'
 
 class SingleProductPage extends Component {
   componentDidMount() {
@@ -10,36 +11,60 @@ class SingleProductPage extends Component {
   }
 
   render() {
-    const {product} = this.props
+    const {product, user} = this.props
 
     return (
-      <div>
-        <Image src={product.imageUrl} size="small" />
+      <div
+        className="ui raised very padded text container segment"
+        style={styles.div}
+      >
+        <Grid divided="vertically">
+          <Grid.Row columns={2}>
+            <Grid.Column>
+              <Image src={product.imageUrl} size="medium" />
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h2">{product.name}</Header>
 
-        <Container>
-          <List>
-            <List.Item>{product.name}</List.Item>
-            <List.Item>{'$' + product.price}</List.Item>
-            <List.Item>{product.description}</List.Item>
-          </List>
-        </Container>
-        <Container textAlign="center">
-          <Button basic color="red">
-            Add to Cart
-          </Button>
-        </Container>
+              <Label.Group tag>
+                <Label as="a">{'$' + product.price}</Label>
+              </Label.Group>
+
+              <Segment>{product.description}</Segment>
+              <Button basic color="red">
+                Add to Cart
+              </Button>
+              {user.isAdmin ? (
+                <Button basic color="blue">
+                  <Link to={`/admin/products/edit/${product.id}`}>
+                    Edit Product
+                  </Link>
+                </Button>
+              ) : (
+                ''
+              )}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }
 }
 
 const mapState = state => ({
-  product: state.product
+  product: state.product,
+  user: state.user
 })
 
 const mapDispatch = dispatch => {
   return {
     fetchProduct: id => dispatch(fetchProduct(id))
+  }
+}
+
+const styles = {
+  div: {
+    marginTop: 40
   }
 }
 

@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import ProductGrid from './product-grid'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store'
-import {Header, Container} from 'semantic-ui-react'
+import {Header, Container, Button} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   products: state.products,
-  category: state.currentCategory
+  category: state.currentCategory,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
@@ -20,7 +22,7 @@ class ProductCatalog extends Component {
   }
 
   render() {
-    const {products} = this.props
+    const {products, user} = this.props
     const categoryId = Number(this.props.match.params.categoryId)
     const renderProducts =
       categoryId > 0
@@ -32,11 +34,20 @@ class ProductCatalog extends Component {
             }
           })
         : products
-        console.log(products)
-        console.log(renderProducts)
+    console.log(products.length, 'length')
+    console.log(renderProducts.length, 'render')
     return (
       <Container style={styles.container}>
-        <Header as="h1">Products</Header>
+        <Header as="h1">
+          Products
+          {user.isAdmin ? (
+            <Button basic color="green" style={styles.button}>
+              <Link to="/admin/products/add">Add A Product</Link>
+            </Button>
+          ) : (
+            ''
+          )}
+        </Header>
         <ProductGrid products={renderProducts} />
       </Container>
     )
@@ -46,6 +57,9 @@ class ProductCatalog extends Component {
 const styles = {
   container: {
     margin: 30
+  },
+  button: {
+    marginLeft: 20
   }
 }
 
