@@ -71,43 +71,16 @@ async function seed() {
 
   //random categories for products
   await Promise.all(
-    products.map(product => {
-      const randomCategories = categories.sort(shuffle).slice(0, 10)
-
-      return product.setCategories(randomCategories)
-    })
-  )
-
-  //random reviews for products
-  await Promise.all(
-    products.map(product => {
+    products.map(async product => {
+      const randomCategories = categories.sort(shuffle).slice(0, 2)
       const randomReviews = reviews.sort(shuffle).slice(0, 2)
-      return product.setReviews(randomReviews)
-    })
-  )
-
-  //random sellers for products
-  await Promise.all(
-    products.map(product => {
       const randomSellers = sellers.sort(shuffle).slice(0, 2)
-      return product.setSeller(randomSellers[0])
-    })
-  )
-
-  //random manufacturer for products
-  await Promise.all(
-    products.map(product => {
       const randomManufacturers = manufacturers.sort(shuffle).slice(0, 2)
-
-      return product.setManufacturer(randomManufacturers[0])
-    })
-  )
-
-  //random products for categories
-  await Promise.all(
-    categories.map(category => {
-      const randomProducts = products.sort(shuffle).slice(0, 99)
-      return category.setProducts(randomProducts)
+      await product.setCategories(randomCategories)
+      await product.setReviews(randomReviews)
+      await product.setSeller(randomSellers[0])
+      await product.setManufacturer(randomManufacturers[0])
+      return product
     })
   )
 
@@ -119,23 +92,6 @@ async function seed() {
       return review.setUser(randomUsers[0])
     })
   )
-
-  //random products for manufacturers
-  // await Promise.all(
-  //   manufacturers.map(manufacturer => {
-  //     const randomProducts = products.sort(shuffle).slice(0, 9)
-
-  //     return manufacturer.setProducts(randomProducts)
-  //   })
-  // )
-  //random products for sellers
-  // await Promise.all(
-  //   sellers.map(seller => {
-  //     const randomProducts = products.sort(shuffle).slice(0, 2)
-
-  //     return seller.setProducts(randomProducts)
-  //   })
-  // )
 
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
