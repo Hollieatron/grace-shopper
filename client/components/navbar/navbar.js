@@ -16,11 +16,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Search />
     <Menu.Menu position="right">
       {isLoggedIn ? (
-        <Menu.Item
-          name="logout"
-          active={activeItem === 'logout'}
-          onClick={handleClick}
-        />
+        <Menu.Item name="logout" onClick={handleClick} />
       ) : (
         <Menu.Item>
           <Button as={Link} to="/signup" primary>
