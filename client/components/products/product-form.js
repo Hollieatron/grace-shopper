@@ -23,8 +23,10 @@ const mapDispatch = (dispatch, ownProps) => ({
 class ProductForm extends Component {
   componentDidMount() {
     const {id, getProduct} = this.props
-    if (id) getProduct(id)
-    this.handleInitialize()
+    if (id) {
+      getProduct(id)
+      this.handleInitialize()
+    }
   }
 
   handleInitialize() {
@@ -132,6 +134,5 @@ ProductForm = withRouter(connect(mapState, mapDispatch)(ProductForm))
 
 export default reduxForm({
   validate,
-  form: 'product',
-  enableReinitialize: true
+  form: 'product'
 })(ProductForm)
