@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import ProductGrid from './product-grid'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store'
-import {Header, Container, Button} from 'semantic-ui-react'
+import {Header, Container, Button, Pagination, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const mapState = state => ({
@@ -35,8 +35,6 @@ class ProductCatalog extends Component {
             }
           })
         : products
-        console.log('products', products)
-        console.log('renderProducts', renderProducts)
     return (
       <Container style={styles.container}>
         <Header as="h1">
@@ -50,6 +48,10 @@ class ProductCatalog extends Component {
           )}
         </Header>
         <ProductGrid products={renderProducts} />
+        <Divider />
+        <Container textAlign="center">
+          <Pagination defaultActivePage={1} totalPages={3} />
+        </Container>
       </Container>
     )
   }
