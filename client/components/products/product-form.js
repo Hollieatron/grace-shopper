@@ -1,12 +1,8 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {
-  fetchProduct,
-  postProduct,
-  putProduct
-} from '../../store'
+import {withRouter, BrowserRouter} from 'react-router-dom'
+import {fetchProduct, postProduct, putProduct, me} from '../../store'
 import CategoryCheckbox from './category-checkbox'
 import {Form, Button, Header, Label} from 'semantic-ui-react'
 
@@ -152,6 +148,9 @@ const validate = values => {
   }
   if (!values.image) {
     errors.image = 'Please enter an image URL for the product!'
+  }
+  if (!values.category) {
+    errors.category = 'Please select a category for the product!'
   }
 
   return errors

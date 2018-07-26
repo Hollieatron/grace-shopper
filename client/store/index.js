@@ -17,7 +17,8 @@ const reducer = combineReducers({
   form: formReducer,
   search,
   categories,
-  category
+  category,
+  reviews
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
