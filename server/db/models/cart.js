@@ -7,8 +7,8 @@ const Cart = db.define('cart', {
     defaultValue: false
   },
   productIds: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: []
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: []
   }
 })
 
