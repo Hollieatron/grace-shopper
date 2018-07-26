@@ -6,7 +6,8 @@ const Category = db.define('category', {
     type: Sequelize.STRING
   },
   imageUrl: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    defaultValue: 'http://dummyimage.com/250x250.png/ff4444/ffffff'
   }
 })
 

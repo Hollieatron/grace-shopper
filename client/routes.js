@@ -8,6 +8,7 @@ import {
   UserHome,
   ProductCatalog,
   ProductForm,
+  CategoryForm,
   SingleProductPage,
   Home
 } from './components'
@@ -30,13 +31,12 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-
         <Route path="/products/product/:id" component={SingleProductPage} />
-
         <Route
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
+
         {isLoggedIn &&
           isAdmin && (
             <Switch>
@@ -52,6 +52,7 @@ class Routes extends Component {
               <Route path="/home" component={UserHome} />
             </Switch>
           )}
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

@@ -14,7 +14,7 @@ class CategoryCheckbox extends React.Component {
       <Fragment>
         {categories.length > 0
           ? categories.map(category => (
-              <div>
+              <div key={category.id}>
                 <Field
                   name={`category.${category.id}`}
                   component="input"

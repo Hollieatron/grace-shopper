@@ -39,7 +39,13 @@ class ProductCatalog extends Component {
         <Header as="h1">
           Products
           {user.isAdmin ? (
-            <Button as={Link} to="/admin/products/add" basic color="green" style={styles.button}>
+            <Button
+              as={Link}
+              to="/admin/products/add"
+              basic
+              color="green"
+              style={styles.button}
+            >
               Add A Product
             </Button>
           ) : (

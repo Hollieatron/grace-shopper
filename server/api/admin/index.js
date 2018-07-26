@@ -4,7 +4,9 @@ module.exports = router
 
 router.post('/products', async (req, res, next) => {
   try {
-    const {name, price, description, image, category} = req.body
+    
+    const {name, price, description, imageUrl, category, inventory} = req.body
+    
     let categoryIds = []
     for (let i = 0; i < category.length; i++) {
       if (category[i]) categoryIds.push(i)
@@ -14,7 +16,8 @@ router.post('/products', async (req, res, next) => {
       name,
       price,
       description,
-      image
+      imageUrl,
+      inventory
     })
     await product.setCategories(categoryIds)
 
@@ -53,6 +56,19 @@ router.put('/products/edit/:id', async (req, res, next) => {
     })
 
     res.status(200).send(productWithCategories)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/categories', async (req, res, next) => {
+  try {
+    const {name, imageUrl} = req.body
+    const category = await Category.create({
+      name,
+      imageUrl
+    })
+    res.status(200).send(category)
   } catch (err) {
     next(err)
   }
