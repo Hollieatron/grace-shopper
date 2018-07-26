@@ -7,24 +7,17 @@ import CategoryCheckbox from './category-checkbox'
 import {Form} from 'semantic-ui-react'
 
 const mapState = state => ({
-  product: state.product,
-  user: state.user
+  product: state.product
 })
 
 const mapDispatch = (dispatch, ownProps) => ({
   getProduct: id => dispatch(fetchProduct(id)),
   addProduct: data => dispatch(postProduct(data)),
-  editProduct: data => dispatch(putProduct(data, ownProps.history)),
-  getUser: () => dispatch(me())
+  editProduct: data => dispatch(putProduct(data, ownProps.history))
 })
 
 class ProductForm extends Component {
   componentDidMount() {
-    const {user} = this.props
-    console.log(user.isAdmin)
-    if (!user.isAdmin) {
-      this.props.history.push('/')
-    }
     const {id, getProduct} = this.props
     if (id) getProduct(id)
   }
