@@ -5,7 +5,6 @@ module.exports = router
 router.post('/products', async (req, res, next) => {
   try {
     const {name, price, description, image, category} = req.body
-    console.log('try')
     let categoryIds = []
     for (let i = 0; i < category.length; i++) {
       if (category[i]) categoryIds.push(i)
@@ -24,8 +23,6 @@ router.post('/products', async (req, res, next) => {
     })
     res.status(200).send(productWithCategories)
   } catch (err) {
-    console.log('catch')
-    console.log('err', err)
     next(err)
   }
 })
