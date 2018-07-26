@@ -36,8 +36,15 @@ class Routes extends Component {
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route
           exact
-          path="/admin/products/edit/:id"
+          path="/admin/product/edit/:id"
           render={routeProps => <ProductForm id={routeProps.match.params.id} />}
+        />
+        <Route
+          exact
+          path="/admin/category/edit/:id"
+          render={routeProps => (
+            <CategoryForm id={routeProps.match.params.id} />
+          )}
         />
         <Route
           path="/catalog/:categoryId/products"

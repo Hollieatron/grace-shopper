@@ -1,33 +1,63 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {postCategory} from '../../store/category-reducers/'
+import {withRouter} from 'react-router-dom'
+import {
+  postCategory,
+  putCategory,
+  fetchCategory
+} from '../../store/category-reducers/'
 
 import {Form, Button, Header, Label} from 'semantic-ui-react'
 
 const mapState = state => ({
-  categories: state.categories
+  category: state.category
 })
 
-const mapDispatch = dispatch => ({
-  addCategory: data => dispatch(postCategory(data))
+const mapDispatch = (dispatch, ownProps) => ({
+  getCategory: id => dispatch(fetchCategory(id)),
+  addCategory: data => dispatch(postCategory(data)),
+  editCategory: data => dispatch(putCategory(data, ownProps.history))
 })
 
 class CategoryForm extends Component {
+  componentDidMount() {
+    const {getCategory} = this.props
+    const id = Number(this.props.match.params.id)
+
+    if (id) {
+      getCategory(id)
+      // this.handleInitialize()
+    }
+  }
+
+  // handleInitialize() {
+  //   const {category} = this.props
+  //   const initData = {
+  //     name: category.name,
+  //     imageUrl: category.imageUrl
+  //   }
+
+  //   this.props.initialize(initData)
+  // }
+
   handleCategoryFormSubmit = data => {
-    const {addCategory} = this.props
+    const {id, addCategory, editCategory} = this.props
     const {name, imageUrl} = data
-    addCategory({name, imageUrl})
+    if (id) {
+      editCategory({id, name, imageUrl})
+    } else addCategory({name, imageUrl})
   }
 
   render() {
-    const {pristine, reset, submitting, handleSubmit} = this.props
+    const {pristine, reset, submitting, handleSubmit, id, category} = this.props
+    console.log(category)
     return (
       <div
         className="ui raised very padded text container segment"
         style={styles.div}
       >
-        <Header as="h2">Add Category</Header>
+        <Header as="h2">{id ? `Edit` : `Add Category`}</Header>
         <Form onSubmit={handleSubmit(this.handleCategoryFormSubmit.bind(this))}>
           <label>Name:</label>
           <Field
@@ -91,7 +121,7 @@ const validate = values => {
   return errors
 }
 
-CategoryForm = connect(mapState, mapDispatch)(CategoryForm)
+CategoryForm = withRouter(connect(mapState, mapDispatch)(CategoryForm))
 
 export default reduxForm({
   form: 'category',
