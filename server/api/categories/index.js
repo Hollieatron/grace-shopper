@@ -14,6 +14,9 @@ router.get('/', async (req, res, next) => {
 router.get('/category/:id', async (req, res, next) => {
   try {
     const id = req.params.id
+    if (id === String(0)) {
+      res.status(201).json({id: 0, name: '', products: []})
+    }
     const category = await Category.findById(id, {include: [Product]})
     res.status(200).json(category)
   } catch (err) {

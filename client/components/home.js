@@ -3,7 +3,7 @@ import {CategoryGrid} from './index'
 import {connect} from 'react-redux'
 import {Container, Header, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
-import {fetchCategories} from '../store/category-reducers/'
+import {fetchCategories} from '../store'
 
 const mapState = state => ({
   user: state.user,

@@ -6,7 +6,7 @@ import {
   fetchProduct,
   postProduct,
   putProduct
-} from '../../store/product-reducers/product'
+} from '../../store'
 import CategoryCheckbox from './category-checkbox'
 import {Form, Button, Header, Label} from 'semantic-ui-react'
 

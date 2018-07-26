@@ -18,19 +18,31 @@ const mapDispatch = dispatch => ({
 
 class ProductCatalog extends Component {
   componentDidMount() {
-    const {getProducts} = this.props
+    const {getProducts, getCategory} = this.props
     const categoryId = Number(this.props.match.params.categoryId)
     getProducts()
     getCategory(categoryId)
   }
 
+  componentDidUpdate() {
+    const categoryId = Number(this.props.match.params.categoryId)
+    const {getProducts, getCategory, category} = this.props
+    if (categoryId !== category.id) {
+      getCategory(categoryId)
+    }
+    if (categoryId === 0 && category.id !=0) {
+      getProducts()
+    }
+  }
+
   render() {
     const {products, user, category} = this.props
+    let renderProducts = products
+    const categoryId = Number(this.props.match.params.categoryId)
+    if (category && categoryId !== 0) {
+      renderProducts = category.products
+    }
 
-    const renderProducts =
-      categoryId > 0
-        ? category.products
-        : products
     if (renderProducts.length > 0) {
       return (
         <Container style={styles.container}>
