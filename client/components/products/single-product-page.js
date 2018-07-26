@@ -11,60 +11,7 @@ import {
   Label,
   Icon
 } from 'semantic-ui-react'
-
-class SingleProductPage extends Component {
-  componentDidMount() {
-    const id = Number(this.props.match.params.id)
-    this.props.fetchProduct(id)
-  }
-
-  render() {
-    const {product, user} = this.props
-
-    return (
-      <div
-        className="ui raised very padded text container segment"
-        style={styles.div}
-      >
-        <Grid divided="vertically">
-          <Grid.Row columns={2}>
-            <Grid.Column>
-              <Image src={product.imageUrl} size="medium" />
-            </Grid.Column>
-            <Grid.Column>
-              <Header as="h2">{product.name}</Header>
-              <Label.Group>
-                <Label as="a" size="large" tag>
-                  {'$' + product.price}
-                </Label>
-                {user.isAdmin ? (
-                  <Button
-                    as={Link}
-                    to={`/admin/products/edit/${product.id}`}
-                    style={styles.button}
-                    size="small"
-                  >
-                    <Icon name="edit" /> Edit
-                  </Button>
-                ) : (
-                  ''
-                )}
-              </Label.Group>
-
-              <Segment>{product.description}</Segment>
-              <Button as="div" labelPosition="right">
-                <Button color="red">Add to Cart</Button>
-                <Label as="a" basic color="red" pointing="left">
-                  Only {product.inventory} left!
-                </Label>
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </div>
-    )
-  }
-}
+import ReviewPage from '../reviews/review-page'
 
 const mapState = state => ({
   product: state.product,
@@ -73,7 +20,66 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    fetchProduct: id => dispatch(fetchProduct(id))
+    getProduct: id => dispatch(fetchProduct(id))
+  }
+}
+
+class SingleProductPage extends Component {
+  componentDidMount() {
+    const {getProduct} = this.props
+    const id = Number(this.props.match.params.id)
+    getProduct(id)
+  }
+
+  render() {
+    const {product, user} = this.props
+    const id = Number(this.props.match.params.id)
+
+    return (
+      <div>
+        <div
+          className="ui raised very padded text container segment"
+          style={styles.div}
+        >
+          <Grid divided="vertically">
+            <Grid.Row columns={2}>
+              <Grid.Column>
+                <Image src={product.imageUrl} size="medium" />
+              </Grid.Column>
+              <Grid.Column>
+                <Header as="h2">{product.name}</Header>
+                <Label.Group>
+                  <Label as="a" size="large" tag>
+                    {'$' + product.price}
+                  </Label>
+                  {user.isAdmin ? (
+                    <Button
+                      as={Link}
+                      to={`/admin/products/edit/${product.id}`}
+                      style={styles.button}
+                      size="small"
+                    >
+                      <Icon name="edit" /> Edit
+                    </Button>
+                  ) : (
+                    ''
+                  )}
+                </Label.Group>
+
+                <Segment>{product.description}</Segment>
+                <Button as="div" labelPosition="right">
+                  <Button color="red">Add to Cart</Button>
+                  <Label as="a" basic color="red" pointing="left">
+                    Only {product.inventory} left!
+                  </Label>
+                </Button>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
+        <ReviewPage productId={id} />
+      </div>
+    )
   }
 }
 
