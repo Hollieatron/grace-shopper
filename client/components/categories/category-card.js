@@ -14,7 +14,7 @@ const CategoryCard = ({id, name, imageUrl, user}) => {
       <Card.Content>
         <Card.Header>
           <Link to={`/catalog/${id}/products/`}>{name}</Link>
-          {user.isAdmin ? (
+          {user.isAdmin && id !== 0 ? (
             <Button
               as={Link}
               to={`/admin/category/edit/${id}`}
