@@ -30,7 +30,7 @@ router.post('/products', async (req, res, next) => {
   }
 })
 
-router.put('/products/edit/:id', async (req, res, next) => {
+router.put('/product/edit/:id', async (req, res, next) => {
   try {
     const id = req.params.id
     const {name, price, description, image, category} = req.body
@@ -69,6 +69,24 @@ router.post('/categories', async (req, res, next) => {
       imageUrl
     })
     res.status(200).send(category)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/category/edit/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const {name, imageUrl} = req.body
+
+    const category = await Category.findById(id)
+
+    const updateCategory = await category.update({
+      name,
+      imageUrl
+    })
+
+    res.status(200).send(updateCategory)
   } catch (err) {
     next(err)
   }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {withRouter, BrowserRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import {fetchProduct, postProduct, putProduct, me} from '../../store'
 import CategoryCheckbox from './category-checkbox'
 import {Form, Button, Header, Label} from 'semantic-ui-react'

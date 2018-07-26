@@ -29,7 +29,7 @@ class CategoryList extends React.Component {
           ) : (
             <Dropdown.Item>No Categories</Dropdown.Item>
           )}
-          <Dropdown.Item as={Link} to={`/catalog/0/products`}>
+          <Dropdown.Item as={Link} to="/catalog/0/products">
             All Products
           </Dropdown.Item>
         </Dropdown.Menu>

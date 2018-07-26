@@ -30,7 +30,7 @@ class ProductCatalog extends Component {
     if (categoryId !== category.id) {
       getCategory(categoryId)
     }
-    if (categoryId === 0 && category.id !=0) {
+    if (categoryId === 0 && category.id != 0) {
       getProducts()
     }
   }
@@ -38,63 +38,37 @@ class ProductCatalog extends Component {
   render() {
     const {products, user, category} = this.props
     let renderProducts = products
-    
+
     const categoryId = Number(this.props.match.params.categoryId)
     if (category && categoryId !== 0) {
       renderProducts = category.products
     }
-    if (renderProducts.length > 0) {
-      return (
-        <Container style={styles.container}>
-          <Header as="h1">
-            Products
-            {user.isAdmin ? (
-              <Button
-                as={Link}
-                to="/admin/products/add"
-                basic
-                color="green"
-                style={styles.button}
-              >
-                Add A Product
-              </Button>
-            ) : (
-              ''
-            )}
-          </Header>
-          <ProductGrid products={renderProducts} />
-          <Divider />
-          <Container textAlign="center">
-            <Pagination defaultActivePage={1} totalPages={3} />
-          </Container>
+
+    return (
+      <Container style={styles.container}>
+        <Header as="h1">
+          Products
+          {user.isAdmin ? (
+            <Button
+              as={Link}
+              to="/admin/products/add"
+              basic
+              color="green"
+              style={styles.button}
+            >
+              Add A Product
+            </Button>
+          ) : (
+            ''
+          )}
+        </Header>
+        <ProductGrid products={renderProducts} category={category} />
+        <Divider />
+        <Container textAlign="center">
+          <Pagination defaultActivePage={1} totalPages={3} />
         </Container>
-      )
-    } else {
-      return (
-        <Container style={styles.container}>
-          <Header as="h1">
-            Products
-            {user.isAdmin ? (
-              <Button
-                as={Link}
-                to="/admin/products/add"
-                basic
-                color="green"
-                style={styles.button}
-              >
-                Add A Product
-              </Button>
-            ) : (
-              ''
-            )}
-          </Header>
-          <Divider />
-          <Container textAlign="center">
-            <Pagination defaultActivePage={1} totalPages={3} />
-          </Container>
-        </Container>
-      )
-    }
+      </Container>
+    )
   }
 }
 
