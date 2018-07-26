@@ -7,8 +7,8 @@ import user from './user-reducers/user'
 import product from './product-reducers/product'
 import products from './product-reducers/products'
 import search from './search'
-import categories from './category-reducers'
-import reviews from './reviews-reducers'
+import categories from './category-reducers/categories'
+import category from './category-reducers/category'
 
 const reducer = combineReducers({
   user,
@@ -16,8 +16,9 @@ const reducer = combineReducers({
   products,
   form: formReducer,
   search,
-  reviews,
-  categories
+  categories,
+  category,
+  reviews
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -29,5 +30,5 @@ export * from './user-reducers/user'
 export * from './product-reducers/product'
 export * from './product-reducers/products'
 export * from './search'
-export * from './category-reducers/'
-export * from './reviews-reducers'
+export * from './category-reducers/categories'
+export * from './category-reducers/category'

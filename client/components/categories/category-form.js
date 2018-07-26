@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
-import {postCategory} from '../../store/category-reducers/'
+import {postCategory} from '../../store'
 
 import {Form, Button, Header, Label} from 'semantic-ui-react'
 

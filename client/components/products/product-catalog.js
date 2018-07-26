@@ -1,64 +1,100 @@
 import React, {Component} from 'react'
 import ProductGrid from './product-grid'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../../store'
+import {fetchProducts, fetchCategory} from '../../store'
 import {Header, Container, Button, Pagination, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   products: state.products,
-  category: state.currentCategory,
+  category: state.category,
   user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  getProducts: () => dispatch(fetchProducts())
+  getProducts: () => dispatch(fetchProducts()),
+  getCategory: id => dispatch(fetchCategory(id))
 })
 
 class ProductCatalog extends Component {
   componentDidMount() {
-    const {getProducts} = this.props
+    const {getProducts, getCategory} = this.props
+    const categoryId = Number(this.props.match.params.categoryId)
     getProducts()
+    getCategory(categoryId)
+  }
+
+  componentDidUpdate() {
+    const categoryId = Number(this.props.match.params.categoryId)
+    const {getProducts, getCategory, category} = this.props
+    if (categoryId !== category.id) {
+      getCategory(categoryId)
+    }
+    if (categoryId === 0 && category.id !=0) {
+      getProducts()
+    }
   }
 
   render() {
-    const {products, user} = this.props
+    const {products, user, category} = this.props
+    let renderProducts = products
     const categoryId = Number(this.props.match.params.categoryId)
-    const renderProducts =
-      categoryId > 0
-        ? products.filter(product => {
-            for (let i = 0; i < product.categories.length; i++) {
-              if (product.categories[i].id === categoryId) {
-                return product
-              }
-            }
-          })
-        : products
-    return (
-      <Container style={styles.container}>
-        <Header as="h1">
-          Products
-          {user.isAdmin ? (
-            <Button
-              as={Link}
-              to="/admin/products/add"
-              basic
-              color="green"
-              style={styles.button}
-            >
-              Add A Product
-            </Button>
-          ) : (
-            ''
-          )}
-        </Header>
-        <ProductGrid products={renderProducts} />
-        <Divider />
-        <Container textAlign="center">
-          <Pagination defaultActivePage={1} totalPages={3} />
+    if (category && categoryId !== 0) {
+      renderProducts = category.products
+    }
+
+    if (renderProducts.length > 0) {
+      return (
+        <Container style={styles.container}>
+          <Header as="h1">
+            Products
+            {user.isAdmin ? (
+              <Button
+                as={Link}
+                to="/admin/products/add"
+                basic
+                color="green"
+                style={styles.button}
+              >
+                Add A Product
+              </Button>
+            ) : (
+              ''
+            )}
+          </Header>
+          <ProductGrid products={renderProducts} />
+          <Divider />
+          <Container textAlign="center">
+            <Pagination defaultActivePage={1} totalPages={3} />
+          </Container>
         </Container>
-      </Container>
-    )
+      )
+    } else {
+      return (
+        <Container style={styles.container}>
+          <Header as="h1">
+            Products
+            {user.isAdmin ? (
+              <Button
+                as={Link}
+                to="/admin/products/add"
+                basic
+                color="green"
+                style={styles.button}
+              >
+                Add A Product
+              </Button>
+            ) : (
+              ''
+            )}
+          </Header>
+          <Divider />
+          <Container textAlign="center">
+            <Pagination defaultActivePage={1} totalPages={3} />
+          </Container>
+        </Container>
+      )
+    }
   }
 }
 
