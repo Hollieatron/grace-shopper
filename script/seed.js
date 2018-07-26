@@ -69,26 +69,27 @@ async function seed() {
   const reviews = await Review.findAll()
   const manufacturers = await Manufacturer.findAll()
 
-  //random categories for products
-  await Promise.all(
-    products.map(async product => {
+  async function seedProducts() {
+    for (let i = 0; i < products.length; i++) {
       const randomCategories = categories.sort(shuffle).slice(0, 2)
       const randomReviews = reviews.sort(shuffle).slice(0, 2)
       const randomSellers = sellers.sort(shuffle).slice(0, 2)
       const randomManufacturers = manufacturers.sort(shuffle).slice(0, 2)
-      await product.setCategories(randomCategories)
-      await product.setReviews(randomReviews)
-      await product.setSeller(randomSellers[0])
-      await product.setManufacturer(randomManufacturers[0])
-      return product
-    })
-  )
+      await products[i].setCategories(randomCategories)
+      await products[i].setCategories(randomCategories)
+      await products[i].setReviews(randomReviews)
+      await products[i].setSeller(randomSellers[0])
+      await products[i].setManufacturer(randomManufacturers[0])
+    }
+    return products
+  }
+
+  await seedProducts()
 
   //random users for reviews
   await Promise.all(
     reviews.map(review => {
       const randomUsers = users.sort(shuffle).slice(0, 4)
-
       return review.setUser(randomUsers[0])
     })
   )

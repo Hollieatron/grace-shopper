@@ -4,8 +4,9 @@ module.exports = router
 
 router.post('/products', async (req, res, next) => {
   try {
+    
     const {name, price, description, imageUrl, category, inventory} = req.body
-
+    
     let categoryIds = []
     for (let i = 0; i < category.length; i++) {
       if (category[i]) categoryIds.push(i)
