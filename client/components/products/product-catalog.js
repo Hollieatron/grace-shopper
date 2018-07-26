@@ -43,7 +43,6 @@ class ProductCatalog extends Component {
     if (category && categoryId !== 0) {
       renderProducts = category.products
     }
-
     return (
       <Container style={styles.container}>
         <Header as="h1">
