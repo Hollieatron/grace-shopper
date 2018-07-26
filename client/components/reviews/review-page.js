@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchReviewsOfProduct} from '../../store'
+import {fetchReviewsOfProduct} from '../../store/reviews-reducers'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Image, Button, Grid, Header, Segment, Label} from 'semantic-ui-react'

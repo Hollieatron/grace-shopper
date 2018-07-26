@@ -149,6 +149,9 @@ const validate = values => {
   if (!values.image) {
     errors.image = 'Please enter an image URL for the product!'
   }
+  if (!values.category) {
+    errors.category = 'Please select a category for the product!'
+  }
 
   return errors
 }

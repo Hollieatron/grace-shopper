@@ -42,6 +42,7 @@ class Routes extends Component {
             <Switch>
               {/* Routes only admins have access to*/}
               <Route path="/admin/products/add" component={ProductForm} />
+              <Route path="/admin/category/add" component={CategoryForm} />
               <Route
                 exact
                 path="/admin/products/edit/:id"
