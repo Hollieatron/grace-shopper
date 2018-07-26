@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Category} = require('../../db/models')
+const {Product, Category} = require('../../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -14,9 +14,7 @@ router.get('/', async (req, res, next) => {
 router.get('/category/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const category = await Category.find({
-      where: {id: id}
-    })
+    const category = await Category.findById(id, {include: [Product]})
     res.status(200).json(category)
   } catch (err) {
     next(err)

@@ -1,37 +1,35 @@
 import React, {Component} from 'react'
 import ProductGrid from './product-grid'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../../store'
+import {fetchProducts, fetchCategory} from '../../store'
 import {Header, Container, Button, Pagination, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   products: state.products,
+  category: state.category,
   user: state.user
 })
 
 const mapDispatch = dispatch => ({
-  getProducts: () => dispatch(fetchProducts())
+  getProducts: () => dispatch(fetchProducts()),
+  getCategory: id => dispatch(fetchCategory(id))
 })
 
 class ProductCatalog extends Component {
   componentDidMount() {
     const {getProducts} = this.props
+    const categoryId = Number(this.props.match.params.categoryId)
     getProducts()
+    getCategory(categoryId)
   }
 
   render() {
-    const {products, user} = this.props
-    const categoryId = Number(this.props.match.params.categoryId)
+    const {products, user, category} = this.props
+
     const renderProducts =
       categoryId > 0
-        ? products.filter(product => {
-            for (let i = 0; i < product.categories.length; i++) {
-              if (product.categories[i].id === categoryId) {
-                return product
-              }
-            }
-          })
+        ? category.products
         : products
     if (renderProducts.length > 0) {
       return (

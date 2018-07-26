@@ -8,7 +8,7 @@ import {
   putProduct
 } from '../../store/product-reducers/product'
 import CategoryCheckbox from './category-checkbox'
-import {Form} from 'semantic-ui-react'
+import {Form, Button, Header, Label} from 'semantic-ui-react'
 
 const mapState = state => ({
   product: state.product
@@ -23,20 +23,43 @@ const mapDispatch = (dispatch, ownProps) => ({
 class ProductForm extends Component {
   componentDidMount() {
     const {id, getProduct} = this.props
-    if (id) getProduct(id)
+    if (id) {
+      getProduct(id)
+      this.handleInitialize()
+    }
+  }
+
+  handleInitialize() {
+    const {product} = this.props
+    const initData = {
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      inventory: product.inventory
+    }
+
+    this.props.initialize(initData)
   }
 
   handleProductFormSubmit = data => {
     const {addProduct, editProduct, id} = this.props
-    const {name, price, description, image, category} = data
-    if (id) editProduct({id, name, price, description, image, category})
-    else addProduct({name, price, description, image, category})
+    const {name, price, description, imageUrl, category, inventory} = data
+    if (id)
+      editProduct({id, name, price, description, imageUrl, category, inventory})
+    else addProduct({name, price, description, imageUrl, category, inventory})
   }
 
   render() {
-    const {pristine, reset, submitting, handleSubmit} = this.props
+    const {pristine, reset, submitting, handleSubmit, product, id} = this.props
+
     return (
-      <div>
+      <div
+        className="ui raised very padded text container segment"
+        style={styles.div}
+      >
+        <Header as="h2">{id ? `Edit ${product.name}` : `Add Product`}</Header>
+
         <Form onSubmit={handleSubmit(this.handleProductFormSubmit.bind(this))}>
           <label>Name:</label>
           <Field
@@ -54,6 +77,14 @@ class ProductForm extends Component {
             placeholder="Price"
           />
 
+          <label>Inventory:</label>
+          <Field
+            name="inventory"
+            component={renderField}
+            type="number"
+            placeholder="Inventory"
+          />
+
           <label>Description:</label>
           <Field
             name="description"
@@ -64,28 +95,35 @@ class ProductForm extends Component {
 
           <label>Image:</label>
           <Field
-            name="image"
+            name="imageUrl"
             component={renderField}
             type="text"
             placeholder="Image URL"
           />
 
           <label>Categories:</label>
-          <CategoryCheckbox />
+          <CategoryCheckbox product={product.categories} />
 
-          <button type="submit" disabled={submitting}>
+          <Button type="submit" disabled={submitting}>
             Submit
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             disabled={pristine || submitting}
             onClick={reset}
           >
             Clear
-          </button>
+          </Button>
         </Form>
       </div>
     )
+  }
+}
+
+const styles = {
+  div: {
+    marginTop: 40,
+    marginBottom: 40
   }
 }
 
@@ -95,7 +133,7 @@ const renderField = ({input, label, type, meta: {touched, error}}) => (
     <label>{label}</label>
     <div>
       <input {...input} type={type} />
-      {touched && (error && <span style={{color: 'red'}}>{error}</span>)}
+      {touched && (error && <Label pointing>{error}</Label>)}
     </div>
   </div>
 )
@@ -122,6 +160,6 @@ const validate = values => {
 ProductForm = withRouter(connect(mapState, mapDispatch)(ProductForm))
 
 export default reduxForm({
-  form: 'product',
-  validate
+  validate,
+  form: 'product'
 })(ProductForm)
