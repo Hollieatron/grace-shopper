@@ -33,18 +33,6 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route
-          exact
-          path="/admin/product/edit/:id"
-          render={routeProps => <ProductForm id={routeProps.match.params.id} />}
-        />
-        <Route
-          exact
-          path="/admin/category/edit/:id"
-          render={routeProps => (
-            <CategoryForm id={routeProps.match.params.id} />
-          )}
-        />
-        <Route
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
@@ -60,6 +48,20 @@ class Routes extends Component {
                 path="/admin/products/edit/:id"
                 render={routeProps => (
                   <ProductForm id={routeProps.match.params.id} />
+                )}
+              />
+              <Route
+                exact
+                path="/admin/product/edit/:id"
+                render={routeProps => (
+                  <ProductForm id={routeProps.match.params.id} />
+                )}
+              />
+              <Route
+                exact
+                path="/admin/category/edit/:id"
+                render={routeProps => (
+                  <CategoryForm id={routeProps.match.params.id} />
                 )}
               />
               <Route path="/home" component={UserHome} />
