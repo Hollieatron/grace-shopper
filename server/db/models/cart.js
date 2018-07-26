@@ -6,9 +6,8 @@ const Cart = db.define('cart', {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
-  productIds: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
-      defaultValue: []
+  inventoryReq: {
+    type: Sequelize.INTEGER
   }
 })
 

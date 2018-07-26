@@ -22,7 +22,7 @@ Product.belongsToMany(Category, {through: 'CategoryProduct'})
 Product.hasMany(Review)
 Product.belongsTo(Manufacturer)
 Product.belongsTo(Seller)
-
+Product.belongsToMany(Cart, {through: 'CartProduct'})
 
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
@@ -39,6 +39,7 @@ Manufacturer.hasMany(Product)
 
 // cart
 Cart.belongsTo(User)
+Cart.belongsToMany(Product, {through: 'CartProduct'})
 
 // order
 Order.belongsTo(User)
