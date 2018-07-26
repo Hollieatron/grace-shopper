@@ -10,9 +10,8 @@ export const ADD_CATEGORY = 'ADD_CATEGORY'
 /**
  * INITIAL STATE
  */
-const initialState = {
-  category: {id: 0, name: '', products: []}
-}
+const initialState =  {id: 0, name: '', products: []}
+
 
 /**
  * ACTION CREATORS

@@ -9,6 +9,7 @@ import products from './product-reducers/products'
 import search from './search'
 import categories from './category-reducers/categories'
 import category from './category-reducers/category'
+import reviews from './reviews-reducers/index'
 
 const reducer = combineReducers({
   user,

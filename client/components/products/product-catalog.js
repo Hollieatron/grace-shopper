@@ -38,11 +38,11 @@ class ProductCatalog extends Component {
   render() {
     const {products, user, category} = this.props
     let renderProducts = products
+    
     const categoryId = Number(this.props.match.params.categoryId)
     if (category && categoryId !== 0) {
       renderProducts = category.products
     }
-
     if (renderProducts.length > 0) {
       return (
         <Container style={styles.container}>

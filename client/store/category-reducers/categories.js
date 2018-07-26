@@ -7,9 +7,7 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 /**
  * INITIAL STATE
  */
-const initialState = {
-  categories: [{id: 0, name: ''}]
-}
+const initialState = [{id: 0, name: ''}]
 
 /**
  * ACTION CREATORS
@@ -19,7 +17,6 @@ const getCategories = categories => ({
   type: GET_ALL_CATEGORIES,
   categories
 })
-
 
 /**
  * THUNK CREATORS
