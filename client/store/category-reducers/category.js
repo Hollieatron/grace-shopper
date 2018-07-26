@@ -19,10 +19,6 @@ const initialState = {id: 0, name: '', products: []}
 
 const getCategory = category => ({type: GET_CATEGORY, category})
 
-const addCategory = category => ({type: ADD_CATEGORY, category})
-
-const editCategory = category => ({type: EDIT_CATEGORY, category})
-
 /**
  * THUNK CREATORS
  */
@@ -36,19 +32,14 @@ export const fetchCategory = id => {
 
 export const postCategory = category => {
   return async dispatch => {
-    const {data} = await axios.post('/api/admin/categories', category)
-    dispatch(addCategory(data))
+    await axios.post('/api/admin/categories', category)
     history.push(`/`)
   }
 }
 
 export const putCategory = category => {
   return async dispatch => {
-    const {data} = await axios.put(
-      `/api/admin/category/edit/${category.id}`,
-      category
-    )
-    dispatch(editCategory(data))
+    await axios.put(`/api/admin/category/edit/${category.id}`, category)
     history.push(`/`)
   }
 }
@@ -59,10 +50,6 @@ export const putCategory = category => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CATEGORY:
-      return action.category
-    case ADD_CATEGORY:
-      return action.category
-    case EDIT_CATEGORY:
       return action.category
     default:
       return state
