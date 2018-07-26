@@ -37,16 +37,21 @@ class Routes extends Component {
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
-        <Route path="/admin/products/add" component={ProductForm} />
-        <Route
-          exact
-          path="/admin/products/edit/:id"
-          render={routeProps => <ProductForm id={routeProps.match.params.id} />}
-        />
-        <Route path="/home" component={UserHome} />
-        {isLoggedIn && (
-          <Switch>{/* Routes only admins have access to*/}</Switch>
-        )}
+        {isLoggedIn &&
+          isAdmin && (
+            <Switch>
+              {/* Routes only admins have access to*/}
+              <Route path="/admin/products/add" component={ProductForm} />
+              <Route
+                exact
+                path="/admin/products/edit/:id"
+                render={routeProps => (
+                  <ProductForm id={routeProps.match.params.id} />
+                )}
+              />
+              <Route path="/home" component={UserHome} />
+            </Switch>
+          )}
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
