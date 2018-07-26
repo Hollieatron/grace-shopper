@@ -4,9 +4,9 @@ module.exports = router
 router.use('/products', require('./products'))
 router.use('/categories', require('./categories'))
 router.use('/users', require('./users'))
+router.use('/reviews', require('./reviews'))
 
 function isAdmin(req, res, next) {
-  console.log('req.user', req.user)
   if (req.user && req.user.dataValues.isAdmin) {
     next()
   } else {
@@ -17,7 +17,6 @@ function isAdmin(req, res, next) {
 }
 
 router.use('/admin', isAdmin, require('./admin'))
-
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
