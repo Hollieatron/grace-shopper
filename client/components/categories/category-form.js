@@ -47,7 +47,6 @@ class CategoryForm extends Component {
 
   render() {
     const {pristine, reset, submitting, handleSubmit, id, category} = this.props
-    console.log(category)
     return (
       <div
         className="ui raised very padded text container segment"
