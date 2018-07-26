@@ -18,6 +18,7 @@ function isAdmin(req, res, next) {
 
 router.use('/admin', isAdmin, require('./admin'))
 
+
 router.use((req, res, next) => {
   const error = new Error('Not Found')
   error.status = 404
