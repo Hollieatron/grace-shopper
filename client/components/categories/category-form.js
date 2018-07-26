@@ -2,11 +2,7 @@ import React, {Component} from 'react'
 import {Field, reduxForm} from 'redux-form'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {
-  postCategory,
-  putCategory,
-  fetchCategory
-} from '../../store/category-reducers/'
+import {postCategory, fetchCategory, putCategory} from '../../store'
 
 import {Form, Button, Header, Label} from 'semantic-ui-react'
 

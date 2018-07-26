@@ -17,6 +17,7 @@ const CategoryGrid = ({categories}) => {
       ) : (
         <div>No Categories</div>
       )}
+      <CategoryCard key={-1} id={0} name={'All Products'} imageUrl={'http://dummyimage.com/250x250.bmp/cc0000/ffffff'}/>
     </Card.Group>
   )
 }
