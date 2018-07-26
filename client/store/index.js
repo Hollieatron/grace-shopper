@@ -8,6 +8,7 @@ import product from './product-reducers/product'
 import products from './product-reducers/products'
 import search from './search'
 import categories from './category-reducers'
+import reviews from './reviews-reducers'
 
 const reducer = combineReducers({
   user,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   products,
   form: formReducer,
   search,
+  reviews,
   categories
 })
 const middleware = composeWithDevTools(
@@ -28,3 +30,4 @@ export * from './product-reducers/product'
 export * from './product-reducers/products'
 export * from './search'
 export * from './category-reducers/'
+export * from './reviews-reducers'
