@@ -58,3 +58,16 @@ router.put('/products/edit/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/categories', async (req, res, next) => {
+  try {
+    const {name, imageUrl} = req.body
+    const category = await Category.create({
+      name,
+      imageUrl
+    })
+    res.status(200).send(category)
+  } catch (err) {
+    next(err)
+  }
+})

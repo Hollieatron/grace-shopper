@@ -1,10 +1,12 @@
 import axios from 'axios'
+import history from '../../history'
 
 /**
  * ACTION TYPES
  */
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_CATEGORY = 'GET_CATEGORY'
+export const ADD_CATEGORY = 'ADD_CATEGORY'
 
 /**
  * INITIAL STATE
@@ -28,6 +30,8 @@ const getCategory = category => ({
   category
 })
 
+const addCategory = category => ({type: ADD_CATEGORY, category})
+
 /**
  * THUNK CREATORS
  */
@@ -45,6 +49,14 @@ export const fetchCategory = id => {
   }
 }
 
+export const postCategory = category => {
+  return async dispatch => {
+    const {data} = await axios.post('/api/admin/categories', category)
+    dispatch(addCategory(data))
+    history.push(`/`)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -53,6 +65,8 @@ export default function(state = initialState, action) {
     case GET_ALL_CATEGORIES:
       return action.categories
     case GET_CATEGORY:
+      return action.category
+    case ADD_CATEGORY:
       return action.category
     default:
       return state

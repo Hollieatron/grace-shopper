@@ -89,6 +89,13 @@ class ProductForm extends Component {
   }
 }
 
+const styles = {
+  div: {
+    marginTop: 40,
+    marginBottom: 40
+  }
+}
+
 // render form fields
 const renderField = ({input, label, type, meta: {touched, error}}) => (
   <div>
