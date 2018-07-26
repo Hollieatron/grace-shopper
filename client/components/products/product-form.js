@@ -23,28 +23,39 @@ const mapDispatch = (dispatch, ownProps) => ({
 class ProductForm extends Component {
   componentDidMount() {
     const {id, getProduct} = this.props
-    if (id) getProduct(id)
+    if (id) {
+      getProduct(id)
+      this.handleInitialize()
+    }
+  }
+
+  handleInitialize() {
+    const {product} = this.props
+    const initData = {
+      name: product.name,
+      price: product.price,
+      description: product.description,
+      imageUrl: product.imageUrl
+    }
+
+    this.props.initialize(initData)
   }
 
   handleProductFormSubmit = data => {
     const {addProduct, editProduct, id} = this.props
-    const {name, price, description, image, category} = data
-    if (id) editProduct({id, name, price, description, image, category})
-    else addProduct({name, price, description, image, category})
+    const {name, price, description, imageUrl, category} = data
+    if (id) editProduct({id, name, price, description, imageUrl, category})
+    else addProduct({name, price, description, imageUrl, category})
   }
 
   render() {
-    const {pristine, reset, submitting, handleSubmit} = this.props
+    const {pristine, reset, submitting, handleSubmit, product} = this.props
+
     return (
       <div>
         <Form onSubmit={handleSubmit(this.handleProductFormSubmit.bind(this))}>
           <label>Name:</label>
-          <Field
-            name="name"
-            component={renderField}
-            type="text"
-            placeholder="Name"
-          />
+          <Field name="name" component="input" type="text" placeholder="Name" />
 
           <label>Price:</label>
           <Field
@@ -64,14 +75,14 @@ class ProductForm extends Component {
 
           <label>Image:</label>
           <Field
-            name="image"
+            name="imageUrl"
             component={renderField}
             type="text"
             placeholder="Image URL"
           />
 
           <label>Categories:</label>
-          <CategoryCheckbox />
+          <CategoryCheckbox product={product.categories} />
 
           <button type="submit" disabled={submitting}>
             Submit
@@ -122,6 +133,6 @@ const validate = values => {
 ProductForm = withRouter(connect(mapState, mapDispatch)(ProductForm))
 
 export default reduxForm({
-  form: 'product',
-  validate
+  validate,
+  form: 'product'
 })(ProductForm)

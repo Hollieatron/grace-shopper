@@ -4,7 +4,7 @@ module.exports = router
 
 router.post('/products', async (req, res, next) => {
   try {
-    const {name, price, description, image, category} = req.body
+    const {name, price, description, imageUrl, category} = req.body
 
     let categoryIds = []
     for (let i = 0; i < category.length; i++) {
@@ -15,7 +15,7 @@ router.post('/products', async (req, res, next) => {
       name,
       price,
       description,
-      image
+      imageUrl
     })
     await product.setCategories(categoryIds)
 
