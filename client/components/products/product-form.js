@@ -35,7 +35,8 @@ class ProductForm extends Component {
       name: product.name,
       price: product.price,
       description: product.description,
-      imageUrl: product.imageUrl
+      imageUrl: product.imageUrl,
+      inventory: product.inventory
     }
 
     this.props.initialize(initData)
@@ -43,9 +44,10 @@ class ProductForm extends Component {
 
   handleProductFormSubmit = data => {
     const {addProduct, editProduct, id} = this.props
-    const {name, price, description, imageUrl, category} = data
-    if (id) editProduct({id, name, price, description, imageUrl, category})
-    else addProduct({name, price, description, imageUrl, category})
+    const {name, price, description, imageUrl, category, inventory} = data
+    if (id)
+      editProduct({id, name, price, description, imageUrl, category, inventory})
+    else addProduct({name, price, description, imageUrl, category, inventory})
   }
 
   render() {
@@ -73,6 +75,14 @@ class ProductForm extends Component {
             component={renderField}
             type="number"
             placeholder="Price"
+          />
+
+          <label>Inventory:</label>
+          <Field
+            name="inventory"
+            component={renderField}
+            type="number"
+            placeholder="Inventory"
           />
 
           <label>Description:</label>
