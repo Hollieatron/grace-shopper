@@ -8,7 +8,7 @@ import {
   putProduct
 } from '../../store/product-reducers/product'
 import CategoryCheckbox from './category-checkbox'
-import {Form} from 'semantic-ui-react'
+import {Form, Button, Header, Label} from 'semantic-ui-react'
 
 const mapState = state => ({
   product: state.product
@@ -49,13 +49,23 @@ class ProductForm extends Component {
   }
 
   render() {
-    const {pristine, reset, submitting, handleSubmit, product} = this.props
+    const {pristine, reset, submitting, handleSubmit, product, id} = this.props
 
     return (
-      <div>
+      <div
+        className="ui raised very padded text container segment"
+        style={styles.div}
+      >
+        <Header as="h2">{id ? `Edit ${product.name}` : `Add Product`}</Header>
+
         <Form onSubmit={handleSubmit(this.handleProductFormSubmit.bind(this))}>
           <label>Name:</label>
-          <Field name="name" component="input" type="text" placeholder="Name" />
+          <Field
+            name="name"
+            component={renderField}
+            type="text"
+            placeholder="Name"
+          />
 
           <label>Price:</label>
           <Field
@@ -84,19 +94,26 @@ class ProductForm extends Component {
           <label>Categories:</label>
           <CategoryCheckbox product={product.categories} />
 
-          <button type="submit" disabled={submitting}>
+          <Button type="submit" disabled={submitting}>
             Submit
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
             disabled={pristine || submitting}
             onClick={reset}
           >
             Clear
-          </button>
+          </Button>
         </Form>
       </div>
     )
+  }
+}
+
+const styles = {
+  div: {
+    marginTop: 40,
+    marginBottom: 40
   }
 }
 
@@ -106,7 +123,7 @@ const renderField = ({input, label, type, meta: {touched, error}}) => (
     <label>{label}</label>
     <div>
       <input {...input} type={type} />
-      {touched && (error && <span style={{color: 'red'}}>{error}</span>)}
+      {touched && (error && <Label pointing>{error}</Label>)}
     </div>
   </div>
 )
