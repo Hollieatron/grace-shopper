@@ -48,7 +48,6 @@ export const putCategory = category => {
       `/api/admin/category/edit/${category.id}`,
       category
     )
-    dispatch(editCategory(data))
     history.push(`/`)
   }
 }
@@ -61,8 +60,6 @@ export default function(state = initialState, action) {
     case GET_CATEGORY:
       return action.category
     case ADD_CATEGORY:
-      return action.category
-    case EDIT_CATEGORY:
       return action.category
     default:
       return state

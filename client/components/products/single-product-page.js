@@ -68,7 +68,9 @@ class SingleProductPage extends Component {
 
                 <Segment>{product.description}</Segment>
                 <Button as="div" labelPosition="right">
-                  <Button color="red">Add to Cart</Button>
+                  <Button color="red">
+                    <Icon name="shop" />Add to Cart
+                  </Button>
                   <Label as="a" basic color="red" pointing="left">
                     Only {product.inventory} left!
                   </Label>
