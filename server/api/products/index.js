@@ -14,8 +14,7 @@ router.get('/', async (req, res, next) => {
             [Op.gt]: 0
           }
         }
-      },
-      {include: [Category]}
+      }
     )
     res.json(products)
   } catch (err) {
