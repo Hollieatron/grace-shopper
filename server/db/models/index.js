@@ -62,5 +62,6 @@ module.exports = {
   Seller,
   Cart,
   Order,
-  OrderHistory
+  OrderHistory,
+  CartInventory
 }
