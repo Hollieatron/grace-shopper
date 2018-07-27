@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Search from './search'
 import CategoryList from './category-list'
-import {Menu, Button, Icon} from 'semantic-ui-react'
+import {Menu, Button, Icon, Dropdown} from 'semantic-ui-react'
 import {logout} from '../../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
@@ -16,10 +16,17 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Search />
     <Menu.Menu position="right">
       {isLoggedIn ? (
-        <Menu.Item>
-          <Button as={Link} to="/account">
-            Account
-          </Button>
+        <Menu.Itegit m>
+          <Dropdown button text="Account">
+            <Dropdown.Menu>
+              <Dropdown.Item as={Link} to="/account/info">
+                Account Info
+              </Dropdown.Item>
+              <Dropdown.Item as={Link} to="/account/orderhistory">
+                Order History
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <Button onClick={handleClick}>Logout</Button>
         </Menu.Item>
       ) : (
@@ -49,7 +56,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.isAdmin
   }
 }
 

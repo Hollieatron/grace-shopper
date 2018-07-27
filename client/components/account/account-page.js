@@ -1,15 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {me} from '../../store'
-import {
-  Menu,
-  Button,
-  Icon,
-  Grid,
-  Label,
-  Header,
-  Segment
-} from 'semantic-ui-react'
+import {Button, Icon, Grid, Header} from 'semantic-ui-react'
 import AccountInfo from './account-information'
 
 class AccountPage extends Component {
@@ -29,10 +22,16 @@ class AccountPage extends Component {
             <Grid.Row columns={1}>
               <Grid.Column>
                 <Header as="h2">Account Information</Header>
+                <Button
+                  as={Link}
+                  to="/account/info/edit"
+                  style={style.button}
+                  size="small"
+                >
+                  <Icon name="edit" /> Edit
+                </Button>
                 <AccountInfo {...user} />
               </Grid.Column>
-              <Header as="h2">Order History</Header>
-              {/*orderhistory component*/}
             </Grid.Row>
           </Grid>
         </div>

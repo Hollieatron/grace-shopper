@@ -41,7 +41,8 @@ class Routes extends Component {
           isAdmin && (
             <Switch>
               {/* Routes only admins have access to*/}
-              <Route path="/account" component={AccountPage} />
+            <Route path="/account/info" component={AccountPage} />
+            {/*route to order history*/}
               <Route path="/admin/products/add" component={ProductForm} />
               <Route path="/admin/category/add" component={CategoryForm} />
               <Route
