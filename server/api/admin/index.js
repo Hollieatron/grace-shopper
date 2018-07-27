@@ -80,12 +80,12 @@ router.put('/category/edit/:id', async (req, res, next) => {
 
     const category = await Category.findById(id)
 
-    const updateCategory = await category.update({
+    await category.update({
       name,
       imageUrl
     })
 
-    res.status(200).send(updateCategory)
+    res.sendStatus(200)
   } catch (err) {
     next(err)
   }

@@ -11,7 +11,8 @@ import {
   SingleProductPage,
   Home,
   AccountPage,
-  AccountManagement
+  AccountManagement,
+  CartPage
 } from './components'
 import {me} from './store'
 /**
@@ -31,6 +32,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={CartPage} />
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route
           path="/catalog/:categoryId/products"
