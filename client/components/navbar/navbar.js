@@ -16,7 +16,12 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Search />
     <Menu.Menu position="right">
       {isLoggedIn ? (
-        <Menu.Item name="logout" onClick={handleClick} />
+        <Menu.Item>
+          <Button as={Link} to="/account">
+            Account
+          </Button>
+          <Button onClick={handleClick}>Logout</Button>
+        </Menu.Item>
       ) : (
         <Menu.Item>
           <Button as={Link} to="/signup" primary>
@@ -29,7 +34,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       )}
       <Menu.Item>
         <Button animated="vertical">
-          <Button.Content hidden>Shop</Button.Content>
+          <Button.Content hidden>My Cart</Button.Content>
           <Button.Content visible>
             <Icon name="shop" />
           </Button.Content>

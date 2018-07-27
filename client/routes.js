@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
-  UserHome,
   ProductCatalog,
   ProductForm,
   CategoryForm,
   SingleProductPage,
-  Home
+  Home,
+  AccountPage
 } from './components'
 import {me} from './store'
 
@@ -41,6 +41,7 @@ class Routes extends Component {
           isAdmin && (
             <Switch>
               {/* Routes only admins have access to*/}
+              <Route path="/account" component={AccountPage} />
               <Route path="/admin/products/add" component={ProductForm} />
               <Route path="/admin/category/add" component={CategoryForm} />
               <Route
@@ -64,15 +65,15 @@ class Routes extends Component {
                   <CategoryForm id={routeProps.match.params.id} />
                 )}
               />
-              <Route path="/home" component={UserHome} />
+              <Route path="/" component={Home} />
             </Switch>
           )}
 
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route path="/account" component={AccountPage} />
             <Route path="/" component={Home} />
-            <Route path="/home" component={UserHome} />
           </Switch>
         )}
         <Route path="/" component={Home} />
