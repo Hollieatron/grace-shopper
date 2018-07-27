@@ -10,10 +10,10 @@ import {
   CategoryForm,
   SingleProductPage,
   Home,
-  AccountPage
+  AccountPage,
+  AccountManagement
 } from './components'
 import {me} from './store'
-
 /**
  * COMPONENT
  */
@@ -41,10 +41,14 @@ class Routes extends Component {
           isAdmin && (
             <Switch>
               {/* Routes only admins have access to*/}
-            <Route path="/account/info" component={AccountPage} />
-            {/*route to order history*/}
+              <Route path="/account/info" component={AccountPage} />
+              {/*route to order history*/}
               <Route path="/admin/products/add" component={ProductForm} />
               <Route path="/admin/category/add" component={CategoryForm} />
+              <Route
+                path="/admin/account/manage"
+                component={AccountManagement}
+              />
               <Route
                 exact
                 path="/admin/products/edit/:id"

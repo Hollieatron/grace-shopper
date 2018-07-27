@@ -1,12 +1,11 @@
 const router = require('express').Router()
-const {Product, Category} = require('../../db/models')
+const {Product, Category, User} = require('../../db/models')
 module.exports = router
 
 router.post('/products', async (req, res, next) => {
   try {
-    
     const {name, price, description, imageUrl, category, inventory} = req.body
-    
+
     let categoryIds = []
     for (let i = 0; i < category.length; i++) {
       if (category[i]) categoryIds.push(i)
@@ -87,6 +86,15 @@ router.put('/category/edit/:id', async (req, res, next) => {
     })
 
     res.status(200).send(updateCategory)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/users', async (req, res, next) => {
+  try {
+    const users = await User.findAll({})
+    res.json(users)
   } catch (err) {
     next(err)
   }

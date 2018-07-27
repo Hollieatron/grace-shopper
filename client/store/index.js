@@ -10,9 +10,11 @@ import search from './search'
 import categories from './category-reducers/categories'
 import category from './category-reducers/category'
 import reviews from './reviews-reducers/index'
+import users from './user-reducers/users'
 
 const reducer = combineReducers({
   user,
+  users,
   product,
   products,
   form: formReducer,
@@ -28,6 +30,7 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user-reducers/user'
+export * from './user-reducers/users'
 export * from './product-reducers/product'
 export * from './product-reducers/products'
 export * from './search'

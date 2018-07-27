@@ -13,28 +13,26 @@ class AccountPage extends Component {
   render() {
     const {user} = this.props
     return (
-      <div>
-        <div
-          className="ui raised very padded text container segment"
-          style={style.div}
-        >
-          <Grid divided="vertically">
-            <Grid.Row columns={1}>
-              <Grid.Column>
-                <Header as="h2">Account Information</Header>
-                <Button
-                  as={Link}
-                  to="/account/info/edit"
-                  style={style.button}
-                  size="small"
-                >
-                  <Icon name="edit" /> Edit
-                </Button>
-                <AccountInfo {...user} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
+      <div
+        className="ui raised very padded text container segment"
+        style={style.div}
+      >
+        <Grid divided="vertically">
+          <Grid.Row columns={1}>
+            <Grid.Column>
+              <Header as="h2">Account Information</Header>
+              <Button
+                as={Link}
+                to="/account/info/edit"
+                style={style.button}
+                size="small"
+              >
+                <Icon name="edit" /> Edit
+              </Button>
+              <AccountInfo {...user} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     )
   }

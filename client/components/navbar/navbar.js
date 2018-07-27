@@ -7,7 +7,7 @@ import CategoryList from './category-list'
 import {Menu, Button, Icon, Dropdown} from 'semantic-ui-react'
 import {logout} from '../../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <Menu attached="top">
     <Menu.Item name="home" as={Link} to="/">
       Home
@@ -16,17 +16,33 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <Search />
     <Menu.Menu position="right">
       {isLoggedIn ? (
-        <Menu.Itegit m>
-          <Dropdown button text="Account">
-            <Dropdown.Menu>
-              <Dropdown.Item as={Link} to="/account/info">
-                Account Info
-              </Dropdown.Item>
-              <Dropdown.Item as={Link} to="/account/orderhistory">
-                Order History
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Menu.Item>
+          {isAdmin ? (
+            <Dropdown button text="Account">
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/account/info">
+                  Account Info
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/account/orderhistory">
+                  Order History
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/admin/account/manage">
+                  Manage Accounts
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            <Dropdown button text="Account">
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/account/info">
+                  Account Info
+                </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/account/orderhistory">
+                  Order History
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
           <Button onClick={handleClick}>Logout</Button>
         </Menu.Item>
       ) : (
@@ -57,7 +73,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isAdmin: state.isAdmin
+    isAdmin: state.user.isAdmin
   }
 }
 
