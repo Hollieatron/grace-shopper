@@ -11,6 +11,7 @@ const Seller = require('./seller')
 const Cart = require('./cart')
 const Order = require('./order')
 const OrderHistory = require('./orderhistory')
+const CartInventory = require('./cartinventory')
 
 // user
 User.hasMany(Review)
@@ -40,6 +41,10 @@ Manufacturer.hasMany(Product)
 // cart
 Cart.belongsTo(User)
 Cart.belongsToMany(Product, {through: 'CartProduct'})
+Cart.belongsToMany(CartInventory, {through: 'inventories'})
+
+// cartinventory
+CartInventory.belongsToMany(Cart, {through: 'inventories'})
 
 // order
 Order.belongsTo(User)
