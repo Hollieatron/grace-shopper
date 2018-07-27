@@ -7,7 +7,8 @@ const {
   reviewData,
   sellerData,
   manufacturerData,
-  categoryData
+  categoryData,
+  cartData
 } = require('./seedData')
 
 const {
@@ -16,7 +17,9 @@ const {
   Review,
   Category,
   Manufacturer,
-  Seller
+  Seller,
+  Cart,
+  CartInventory
 } = require('../server/db/models/index')
 
 /**
@@ -50,6 +53,7 @@ async function seed() {
     returning: true
   })
   const categoryPromise = Category.bulkCreate(categoryData, {returning: true})
+  const cartPromise = Cart.bulkCreate(cartData, {return: true})
 
   await Promise.all([
     productPromise,
@@ -57,7 +61,8 @@ async function seed() {
     reviewPromise,
     sellerPromise,
     manufacturerPromise,
-    categoryPromise
+    categoryPromise,
+    cartPromise
   ])
 
   await db.sync()
@@ -68,6 +73,7 @@ async function seed() {
   const sellers = await Seller.findAll()
   const reviews = await Review.findAll()
   const manufacturers = await Manufacturer.findAll()
+  const carts = await Cart.findAll()
 
   async function seedProducts() {
     for (let i = 0; i < products.length; i++) {
@@ -85,6 +91,16 @@ async function seed() {
   }
 
   await seedProducts()
+
+  async function seedCart() {
+    for (let i = 0; i < carts.length; i++) {
+      const cartInventory = await CartInventory.create({inventoryReq: 2})
+      await cartInventory.setProducts(products[i])
+      await cartInventory.setCarts(carts[i])
+    }
+  }
+
+  await seedCart()
 
   //random users for reviews
   await Promise.all(
