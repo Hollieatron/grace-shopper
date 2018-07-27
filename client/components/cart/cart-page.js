@@ -71,4 +71,4 @@ const styles = {
   }
 }
 
-export default connect(mapState)(CartPage)
+export default connect(mapState, mapDispatch)(CartPage)
