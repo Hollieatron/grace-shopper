@@ -2,7 +2,8 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {Image, Grid, Table, Dropdown} from 'semantic-ui-react'
 
-const CartItem = ({id, name, price, imageUrl, inventory, quantity}) => {
+const CartItem = ({inventoryReq, product}) => {
+  const {id, name, price, imageUrl} = product
   return (
     <div className="ui very padded text segment">
       <Grid divided="vertically">
@@ -28,9 +29,9 @@ const CartItem = ({id, name, price, imageUrl, inventory, quantity}) => {
                   </Table.Cell>
                   <Table.Cell>{`$${price}.00`}</Table.Cell>
                   <Table.Cell>
-                    <Dropdown text={quantity}>
+                    <Dropdown text={inventoryReq}>
                       <Dropdown.Menu>
-                        <Dropdown.Item text={inventory} />
+                        <Dropdown.Item text="1" />
                       </Dropdown.Menu>
                     </Dropdown>
                   </Table.Cell>

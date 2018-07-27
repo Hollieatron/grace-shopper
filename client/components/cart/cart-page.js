@@ -20,7 +20,9 @@ class CartPage extends Component {
   }
 
   render() {
-    const {cart} = this.props // cart is an array of products?
+    const {cart} = this.props
+    const {cartInventories} = cart
+
     const subtotal = '$5.00'
 
     return (
@@ -31,15 +33,13 @@ class CartPage extends Component {
         <Header as="h1" dividing textAlign="center" style={styles.header}>
           Shopping Cart
         </Header>
-        {/* {cart.map(product => <CartItem key={product.id} {...product} />)} */}
-        <CartItem
-          id="1"
-          name="Apple"
-          price="2"
-          imageUrl="https://robohash.org/fgykjfth"
-          inventory="4"
-          quantity="2"
-        />
+        {cartInventories.map(item => (
+          <CartItem
+            key={item.id}
+            inventoryReq={item.inventoryReq}
+            product={item.products[0]}
+          />
+        ))}
 
         <Divider />
         <div style={styles.subtotal}>
