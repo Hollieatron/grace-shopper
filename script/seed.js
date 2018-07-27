@@ -125,7 +125,7 @@ async function seed() {
 
   async function seedOrderHistory() {
     for (let i = 0; i < orders.length; i++) {
-      await orders[i].setUsers(users[i])
+      await orders[i].setUser(users[i])
       await orders[i].setOrderhistories(orderhistory)
     }
   }
