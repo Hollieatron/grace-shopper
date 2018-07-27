@@ -3,6 +3,6 @@
 
 const seed = require('./seed')
 
-xdescribe('seed script', () => {
+describe('seed script', () => {
   it('completes successfully', seed)
 })
