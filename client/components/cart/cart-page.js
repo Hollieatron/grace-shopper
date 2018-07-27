@@ -19,9 +19,18 @@ class CartPage extends Component {
     getCart(user.id)
   }
 
+  calculateSubtotal(cart) {
+    let subtotal = 0
+
+    for (let i = 0; i < cart.length; i++) {
+      subtotal += cart[i].inventoryReq * cart[i].product.price
+    }
+
+    return `$${subtotal}.00`
+  }
+
   render() {
     const {cart} = this.props
-    const subtotal = '$0.00'
 
     return (
       <div
@@ -44,7 +53,7 @@ class CartPage extends Component {
         <Divider />
         <div style={styles.subtotal}>
           <Header sub>Subtotal</Header>
-          <span>{subtotal}</span>
+          <span>{cart.length > 1 ? this.calculateSubtotal(cart) : ''}</span>
         </div>
         <Divider />
 
