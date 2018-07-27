@@ -904,11 +904,21 @@ const categoryData = [
   {name: 'Toys', imageUrl: 'http://dummyimage.com/250x250.jpg/5fa2dd/ffffff'}
 ]
 
+const cartData = [
+  {guest: false},
+  {guest: false},
+  {guest: false},
+  {guest: false},
+  {guest: false},
+  {guest: false}
+]
+
 module.exports = {
   productData,
   userData,
   reviewData,
   sellerData,
   manufacturerData,
-  categoryData
+  categoryData,
+  cartData
 }

@@ -14,8 +14,7 @@ router.get('/', async (req, res, next) => {
             [Op.gt]: 0
           }
         }
-      },
-      {include: [Category]}
+      }
     )
     res.json(products)
   } catch (err) {
@@ -27,7 +26,11 @@ router.get('/product/:id', async (req, res, next) => {
   try {
     const id = req.params.id
     const product = await Product.findById(id, {include: [Category]})
-    res.status(200).json(product)
+    if (product) {
+      res.status(200).json(product)
+    } else{
+      res.status(404).send(`Doesn't exist!`)
+    }
   } catch (err) {
     next(err)
   }
