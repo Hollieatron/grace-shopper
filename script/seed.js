@@ -96,8 +96,11 @@ async function seed() {
     for (let i = 0; i < carts.length; i++) {
       const cartInventory = await CartInventory.create({inventoryReq: 2})
       await carts[i].setUser(users[i])
-      await cartInventory.setProducts(products[i])
-      await cartInventory.setCarts(carts[i])
+      const randomProducts = products.sort(shuffle).slice(0, 6)
+      for (let j = 0; j < randomProducts.length; j++) {
+        await cartInventory.setProducts(products[j])
+        await cartInventory.setCarts(carts[j])
+      }
     }
   }
 
