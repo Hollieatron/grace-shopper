@@ -58,8 +58,10 @@ async function seed() {
   })
   const categoryPromise = Category.bulkCreate(categoryData, {returning: true})
   const cartPromise = Cart.bulkCreate(cartData, {return: true})
-  const orderPromise = Order.bulkCreate(cartData, {return: true})
-  const orderHistoryPromise = OrderHistory.bulkCreate(cartData, {return: true})
+  const orderPromise = Order.bulkCreate(orderData, {return: true})
+  const orderHistoryPromise = OrderHistory.bulkCreate(orderHistoryData, {
+    return: true
+  })
 
   await Promise.all([
     productPromise,
@@ -83,6 +85,7 @@ async function seed() {
   const manufacturers = await Manufacturer.findAll()
   const carts = await Cart.findAll()
   const orders = await Order.findAll()
+  const orderhistory = await OrderHistory.findAll()
 
   async function seedProducts() {
     for (let i = 0; i < products.length; i++) {
@@ -121,12 +124,10 @@ async function seed() {
   await seedCart()
 
   async function seedOrderHistory() {
-    
-    for(let i = 0; i < orders.length; i++){
+    for (let i = 0; i < orders.length; i++) {
       await orders[i].setUsers(users[i])
-      await orders[i].setOrderHistories(orderHistoryData)  
+      await orders[i].setOrderhistories(orderhistory)
     }
-
   }
 
   await seedOrderHistory()
