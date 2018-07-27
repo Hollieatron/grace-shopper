@@ -56,7 +56,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
         </Menu.Item>
       )}
       <Menu.Item>
-        <Button animated="vertical">
+        <Button animated="vertical" as={Link} to="/cart">
           <Button.Content hidden>My Cart</Button.Content>
           <Button.Content visible>
             <Icon name="shop" />
