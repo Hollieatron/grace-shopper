@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Header, Divider, Button, Icon, Segment} from 'semantic-ui-react'
+import {Header, Divider, Button, Icon} from 'semantic-ui-react'
 import {fetchCart} from '../../store'
 import {connect} from 'react-redux'
 import CartItem from './cart-item'
@@ -14,10 +14,10 @@ const mapDispatch = dispatch => ({
 })
 
 class CartPage extends Component {
-  // componentDidMount() {
-  //   const {getCart, user} = this.props
-  //   if (user) getCart(user.id)
-  // }
+  componentDidMount() {
+    const {getCart, user} = this.props
+    if (user) getCart(user.id)
+  }
 
   render() {
     const {cart} = this.props // cart is an array of products?
