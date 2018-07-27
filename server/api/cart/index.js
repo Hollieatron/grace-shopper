@@ -1,7 +1,5 @@
 const router = require('express').Router()
 const {Cart, CartInventory, Product} = require('../../db/models')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 
 module.exports = router
 
