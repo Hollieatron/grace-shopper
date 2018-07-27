@@ -4,6 +4,14 @@ import {Image, Grid, Table, Dropdown} from 'semantic-ui-react'
 
 const CartItem = ({inventoryReq, product}) => {
   const {id, name, price, imageUrl} = product
+  const options = [
+    {key: 1, text: '1', value: 1},
+    {key: 2, text: '2', value: 2},
+    {key: 3, text: '3', value: 3},
+    {key: 4, text: '4', value: 4},
+    {key: 5, text: '5', value: 5}
+  ]
+
   return (
     <div className="ui very padded text segment">
       <Grid divided="vertically">
@@ -29,11 +37,7 @@ const CartItem = ({inventoryReq, product}) => {
                   </Table.Cell>
                   <Table.Cell>{`$${price}.00`}</Table.Cell>
                   <Table.Cell>
-                    <Dropdown text={inventoryReq}>
-                      <Dropdown.Menu>
-                        <Dropdown.Item text="1" />
-                      </Dropdown.Menu>
-                    </Dropdown>
+                    <Dropdown text={inventoryReq} options={options} />
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>

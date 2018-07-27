@@ -16,14 +16,12 @@ const mapDispatch = dispatch => ({
 class CartPage extends Component {
   componentDidMount() {
     const {getCart, user} = this.props
-    if (user) getCart(user.id)
+    getCart(user.id)
   }
 
   render() {
     const {cart} = this.props
-    const {cartInventories} = cart
-
-    const subtotal = '$5.00'
+    const subtotal = '$0.00'
 
     return (
       <div
@@ -33,13 +31,15 @@ class CartPage extends Component {
         <Header as="h1" dividing textAlign="center" style={styles.header}>
           Shopping Cart
         </Header>
-        {cartInventories.map(item => (
-          <CartItem
-            key={item.id}
-            inventoryReq={item.inventoryReq}
-            product={item.products[0]}
-          />
-        ))}
+        {cart.length > 1
+          ? cart.map(item => (
+              <CartItem
+                key={item.product.id}
+                inventoryReq={item.inventoryReq}
+                product={item.product}
+              />
+            ))
+          : ''}
 
         <Divider />
         <div style={styles.subtotal}>

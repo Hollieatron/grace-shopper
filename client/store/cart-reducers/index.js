@@ -12,9 +12,7 @@ const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
  * INITIAL STATE
  */
 
-const initialState = {
-  id: 0
-}
+const initialState = [{}]
 
 /**
  * ACTION CREATORS
@@ -29,7 +27,18 @@ const getCart = cart => ({type: GET_CART, cart})
 export const fetchCart = id => {
   return async dispatch => {
     const {data} = await axios.get(`/api/cart/${id}`)
-    dispatch(getCart(data))
+
+    // reformat data
+    const cart = data[0].cartinventories
+    let userCart = []
+    for (let i = 0; i < cart.length; i++) {
+      let cartItem = {}
+      cartItem.inventoryReq = cart[i].inventoryReq
+      cartItem.product = cart[i].products[0]
+      userCart.push(cartItem)
+    }
+
+    dispatch(getCart(userCart))
   }
 }
 
