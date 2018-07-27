@@ -4,11 +4,11 @@ import {Image, Grid, Table, Dropdown} from 'semantic-ui-react'
 
 const CartItem = ({id, name, price, imageUrl, inventory, quantity}) => {
   return (
-    <div className="ui very padded text container segment">
+    <div className="ui very padded text segment">
       <Grid divided="vertically">
         <Grid.Row columns={2}>
           <Grid.Column>
-            <Image src={imageUrl} size="small" />
+            <Image src={imageUrl} size="tiny" />
           </Grid.Column>
 
           <Grid.Column>
