@@ -5,7 +5,7 @@
 const expect = require('chai').expect
 const {Cart, User} = require('./index')
 const db = require('../index')
-describe('Cart model', () => {
+xdescribe('Cart model', () => {
   beforeEach(() => db.sync({force: true}))
 
   describe('column definitions and validations', () => {
