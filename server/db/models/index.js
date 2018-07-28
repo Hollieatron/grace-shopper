@@ -23,7 +23,7 @@ Product.belongsToMany(Category, {through: 'CategoryProduct'})
 Product.hasMany(Review)
 Product.belongsTo(Manufacturer)
 Product.belongsTo(Seller)
-Product.belongsToMany(CartInventory, {through: 'ProductCartInventory'})
+Product.hasMany(Cart)
 
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
@@ -40,11 +40,7 @@ Manufacturer.hasMany(Product)
 
 // cart
 Cart.belongsTo(User)
-Cart.belongsToMany(CartInventory, {through: 'CartProductInventory'})
-
-// cartinventory
-CartInventory.belongsToMany(Cart, {through: 'CartProductInventory'})
-CartInventory.belongsToMany(Product, {through:  'ProductCartInventory'})
+Cart.belongsTo(Product)
 
 // order
 Order.belongsTo(User)

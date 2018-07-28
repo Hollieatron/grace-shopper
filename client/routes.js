@@ -12,7 +12,7 @@ import {
   SingleProductPage,
   Home,
   CartPage,
-  OrderHistory
+  UserOrderHistory
 } from './components'
 import {me} from './store'
 
@@ -39,6 +39,7 @@ class Routes extends Component {
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
+        <Route path='/orderhistory/user/:id' component={UserOrderHistory} />
 
         {isLoggedIn &&
           isAdmin && (
@@ -76,7 +77,6 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/" component={Home} />
             <Route path="/home" component={UserHome} />
-            <Route path='/orderhistory' component={OrderHistory} />
           </Switch>
         )}
         <Route path="/" component={Home} />
