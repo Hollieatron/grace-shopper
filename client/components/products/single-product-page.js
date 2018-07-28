@@ -49,6 +49,43 @@ class SingleProductPage extends Component {
     this.setState({success: true})
   }
 
+  renderAddToCart() {
+    const {product, user} = this.props
+
+    // if product is in stock, render add to cart button
+    if (product.inventory > 0) {
+      return (
+        <div>
+          <Button as="div" labelPosition="right">
+            <Button
+              color="red"
+              onClick={() => this.addToCartSubmit(product.id, user.id)}
+            >
+              <Icon name="shop" />Add to Cart
+            </Button>
+            <Label as="a" basic color="red" pointing="left">
+              Only {product.inventory} left!
+            </Label>
+          </Button>
+          {this.state.success ? (
+            <Message compact positive>
+              {product.name} successfully added to cart!
+            </Message>
+          ) : (
+            ''
+          )}
+        </div>
+      )
+      // if product is out of stock, render out of stock message
+    } else {
+      return (
+        <Message negative>
+          Sorry, this product is currently out of stock.
+        </Message>
+      )
+    }
+  }
+
   render() {
     const {product, user} = this.props
     const {success} = this.state
@@ -84,26 +121,8 @@ class SingleProductPage extends Component {
                     ''
                   )}
                 </Label.Group>
-
                 <Segment>{product.description}</Segment>
-                <Button as="div" labelPosition="right">
-                  <Button
-                    color="red"
-                    onClick={() => this.addToCartSubmit(product.id, user.id)}
-                  >
-                    <Icon name="shop" />Add to Cart
-                  </Button>
-                  <Label as="a" basic color="red" pointing="left">
-                    Only {product.inventory} left!
-                  </Label>
-                </Button>
-                {success ? (
-                  <Message compact positive>
-                    {product.name} successfully added to cart!
-                  </Message>
-                ) : (
-                  ''
-                )}
+                {this.renderAddToCart()}
               </Grid.Column>
             </Grid.Row>
           </Grid>
