@@ -12,7 +12,8 @@ import {
   Home,
   AccountPage,
   AccountManagement,
-  CartPage
+  CartPage,
+  EditAccount
 } from './components'
 import {me} from './store'
 /**
@@ -44,13 +45,13 @@ class Routes extends Component {
             <Switch>
               {/* Routes only admins have access to*/}
               <Route path="/account/info" component={AccountPage} />
-              {/*route to order history*/}
               <Route path="/admin/products/add" component={ProductForm} />
               <Route path="/admin/category/add" component={CategoryForm} />
               <Route
                 path="/admin/account/manage"
                 component={AccountManagement}
               />
+              <Route path="/account/:id/info/edit" component={EditAccount} />
               <Route
                 exact
                 path="/admin/products/edit/:id"
@@ -79,7 +80,9 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route path="/account/:id/info/edit" component={EditAccount} />
             <Route path="/account" component={AccountPage} />
+
             <Route path="/" component={Home} />
           </Switch>
         )}

@@ -23,7 +23,7 @@ class AccountPage extends Component {
               <Header as="h2">Account Information</Header>
               <Button
                 as={Link}
-                to="/account/info/edit"
+                to={`/account/${user.id}/info/edit`}
                 style={style.button}
                 size="small"
               >
