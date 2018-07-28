@@ -11,7 +11,6 @@ const Seller = require('./seller')
 const Cart = require('./cart')
 const Order = require('./order')
 const OrderHistory = require('./orderhistory')
-const CartInventory = require('./cartinventory')
 
 // user
 User.hasMany(Review)
@@ -58,6 +57,5 @@ module.exports = {
   Seller,
   Cart,
   Order,
-  OrderHistory,
-  CartInventory
+  OrderHistory
 }
