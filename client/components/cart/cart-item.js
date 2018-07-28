@@ -37,7 +37,7 @@ const CartItem = ({inventoryReq, product}) => {
                   </Table.Cell>
                   <Table.Cell>{`$${price}.00`}</Table.Cell>
                   <Table.Cell>
-                    <Dropdown text={inventoryReq} options={options} />
+                    <Dropdown text={`${inventoryReq}`} options={options} />
                   </Table.Cell>
                 </Table.Row>
               </Table.Body>
