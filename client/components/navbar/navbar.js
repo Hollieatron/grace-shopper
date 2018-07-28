@@ -20,10 +20,10 @@ const Navbar = ({handleClick, isLoggedIn}) => (
       ) : (
         <Menu.Item>
           <Button as={Link} to="/signup" primary>
-            Sign up
+            Sign Up
           </Button>
           <Button as={Link} to="/login">
-            Log In
+            Login
           </Button>
         </Menu.Item>
       )}
