@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {Header, Divider, Button, Icon} from 'semantic-ui-react'
+import {Grid, Header, Divider, Button, Icon} from 'semantic-ui-react'
 import {fetchUserOrderHistory} from '../../store'
 import {connect} from 'react-redux'
+import OrderHistoryItem from './order-history-item'
 
 const mapState = state => ({
   user: state.user,
@@ -20,7 +21,6 @@ class UserOrderHistory extends Component {
 
   render() {
     const {orderhistory} = this.props
-    console.log(orderhistory)
     return (
       <div
         className="ui raised very padded text container segment"
@@ -29,6 +29,7 @@ class UserOrderHistory extends Component {
         <Header as="h1" dividing textAlign="center" style={styles.header}>
           Order History
         </Header>
+        <OrderHistoryItem id={5} status={'Complete'} />
       </div>
     )
   }
@@ -37,7 +38,7 @@ class UserOrderHistory extends Component {
 const styles = {
   div: {
     marginTop: 40,
-    width: 575
+    width: 1000
   },
   header: {
     paddingBottom: 10
