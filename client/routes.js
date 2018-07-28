@@ -81,7 +81,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/account/:id/info/edit" component={EditAccount} />
-            <Route path="/account" component={AccountPage} />
+            <Route path="/account/info" component={AccountPage} />
 
             <Route path="/" component={Home} />
           </Switch>

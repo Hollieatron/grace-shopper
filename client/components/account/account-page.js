@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {me} from '../../store'
-import {Button, Icon, Grid, Header} from 'semantic-ui-react'
+import {Button, Icon, Grid, Header, Segment} from 'semantic-ui-react'
 import AccountInfo from './account-information'
 
 class AccountPage extends Component {
@@ -20,15 +20,19 @@ class AccountPage extends Component {
         <Grid divided="vertically">
           <Grid.Row columns={1}>
             <Grid.Column>
-              <Header as="h2">Account Information</Header>
-              <Button
-                as={Link}
-                to={`/account/${user.id}/info/edit`}
-                style={style.button}
-                size="small"
-              >
-                <Icon name="edit" /> Edit
-              </Button>
+              <Header as="h2">
+                Account Information{' '}
+                <Button
+                  as={Link}
+                  to={`/account/${user.id}/info/edit`}
+                  style={style.button}
+                  floated="right"
+                  size="mini"
+                >
+                  <Icon name="edit" /> Edit
+                </Button>
+              </Header>
+
               <AccountInfo {...user} />
             </Grid.Column>
           </Grid.Row>

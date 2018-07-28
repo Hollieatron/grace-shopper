@@ -1,13 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {Grid, Segment, Button, Icon} from 'semantic-ui-react'
-import {deleteUserFromServer, getUsersFromServer} from '../../store'
+import {Grid, Segment, Button, Icon, Checkbox} from 'semantic-ui-react'
+import {deleteUserFromServer, updateUserToAdmin} from '../../store'
 
 class UserInfoCard extends Component {
   handleClick = id => {
     this.props.deleteUser(id)
   }
+
+  handleChange = user => {
+    this.props.updateAdmin(user)
+  }
+
   render() {
     const {id, username, firstName, lastName, email, isAdmin} = this.props
     return (
@@ -24,22 +29,32 @@ class UserInfoCard extends Component {
           Username: {username} <br /> First Name: {firstName} <br /> Last Name:{' '}
           {lastName} <br /> Email: {email} <br /> Admin Status:{' '}
           {isAdmin.toString()}
-          <Button
-            as={Link}
-            to={`/account/${id}/info/edit`}
-            floated="right"
-            size="mini"
-          >
-            <Icon name="edit" /> Edit
-          </Button>
+          <div style={style.checkbox}>
+            {isAdmin ? (
+              <Checkbox
+                toggle
+                defaultChecked
+                onChange={() => this.handleChange(this.props)}
+              />
+            ) : (
+              <Checkbox toggle onChange={() => this.handleChange(this.props)} />
+            )}
+          </div>
         </Segment>
       </Grid.Column>
     )
   }
 }
 
+const style = {
+  checkbox: {
+    float: 'right'
+  }
+}
+
 const mapDispatch = dispatch => ({
-  deleteUser: id => dispatch(deleteUserFromServer(id))
+  deleteUser: id => dispatch(deleteUserFromServer(id)),
+  updateAdmin: user => dispatch(updateUserToAdmin(user))
 })
 
 export default connect(null, mapDispatch)(UserInfoCard)

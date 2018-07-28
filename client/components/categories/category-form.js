@@ -20,7 +20,6 @@ class CategoryForm extends Component {
   componentDidMount() {
     const {getCategory} = this.props
     const id = Number(this.props.match.params.id)
-
     if (id) {
       getCategory(id)
       // this.handleInitialize()

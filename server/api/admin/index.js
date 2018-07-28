@@ -100,6 +100,16 @@ router.get('/users', async (req, res, next) => {
   }
 })
 
+router.get('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findById(id)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/users/:id', async (req, res, next) => {
   try {
     const id = req.params.id
@@ -111,5 +121,21 @@ router.delete('/users/:id', async (req, res, next) => {
     res.json(deleted)
   } catch (err) {
     next(err)
+  }
+})
+
+router.put('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.body.id
+    const newAdminStatus = !req.body.isAdmin
+    const updated = await User.update(
+      {
+        isAdmin: newAdminStatus
+      },
+      {where: {id: id}}
+    )
+    res.json(updated)
+  } catch (error) {
+    next(error)
   }
 })
