@@ -9,7 +9,8 @@ import {
   Header,
   Segment,
   Label,
-  Icon
+  Icon,
+  Message
 } from 'semantic-ui-react'
 import ReviewPage from '../reviews/review-page'
 
@@ -28,6 +29,13 @@ const mapDispatch = dispatch => {
 }
 
 class SingleProductPage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      success: false
+    }
+  }
+
   componentDidMount() {
     const {getProduct} = this.props
     const id = Number(this.props.match.params.id)
@@ -38,10 +46,12 @@ class SingleProductPage extends Component {
     const {addToCart, user} = this.props
     addToCart({productId, userId: userId})
     fetchCart(user.id)
+    this.setState({success: true})
   }
 
   render() {
     const {product, user} = this.props
+    const {success} = this.state
     const id = Number(this.props.match.params.id)
 
     return (
@@ -87,6 +97,13 @@ class SingleProductPage extends Component {
                     Only {product.inventory} left!
                   </Label>
                 </Button>
+                {success ? (
+                  <Message compact positive>
+                    {product.name} successfully added to cart!
+                  </Message>
+                ) : (
+                  ''
+                )}
               </Grid.Column>
             </Grid.Row>
           </Grid>
