@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Header, Divider, Button, Icon} from 'semantic-ui-react'
+import {Header, Divider, Button, Icon, Message} from 'semantic-ui-react'
 import {fetchCart} from '../../store'
 import {connect} from 'react-redux'
 import CartItem from './cart-item'
@@ -16,7 +16,7 @@ const mapDispatch = dispatch => ({
 class CartPage extends Component {
   componentDidMount() {
     const {getCart, user} = this.props
-    getCart(user.id)
+    if (user.id) getCart(user.id)
   }
 
   calculateSubtotal(cart) {
@@ -27,6 +27,20 @@ class CartPage extends Component {
     }
 
     return `$${subtotal}.00`
+  }
+
+  renderCartItems() {
+    const {cart} = this.props
+    if (!cart[0] || cart[0].product.length < 1 || !cart[0].product.name) {
+      return <Message>Cart is currently empty.</Message>
+    } else
+      return cart.map(item => (
+        <CartItem
+          key={item.product.id}
+          inventoryReq={item.inventoryReq}
+          product={item.product}
+        />
+      ))
   }
 
   render() {
@@ -40,20 +54,11 @@ class CartPage extends Component {
         <Header as="h1" dividing textAlign="center" style={styles.header}>
           Shopping Cart
         </Header>
-        {cart.length > 1
-          ? cart.map(item => (
-              <CartItem
-                key={item.product.id}
-                inventoryReq={item.inventoryReq}
-                product={item.product}
-              />
-            ))
-          : ''}
-
+        {this.renderCartItems()}
         <Divider />
         <div style={styles.subtotal}>
           <Header sub>Subtotal</Header>
-          <span>{cart.length > 1 ? this.calculateSubtotal(cart) : ''}</span>
+          <span>{cart[0] ? this.calculateSubtotal(cart) : `$0.00`}</span>
         </div>
         <Divider />
 
