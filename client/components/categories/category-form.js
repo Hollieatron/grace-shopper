@@ -23,19 +23,19 @@ class CategoryForm extends Component {
 
     if (id) {
       getCategory(id)
-      // this.handleInitialize()
+      this.handleInitialize()
     }
   }
 
-  // handleInitialize() {
-  //   const {category} = this.props
-  //   const initData = {
-  //     name: category.name,
-  //     imageUrl: category.imageUrl
-  //   }
+  handleInitialize() {
+    const {category} = this.props
+    const initData = {
+      name: category.name,
+      imageUrl: category.imageUrl
+    }
 
-  //   this.props.initialize(initData)
-  // }
+    this.props.initialize(initData)
+  }
 
   handleCategoryFormSubmit = data => {
     const {id, addCategory, editCategory} = this.props
@@ -52,7 +52,7 @@ class CategoryForm extends Component {
         className="ui raised very padded text container segment"
         style={styles.div}
       >
-        <Header as="h2">{id ? `Edit` : `Add Category`}</Header>
+        <Header as="h2">{id ? `Edit ${category.name}` : `Add Category`}</Header>
         <Form onSubmit={handleSubmit(this.handleCategoryFormSubmit.bind(this))}>
           <label>Name:</label>
           <Field
