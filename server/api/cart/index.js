@@ -9,10 +9,19 @@ router.get('/:id', async (req, res, next) => {
     const cart = await Cart.findAll({
       where: {
         userId
-      }
+      },
+      include: [Product]
     })
     res.json(cart)
   } catch (err) {
     next(err)
   }
 })
+
+// router.post('/:productId', async (req, res, next) => {
+//   try {
+//     res.sendStatus(200)
+//   } catch (err) {
+//     next(err)
+//   }
+// })

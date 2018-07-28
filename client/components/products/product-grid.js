@@ -3,7 +3,7 @@ import {Card} from 'semantic-ui-react'
 import ProductCard from './product-card'
 import EmptyProduct from './empty-product'
 
-const ProductGrid = ({products, category}) => {
+const ProductGrid = ({products}) => {
   if (products.length < 1) {
     return <EmptyProduct />
   } else {

@@ -11,6 +11,7 @@ const ReviewCard = ({title, rating, description}) => {
           defaultRating={rating}
           maxRating={5}
           style={styles.rating}
+          disabled
         />
       </Header>
       <Segment>{description}</Segment>

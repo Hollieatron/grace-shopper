@@ -46,7 +46,7 @@ class ProductCatalog extends Component {
     return (
       <Container style={styles.container}>
         <Header as="h1">
-          Products
+          {category.name ? category.name : 'All Products'}
           {user.isAdmin ? (
             <Button
               as={Link}

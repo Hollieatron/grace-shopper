@@ -108,7 +108,7 @@ async function seed() {
     for (let i = 0; i < carts.length; i++) {
       await carts[i].setUser(users[0])
       const randomProducts = products.sort(shuffle).slice(0, 4)
-      for (let j = 0; j < randomProducts.length; j++) {        
+      for (let j = 0; j < randomProducts.length; j++) {
         await carts[i].setProduct(randomProducts[j])
       }
     }
