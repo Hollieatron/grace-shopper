@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart} from '../../store'
+import {fetchProduct, postCart, fetchCart} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -15,13 +15,15 @@ import ReviewPage from '../reviews/review-page'
 
 const mapState = state => ({
   product: state.product,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
-    addToCart: id => dispatch(postCart(id))
+    addToCart: input => dispatch(postCart(input)),
+    getCart: id => dispatch(fetchCart(id))
   }
 }
 
@@ -33,8 +35,9 @@ class SingleProductPage extends Component {
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart} = this.props
-    addToCart(productId, userId)
+    const {addToCart, user} = this.props
+    addToCart({productId, userId: userId})
+    fetchCart(user.id)
   }
 
   render() {
