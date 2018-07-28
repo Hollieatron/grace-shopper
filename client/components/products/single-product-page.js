@@ -43,9 +43,9 @@ class SingleProductPage extends Component {
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart, user} = this.props
+    const {addToCart, user, getCart} = this.props
     addToCart({productId, userId: userId})
-    fetchCart(user.id)
+    getCart(user.id)
     this.setState({success: true})
   }
 
