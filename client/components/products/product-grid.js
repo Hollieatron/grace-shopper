@@ -4,7 +4,7 @@ import ProductCard from './product-card'
 import EmptyProduct from './empty-product'
 
 const ProductGrid = ({products}) => {
-  if (products.length < 1) {
+  if (products && products.length < 1) {
     return <EmptyProduct />
   } else {
     return (

@@ -39,7 +39,14 @@ class Routes extends Component {
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
-        <Route path='/orderhistory/user/:id' component={UserOrderHistory} />
+        
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/orderhistory" component={UserOrderHistory} />
+            <Route path="/home" component={UserHome} />
+          </Switch>
+        )}
 
         {isLoggedIn &&
           isAdmin && (
@@ -72,13 +79,6 @@ class Routes extends Component {
             </Switch>
           )}
 
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/" component={Home} />
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
         <Route path="/" component={Home} />
       </Switch>
     )

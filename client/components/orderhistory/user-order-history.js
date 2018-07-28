@@ -15,12 +15,12 @@ const mapDispatch = dispatch => ({
 class UserOrderHistory extends Component {
   componentDidMount() {
     const {getOrderHistory, user} = this.props
-    const userId = Number(this.props.match.params.id)
-    getOrderHistory(userId)
+    getOrderHistory(user.id)
   }
 
   render() {
     const {orderhistory} = this.props
+    console.log(orderhistory)
     return (
       <div
         className="ui raised very padded text container segment"

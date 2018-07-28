@@ -27,8 +27,7 @@ const getUserOrderHistory = orderhistory => ({
 export const fetchUserOrderHistory = id => {
   return async dispatch => {
     const {data} = await axios.get(`/api/orderhistory/user/${id}`)
-    const orderhistory = data[0].orderhistories
-    dispatch(getUserOrderHistory(orderhistory))
+    dispatch(getUserOrderHistory(data))
   }
 }
 

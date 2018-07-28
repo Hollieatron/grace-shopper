@@ -922,6 +922,7 @@ const orderData = [
 
 const orderHistoryData = [
   {
+    productId: 3,
     productName: 'Heriberto',
     productPrice: 57,
     productDesc:
@@ -930,6 +931,7 @@ const orderHistoryData = [
     inventorySold: 2
   },
   {
+    productId: 4,
     productName: 'Trevar',
     productPrice: 44,
     productDesc:
@@ -938,6 +940,7 @@ const orderHistoryData = [
     inventorySold: 3
   },
   {
+    productId: 5,
     productName: 'Dari',
     productPrice: 71,
     productDesc:
@@ -946,6 +949,7 @@ const orderHistoryData = [
     inventorySold: 4
   },
   {
+    productId: 7,
     productName: 'Heriberto',
     productPrice: 57,
     productDesc:
@@ -954,6 +958,7 @@ const orderHistoryData = [
     inventorySold: 2
   },
   {
+    productId: 8,
     productName: 'Trevar',
     productPrice: 44,
     productDesc:
@@ -962,6 +967,7 @@ const orderHistoryData = [
     inventorySold: 3
   },
   {
+    productId: 9,
     productName: 'Dari',
     productPrice: 71,
     productDesc:
@@ -970,6 +976,7 @@ const orderHistoryData = [
     inventorySold: 4
   },
   {
+    productId: 10,
     productName: 'Heriberto',
     productPrice: 57,
     productDesc:
@@ -978,6 +985,7 @@ const orderHistoryData = [
     inventorySold: 2
   },
   {
+    productId: 11,
     productName: 'Trevar',
     productPrice: 44,
     productDesc:
@@ -986,6 +994,7 @@ const orderHistoryData = [
     inventorySold: 3
   },
   {
+    productId: 12,
     productName: 'Dari',
     productPrice: 71,
     productDesc:
@@ -994,6 +1003,7 @@ const orderHistoryData = [
     inventorySold: 4
   },
   {
+    productId: 13,
     productName: 'Heriberto',
     productPrice: 57,
     productDesc:
@@ -1002,6 +1012,7 @@ const orderHistoryData = [
     inventorySold: 2
   },
   {
+    productId: 15,
     productName: 'Trevar',
     productPrice: 44,
     productDesc:
@@ -1010,6 +1021,7 @@ const orderHistoryData = [
     inventorySold: 3
   },
   {
+    productId: 17,
     productName: 'Dari',
     productPrice: 71,
     productDesc:

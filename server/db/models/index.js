@@ -23,6 +23,7 @@ Product.hasMany(Review)
 Product.belongsTo(Manufacturer)
 Product.belongsTo(Seller)
 Product.hasMany(Cart)
+Product.hasMany(OrderHistory)
 
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
@@ -47,6 +48,7 @@ Order.hasMany(OrderHistory)
 
 // orderhistory
 OrderHistory.belongsTo(Order)
+OrderHistory.belongsTo(Product)
 
 module.exports = {
   User,
