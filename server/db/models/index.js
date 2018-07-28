@@ -11,7 +11,6 @@ const Seller = require('./seller')
 const Cart = require('./cart')
 const Order = require('./order')
 const OrderHistory = require('./orderhistory')
-const CartInventory = require('./cartinventory')
 
 // user
 User.hasMany(Review)
@@ -23,7 +22,7 @@ Product.belongsToMany(Category, {through: 'CategoryProduct'})
 Product.hasMany(Review)
 Product.belongsTo(Manufacturer)
 Product.belongsTo(Seller)
-Product.belongsToMany(CartInventory, {through: 'ProductCartInventory'})
+Product.hasMany(Cart)
 
 // category
 Category.belongsToMany(Product, {through: 'CategoryProduct'})
@@ -40,11 +39,8 @@ Manufacturer.hasMany(Product)
 
 // cart
 Cart.belongsTo(User)
-Cart.belongsToMany(CartInventory, {through: 'CartProductInventory'})
+Cart.belongsTo(Product)
 
-// cartinventory
-CartInventory.belongsToMany(Cart, {through: 'CartProductInventory'})
-CartInventory.belongsToMany(Product, {through:  'ProductCartInventory'})
 // order
 Order.belongsTo(User)
 Order.hasMany(OrderHistory)
@@ -61,6 +57,5 @@ module.exports = {
   Seller,
   Cart,
   Order,
-  OrderHistory,
-  CartInventory
+  OrderHistory
 }
