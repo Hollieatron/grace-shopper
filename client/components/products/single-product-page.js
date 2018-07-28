@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart} from '../../store'
+import {fetchProduct, postCart, fetchCart} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -9,23 +9,33 @@ import {
   Header,
   Segment,
   Label,
-  Icon
+  Icon,
+  Message
 } from 'semantic-ui-react'
 import ReviewPage from '../reviews/review-page'
 
 const mapState = state => ({
   product: state.product,
-  user: state.user
+  user: state.user,
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
-    addToCart: id => dispatch(postCart(id))
+    addToCart: input => dispatch(postCart(input)),
+    getCart: id => dispatch(fetchCart(id))
   }
 }
 
 class SingleProductPage extends Component {
+  constructor() {
+    super()
+    this.state = {
+      success: false
+    }
+  }
+
   componentDidMount() {
     const {getProduct} = this.props
     const id = Number(this.props.match.params.id)
@@ -33,12 +43,52 @@ class SingleProductPage extends Component {
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart} = this.props
-    addToCart(productId, userId)
+    const {addToCart, user, getCart} = this.props
+    addToCart({productId, userId: userId})
+    getCart(user.id)
+    this.setState({success: true})
+  }
+
+  renderAddToCart() {
+    const {product, user} = this.props
+
+    // if product is in stock, render add to cart button
+    if (product.inventory > 0) {
+      return (
+        <div>
+          <Button as="div" labelPosition="right">
+            <Button
+              color="red"
+              onClick={() => this.addToCartSubmit(product.id, user.id)}
+            >
+              <Icon name="shop" />Add to Cart
+            </Button>
+            <Label as="a" basic color="red" pointing="left">
+              Only {product.inventory} left!
+            </Label>
+          </Button>
+          {this.state.success ? (
+            <Message compact positive>
+              {product.name} successfully added to cart!
+            </Message>
+          ) : (
+            ''
+          )}
+        </div>
+      )
+      // if product is out of stock, render out of stock message
+    } else {
+      return (
+        <Message negative>
+          Sorry, this product is currently out of stock.
+        </Message>
+      )
+    }
   }
 
   render() {
     const {product, user} = this.props
+    const {success} = this.state
     const id = Number(this.props.match.params.id)
 
     return (
@@ -71,19 +121,8 @@ class SingleProductPage extends Component {
                     ''
                   )}
                 </Label.Group>
-
                 <Segment>{product.description}</Segment>
-                <Button as="div" labelPosition="right">
-                  <Button
-                    color="red"
-                    onClick={() => this.addToCartSubmit(product.id, user.id)}
-                  >
-                    <Icon name="shop" />Add to Cart
-                  </Button>
-                  <Label as="a" basic color="red" pointing="left">
-                    Only {product.inventory} left!
-                  </Label>
-                </Button>
+                {this.renderAddToCart()}
               </Grid.Column>
             </Grid.Row>
           </Grid>

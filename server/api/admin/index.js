@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Category} = require('../../db/models')
+const {Product, Category, User} = require('../../db/models')
 module.exports = router
 
 router.post('/products', async (req, res, next) => {
@@ -88,5 +88,54 @@ router.put('/category/edit/:id', async (req, res, next) => {
     res.sendStatus(200)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/users', async (req, res, next) => {
+  try {
+    const users = await User.findAll({})
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findById(id)
+    res.json(user)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const deleted = await User.destroy({
+      where: {
+        id: id
+      }
+    })
+    res.json(deleted)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/users/:id', async (req, res, next) => {
+  try {
+    const id = req.body.id
+    const newAdminStatus = !req.body.isAdmin
+    const updated = await User.update(
+      {
+        isAdmin: newAdminStatus
+      },
+      {where: {id: id}}
+    )
+    res.json(updated)
+  } catch (error) {
+    next(error)
   }
 })
