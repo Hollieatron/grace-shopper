@@ -42,6 +42,11 @@ export const fetchCart = id => {
   }
 }
 
+export const postCart = (productId, userId) => {
+  return async () => {
+    await axios.post(`/api/cart/${productId}`, userId)
+  }
+}
 /**
  * REDUCER
  */

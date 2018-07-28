@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchProduct} from '../../store'
+import {fetchProduct, postCart} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -20,7 +20,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    getProduct: id => dispatch(fetchProduct(id))
+    getProduct: id => dispatch(fetchProduct(id)),
+    addToCart: id => dispatch(postCart(id))
   }
 }
 
@@ -29,6 +30,11 @@ class SingleProductPage extends Component {
     const {getProduct} = this.props
     const id = Number(this.props.match.params.id)
     getProduct(id)
+  }
+
+  addToCartSubmit(productId, userId) {
+    const {addToCart} = this.props
+    addToCart(productId, userId)
   }
 
   render() {
@@ -68,7 +74,10 @@ class SingleProductPage extends Component {
 
                 <Segment>{product.description}</Segment>
                 <Button as="div" labelPosition="right">
-                  <Button color="red">
+                  <Button
+                    color="red"
+                    onClick={() => this.addToCartSubmit(product.id, user.id)}
+                  >
                     <Icon name="shop" />Add to Cart
                   </Button>
                   <Label as="a" basic color="red" pointing="left">
