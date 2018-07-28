@@ -11,7 +11,8 @@ import {
   CategoryForm,
   SingleProductPage,
   Home,
-  CartPage
+  CartPage,
+  OrderHistory
 } from './components'
 import {me} from './store'
 
@@ -75,6 +76,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/" component={Home} />
             <Route path="/home" component={UserHome} />
+            <Route path='/orderhistory' component={OrderHistory} />
           </Switch>
         )}
         <Route path="/" component={Home} />

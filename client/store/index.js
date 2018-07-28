@@ -11,6 +11,7 @@ import categories from './category-reducers/categories'
 import category from './category-reducers/category'
 import reviews from './reviews-reducers/index'
 import cart from './cart-reducers/index'
+import userorderhistory from './order-reducers/user-order-history'
 
 const reducer = combineReducers({
   user,
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   categories,
   category,
   reviews,
-  cart
+  cart,
+  userorderhistory
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
