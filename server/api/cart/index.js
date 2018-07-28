@@ -1,7 +1,5 @@
 const router = require('express').Router()
-const {Cart, CartInventory, Product} = require('../../db/models')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
+const {Cart, Product} = require('../../db/models')
 
 module.exports = router
 
@@ -12,15 +10,18 @@ router.get('/:id', async (req, res, next) => {
       where: {
         userId
       },
-      include: [
-        {
-          model: CartInventory,
-          include: [Product]
-        }
-      ]
+      include: [Product]
     })
     res.json(cart)
   } catch (err) {
     next(err)
   }
 })
+
+// router.post('/:productId', async (req, res, next) => {
+//   try {
+//     res.sendStatus(200)
+//   } catch (err) {
+//     next(err)
+//   }
+// })

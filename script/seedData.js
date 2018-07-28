@@ -905,12 +905,12 @@ const categoryData = [
 ]
 
 const cartData = [
-  {guest: false},
-  {guest: false},
-  {guest: false},
-  {guest: false},
-  {guest: false},
-  {guest: false}
+  {guest: false, inventoryReq: 1},
+  {guest: false, inventoryReq: 1},
+  {guest: false, inventoryReq: 1},
+  {guest: false, inventoryReq: 1},
+  {guest: false, inventoryReq: 1},
+  {guest: false, inventoryReq: 1}
 ]
 
 module.exports = {
