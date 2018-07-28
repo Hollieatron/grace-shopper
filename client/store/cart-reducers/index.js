@@ -12,7 +12,29 @@ const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
  * INITIAL STATE
  */
 
-const initialState = [{}]
+const initialState = [
+  {
+    id: 0,
+    guest: false,
+    inventoryReq: 0,
+    createdAt: '',
+    updatedAt: '',
+    userId: 0,
+    productId: 0,
+    product: {
+      id: 0,
+      name: '',
+      price: 0,
+      description: '',
+      imageUrl: '',
+      inventory: 0,
+      createdAt: '',
+      updatedAt: '',
+      manufacturerId: 0,
+      sellerId: 0
+    }
+  }
+]
 
 /**
  * ACTION CREATORS
@@ -31,9 +53,12 @@ export const fetchCart = id => {
   }
 }
 
-export const postCart = (productId, userId) => {
-  return async () => {
-    await axios.post(`/api/cart/${productId}`, userId)
+export const postCart = input => {
+  return async dispatch => {
+    const {userId, productId} = input
+    const {data} = await axios.post(`/api/cart/${productId}`, {userId: userId})
+    console.log(data)
+    dispatch(getCart(data))
   }
 }
 /**
