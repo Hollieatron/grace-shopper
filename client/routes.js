@@ -6,16 +6,12 @@ import {
   Login,
   Signup,
   ProductCatalog,
-  ProductForm,
-  CategoryForm,
   SingleProductPage,
   Home,
-  UserOrderHistory,
-  AccountPage,
-  AccountManagement,
-  CartPage,
-  EditAccount
+  CartPage
 } from './components'
+import AdminRoutes from './router/admin-routes'
+import UserRoutes from './router/user-routes'
 import {me} from './store'
 /**
  * COMPONENT
@@ -40,54 +36,9 @@ class Routes extends Component {
           path="/catalog/:categoryId/products"
           component={ProductCatalog}
         />
-        
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/account/:id/info/edit" component={EditAccount} />
-            <Route path="/account/info" component={AccountPage} />
-            <Route path="/orderhistory" component={UserOrderHistory} />
-            <Route path="/home" component={UserHome} />
-            
-          </Switch>
-        )}
 
-        {isLoggedIn &&
-          isAdmin && (
-            <Switch>
-              {/* Routes only admins have access to*/}
-              <Route path="/account/info" component={AccountPage} />
-              <Route path="/admin/products/add" component={ProductForm} />
-              <Route path="/admin/category/add" component={CategoryForm} />
-              <Route
-                path="/admin/account/manage"
-                component={AccountManagement}
-              />
-              <Route path="/account/:id/info/edit" component={EditAccount} />
-              <Route
-                exact
-                path="/admin/products/edit/:id"
-                render={routeProps => (
-                  <ProductForm id={routeProps.match.params.id} />
-                )}
-              />
-              <Route
-                exact
-                path="/admin/product/edit/:id"
-                render={routeProps => (
-                  <ProductForm id={routeProps.match.params.id} />
-                )}
-              />
-              <Route
-                exact
-                path="/admin/category/edit/:id"
-                render={routeProps => (
-                  <CategoryForm id={routeProps.match.params.id} />
-                )}
-              />
-              <Route path="/" component={Home} />
-            </Switch>
-          )}
+        {isAdmin && <AdminRoutes />}
+        {isLoggedIn && <UserRoutes /> }
         <Route path="/" component={Home} />
       </Switch>
     )
