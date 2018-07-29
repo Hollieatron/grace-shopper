@@ -8,7 +8,9 @@ const {
   sellerData,
   manufacturerData,
   categoryData,
-  cartData
+  cartData,
+  orderData,
+  orderHistoryData
 } = require('./seedData')
 
 const {
@@ -19,7 +21,9 @@ const {
   Manufacturer,
   Seller,
   Cart,
-  CartInventory
+  CartInventory,
+  Order,
+  OrderHistory
 } = require('../server/db/models/index')
 
 /**
@@ -54,6 +58,10 @@ async function seed() {
   })
   const categoryPromise = Category.bulkCreate(categoryData, {returning: true})
   const cartPromise = Cart.bulkCreate(cartData, {return: true})
+  const orderPromise = Order.bulkCreate(orderData, {return: true})
+  const orderHistoryPromise = OrderHistory.bulkCreate(orderHistoryData, {
+    return: true
+  })
 
   await Promise.all([
     productPromise,
@@ -62,7 +70,9 @@ async function seed() {
     sellerPromise,
     manufacturerPromise,
     categoryPromise,
-    cartPromise
+    cartPromise,
+    orderPromise,
+    orderHistoryPromise
   ])
 
   await db.sync()
@@ -74,6 +84,8 @@ async function seed() {
   const reviews = await Review.findAll()
   const manufacturers = await Manufacturer.findAll()
   const carts = await Cart.findAll()
+  const orders = await Order.findAll()
+  const orderhistory = await OrderHistory.findAll()
 
   async function seedProducts() {
     for (let i = 0; i < products.length; i++) {
@@ -103,6 +115,16 @@ async function seed() {
   }
 
   await seedCart()
+
+  async function seedOrderHistory() {
+
+    for (let i = 0; i < orders.length; i++) {
+      await orders[i].setUser(users[0])
+      await orders[i].setOrderhistories(orderhistory.slice(i, i+3))
+    }
+  }
+
+  await seedOrderHistory()
 
   //random users for reviews
   await Promise.all(

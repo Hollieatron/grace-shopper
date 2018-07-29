@@ -3,8 +3,7 @@ const db = require('../db')
 
 const OrderHistory = db.define('orderhistory', {
   productId: {
-      type: Sequelize.INTEGER,
-      allowNull: false
+      type: Sequelize.INTEGER
   },
   productName: {
       type: Sequelize.STRING,
@@ -19,7 +18,7 @@ const OrderHistory = db.define('orderhistory', {
       allowNull: false
   },
   productDesc: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false
   },
   productImage: {

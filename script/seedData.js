@@ -913,6 +913,124 @@ const cartData = [
   {guest: false, inventoryReq: 1}
 ]
 
+const orderData = [
+  {status: 'Completed'},
+  {status: 'Processing'},
+  {status: 'Cancelled'},
+  {status: 'Completed'}
+]
+
+const orderHistoryData = [
+  {
+    productId: 3,
+    productName: 'Heriberto',
+    productPrice: 57,
+    productDesc:
+      'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',
+    productImage: 'https://robohash.org/ergawef',
+    inventorySold: 2
+  },
+  {
+    productId: 4,
+    productName: 'Trevar',
+    productPrice: 44,
+    productDesc:
+      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    productImage: 'https://robohash.org/etawwe',
+    inventorySold: 3
+  },
+  {
+    productId: 5,
+    productName: 'Dari',
+    productPrice: 71,
+    productDesc:
+      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    productImage: 'https://robohash.org/wsdrhersr',
+    inventorySold: 4
+  },
+  {
+    productId: 7,
+    productName: 'Heriberto',
+    productPrice: 57,
+    productDesc:
+      'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',
+    productImage: 'https://robohash.org/ergawef',
+    inventorySold: 2
+  },
+  {
+    productId: 8,
+    productName: 'Trevar',
+    productPrice: 44,
+    productDesc:
+      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    productImage: 'https://robohash.org/etawwe',
+    inventorySold: 3
+  },
+  {
+    productId: 9,
+    productName: 'Dari',
+    productPrice: 71,
+    productDesc:
+      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    productImage: 'https://robohash.org/wsdrhersr',
+    inventorySold: 4
+  },
+  {
+    productId: 10,
+    productName: 'Heriberto',
+    productPrice: 57,
+    productDesc:
+      'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',
+    productImage: 'https://robohash.org/ergawef',
+    inventorySold: 2
+  },
+  {
+    productId: 11,
+    productName: 'Trevar',
+    productPrice: 44,
+    productDesc:
+      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    productImage: 'https://robohash.org/etawwe',
+    inventorySold: 3
+  },
+  {
+    productId: 12,
+    productName: 'Dari',
+    productPrice: 71,
+    productDesc:
+      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    productImage: 'https://robohash.org/wsdrhersr',
+    inventorySold: 4
+  },
+  {
+    productId: 13,
+    productName: 'Heriberto',
+    productPrice: 57,
+    productDesc:
+      'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.\n\nCurabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.',
+    productImage: 'https://robohash.org/ergawef',
+    inventorySold: 2
+  },
+  {
+    productId: 15,
+    productName: 'Trevar',
+    productPrice: 44,
+    productDesc:
+      'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.',
+    productImage: 'https://robohash.org/etawwe',
+    inventorySold: 3
+  },
+  {
+    productId: 17,
+    productName: 'Dari',
+    productPrice: 71,
+    productDesc:
+      'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.',
+    productImage: 'https://robohash.org/wsdrhersr',
+    inventorySold: 4
+  }
+]
+
 module.exports = {
   productData,
   userData,
@@ -920,5 +1038,7 @@ module.exports = {
   sellerData,
   manufacturerData,
   categoryData,
-  cartData
+  cartData,
+  orderData,
+  orderHistoryData
 }
