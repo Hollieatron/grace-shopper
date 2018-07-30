@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {Image, Grid, Table} from 'semantic-ui-react'
+import {Image, Grid, Table, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {putCart} from '../../store'
+import {putCart, deleteCart} from '../../store'
 
 const mapState = state => ({
   cart: state.cart,
@@ -10,7 +10,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  editProductQuantity: data => dispatch(putCart(data))
+  editProductQuantity: data => dispatch(putCart(data)),
+  deleteProductFromCart: id => dispatch(deleteCart(id))
 })
 
 class CartItem extends Component {
@@ -22,7 +23,7 @@ class CartItem extends Component {
       userId: 0
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleQuantitySubmit = this.handleQuantitySubmit.bind(this)
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ class CartItem extends Component {
     })
   }
 
-  handleSubmit = event => {
+  handleQuantitySubmit(event) {
     event.preventDefault()
     const {editProductQuantity} = this.props
     const {quantity, productId, userId} = this.state
@@ -47,6 +48,12 @@ class CartItem extends Component {
     this.setState({
       quantity: event.target.value
     })
+  }
+
+  handleDeleteSubmit() {
+    const {deleteProductFromCart} = this.props
+    const {userId, productId} = this.state
+    deleteProductFromCart({productId, userId})
   }
 
   render() {
@@ -77,7 +84,7 @@ class CartItem extends Component {
                     </Table.Cell>
                     <Table.Cell>{`$${price}.00`}</Table.Cell>
                     <Table.Cell style={{marginRight: 20}}>
-                      <form onSubmit={this.handleSubmit}>
+                      <form onSubmit={this.handleQuantitySubmit}>
                         <input
                           type="number"
                           name="quantity"
@@ -86,7 +93,7 @@ class CartItem extends Component {
                           min="1"
                           value={this.state.quantity}
                         />
-                        <input type="submit" value="Submit" />
+                        <input type="submit" value="Update" />
                       </form>
                     </Table.Cell>
                   </Table.Row>
@@ -95,6 +102,15 @@ class CartItem extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <Button
+          negative
+          onClick={() => this.handleDeleteSubmit()}
+          size="mini"
+          floated="right"
+          style={styles.button}
+        >
+          Remove
+        </Button>
       </div>
     )
   }
@@ -106,6 +122,9 @@ const styles = {
   },
   input: {
     width: 60
+  },
+  button: {
+    marginBottom: 10
   }
 }
 
