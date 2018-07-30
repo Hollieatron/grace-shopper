@@ -5,7 +5,8 @@ import {
   UserOrderHistory,
   AccountPage,
   EditAccount,
-  UserCartPage
+  UserCartPage,
+  Checkout
 } from '../components'
 
 const UserRoutes = () => {
@@ -16,6 +17,7 @@ const UserRoutes = () => {
       <Route path="/account/info" component={AccountPage} />
       <Route path="/account/orderhistory" component={UserOrderHistory} />
       <Route path="/cart" component={UserCartPage} />
+      <Route path="/cart/checkout" component={Checkout} />
       <Route path="/home" component={Home} />
     </Switch>
   )

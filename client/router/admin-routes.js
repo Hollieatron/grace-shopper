@@ -1,4 +1,5 @@
 import React from 'react'
+import {StripeProvider, Elements} from 'react-stripe-elements'
 import {Route, Switch} from 'react-router-dom'
 import {
   ProductForm,
@@ -9,7 +10,8 @@ import {
   AccountManagement,
   EditAccount,
   UserCartPage,
-  OrderManagement
+  OrderManagement,
+  Checkout
 } from '../components'
 
 const AdminRoutes = () => {
@@ -38,6 +40,17 @@ const AdminRoutes = () => {
       <Route path="/account/:id/info/edit" component={EditAccount} />
       <Route path="/account/info" component={AccountPage} />
       <Route path="/account/orderhistory" component={UserOrderHistory} />
+      <Route
+        path="/cart/checkout"
+        component={Checkout}
+        // render={routeProps => (
+        //   <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
+        //     <Elements>
+        //       <Checkout {...routeProps} />
+        //     </Elements>
+        //   </StripeProvider>
+        // )}
+      />
       <Route path="/cart" component={UserCartPage} />
       <Route path="/" component={Home} />
     </Switch>
