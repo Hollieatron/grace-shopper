@@ -91,6 +91,7 @@ class CartItem extends Component {
                           onChange={this.handleChange}
                           style={styles.input}
                           min="1"
+                          max={product.inventory}
                           value={this.state.quantity}
                         />
                         <input type="submit" value="Update" />
