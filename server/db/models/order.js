@@ -5,7 +5,7 @@ const Order = db.define('order',{
     status: {
         type: Sequelize.STRING,
         validate: {
-            isIn: ['Created', 'Processing', 'Cancelled', 'Completed']
+            isIn: [['Created', 'Processing', 'Cancelled', 'Completed']]
         }
     }
 })

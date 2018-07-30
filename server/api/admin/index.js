@@ -142,10 +142,10 @@ router.put('/users/:id', async (req, res, next) => {
 
 router.put('/orderhistory/order/:id', async (req, res, next) => {
   try {
-    // const {id, status} = req.body
-    console.log(req.body)
-    // await Order.update({status}, {where: id})
-    const orders = Order.findAll()
+    const id = req.params.id
+    const {status} = req.body
+    await Order.update({status}, {where: {id}})
+    const orders = await Order.findAll()
     res.status(201).json(orders)
   } catch(err){
     next(err)

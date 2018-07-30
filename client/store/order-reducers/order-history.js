@@ -40,9 +40,9 @@ export const fetchOrderHistory = () => {
   }
 }
 
-export const updateOrderStatus = (id, status) => {
+export const updateOrderStatus = (orderId, status) => {
   return async dispatch => {
-    const {data} = await axios.put(`/api/admin/orderhistory/order/${id}`, status)
+    const {data} = await axios.put(`/api/admin/orderhistory/order/${orderId}`, {status: status})
     dispatch(getOrderHistory(data))
   }
 }
