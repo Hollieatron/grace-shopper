@@ -33,3 +33,20 @@ router.post('/:productId', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const productId = req.params.productId
+    const {userId, quantity} = req.body
+    await Cart.update({inventoryReq: quantity}, {where: {productId, userId}})
+    const cart = await Cart.findAll({
+      where: {
+        userId
+      },
+      include: [Product]
+    })
+    res.status(200).send(cart)
+  } catch (err) {
+    next(err)
+  }
+})

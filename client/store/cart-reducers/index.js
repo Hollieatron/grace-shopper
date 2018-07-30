@@ -5,9 +5,8 @@ import axios from 'axios'
  */
 
 const GET_CART = 'GET_CART'
-const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
-const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
-
+const EDIT_CART = 'EDIT_CART'
+const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 /**
  * INITIAL STATE
  */
@@ -41,6 +40,8 @@ const initialState = [
  */
 
 const getCart = cart => ({type: GET_CART, cart})
+const editCart = cart => ({type: EDIT_CART, cart})
+const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -57,10 +58,21 @@ export const postCart = input => {
   return async dispatch => {
     const {userId, productId} = input
     const {data} = await axios.post(`/api/cart/${productId}`, {userId: userId})
-    console.log(data)
-    dispatch(getCart(data))
+    dispatch(addProductToCart(data))
   }
 }
+
+export const putCart = input => {
+  return async dispatch => {
+    const {quantity, productId, userId} = input
+    const {data} = await axios.put(`/api/cart/${productId}`, {
+      quantity: quantity,
+      userId: userId
+    })
+    dispatch(editCart(data))
+  }
+}
+
 /**
  * REDUCER
  */
@@ -68,6 +80,10 @@ export const postCart = input => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CART:
+      return action.cart
+    case EDIT_CART:
+      return action.cart
+    case ADD_PRODUCT_TO_CART:
       return action.cart
     default:
       return state
