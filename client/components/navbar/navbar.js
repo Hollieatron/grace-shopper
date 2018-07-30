@@ -7,7 +7,7 @@ import CategoryList from './category-list'
 import {Menu, Button, Icon, Dropdown} from 'semantic-ui-react'
 import {logout} from '../../store'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
+export const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
   <Menu attached="top">
     <Menu.Item name="home" as={Link} to="/">
       Home

@@ -23,7 +23,7 @@ describe('NavBar', () => {
     expect(navBar.find(Dropdown).length).to.equal(1)
   })
   it('should have 3 items in the menu if admin is logged in', () => {
-    expect(navBar.find(Dropdown.Item).length).to.equal(3)
+    expect(navBar.find(Dropdown.Item).length).to.equal(4)
   })
   it('should have a 2 buttons, one for logout and shopping cart', () => {
     expect(navBar.find(Button).length).to.equal(2)
