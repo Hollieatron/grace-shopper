@@ -8,7 +8,7 @@ import {
   ProductCatalog,
   SingleProductPage,
   Home,
-  CartPage
+  UserCartPage
 } from './components'
 import AdminRoutes from './router/admin-routes'
 import UserRoutes from './router/user-routes'
@@ -30,7 +30,6 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/cart" component={CartPage} />
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route
           path="/catalog/:categoryId/products"
@@ -38,7 +37,7 @@ class Routes extends Component {
         />
 
         {isAdmin && <AdminRoutes />}
-        {isLoggedIn && <UserRoutes /> }
+        {isLoggedIn && <UserRoutes />}
         <Route path="/" component={Home} />
       </Switch>
     )

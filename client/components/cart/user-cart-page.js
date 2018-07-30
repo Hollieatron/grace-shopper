@@ -13,10 +13,10 @@ const mapDispatch = dispatch => ({
   getCart: id => dispatch(fetchCart(id))
 })
 
-class CartPage extends Component {
+class UserCartPage extends Component {
   componentDidMount() {
     const {getCart, user} = this.props
-    if (user.id) getCart(user.id)
+    getCart(user.id)
   }
 
   calculateSubtotal(cart) {
@@ -85,4 +85,4 @@ const styles = {
   }
 }
 
-export default connect(mapState, mapDispatch)(CartPage)
+export default connect(mapState, mapDispatch)(UserCartPage)
