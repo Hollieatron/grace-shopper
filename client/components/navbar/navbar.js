@@ -29,6 +29,9 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
                 <Dropdown.Item as={Link} to="/admin/account/manage">
                   Manage Accounts
                 </Dropdown.Item>
+                <Dropdown.Item as={Link} to="/admin/orders/manage">
+                  Manage Orders
+                </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : (

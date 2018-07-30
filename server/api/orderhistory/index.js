@@ -4,7 +4,7 @@ const {OrderHistory, Order} = require('../../db/models')
 module.exports = router
 router.get('/', async (req, res, next) => {
   try {
-    const orderhistory = await Order.findAll({includ: [OrderHistory]})
+    const orderhistory = await Order.findAll()
     res.json(orderhistory)
   } catch (err) {
     next(err)

@@ -7,7 +7,8 @@ import {
   UserOrderHistory,
   AccountPage,
   AccountManagement,
-  EditAccount
+  EditAccount,
+  OrderManagement
 } from '../components'
 
 const AdminRoutes = () => {
@@ -17,6 +18,7 @@ const AdminRoutes = () => {
       <Route exact path="/admin/products/add" component={ProductForm} />
       <Route exact path="/admin/category/add" component={CategoryForm} />
       <Route exact path="/admin/account/manage" component={AccountManagement} />
+      <Route exact path="/admin/orders/manage" component={OrderManagement} />
       <Route
         exact
         path="/admin/products/edit/:id"
