@@ -5,6 +5,8 @@ import axios from 'axios'
  */
 
 const GET_ORDER_HISTORY = 'GET_ORDER_HISTORY'
+const UPDATE_ORDER_STATUS = 'UPDATE_ORDER_STATUS'
+
 /**
  * INITIAL STATE
  */
@@ -22,6 +24,11 @@ const getOrderHistory = orderhistory => ({
   orderhistory
 })
 
+const editOrderStatus = orderhistory => ({
+  type: UPDATE_ORDER_STATUS,
+  orderhistory
+})
+
 /**
  * THUNK CREATORS
  */
@@ -33,6 +40,14 @@ export const fetchOrderHistory = () => {
   }
 }
 
+export const updateOrderStatus = (id, status) => {
+  return async dispatch => {
+    const {data} = await axios.put(`/api/admin/orderhistory/order/${id}`, status)
+    dispatch(getOrderHistory(data))
+  }
+}
+
+
 /**
  * REDUCER
  */
@@ -40,6 +55,8 @@ export const fetchOrderHistory = () => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ORDER_HISTORY:
+      return action.orderhistory
+    case UPDATE_ORDER_STATUS:
       return action.orderhistory
     default:
       return state

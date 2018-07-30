@@ -31,7 +31,7 @@ class OrderManagement extends Component {
             All Orders
           </Header>
           {orderhistory.map(order => (
-            <OrderManagementItem {...order} key={order.id} />
+            <OrderManagementItem {...order} key={order.id}/>
           ))}
         </div>
       )
