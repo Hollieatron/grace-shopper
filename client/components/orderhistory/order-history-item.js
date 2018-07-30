@@ -28,10 +28,7 @@ const OrderHistoryItem = ({orderhistories, status, id}) => {
           <Header>{status}</Header>
         </Grid.Column>
       </Grid.Row>
-      
-      <Grid.Row>
-        <OrderItem {...test} />
-      </Grid.Row>
+      <OrderItem {...test} />
     </Grid>
   )
 }
