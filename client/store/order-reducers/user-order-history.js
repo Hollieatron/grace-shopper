@@ -9,7 +9,10 @@ const GET_USER_ORDER_HISTORY = 'GET_USER_ORDER_HISTORY'
  * INITIAL STATE
  */
 
-const initialState = [{}]
+const initialState = [{id: 0,
+orderhistories: [],
+status: ''
+}]
 
 /**
  * ACTION CREATORS
