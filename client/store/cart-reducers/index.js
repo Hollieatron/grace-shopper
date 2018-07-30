@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const GET_CART = 'GET_CART'
 const EDIT_CART = 'EDIT_CART'
-
+const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 /**
  * INITIAL STATE
  */
@@ -41,6 +41,7 @@ const initialState = [
 
 const getCart = cart => ({type: GET_CART, cart})
 const editCart = cart => ({type: EDIT_CART, cart})
+const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -57,7 +58,7 @@ export const postCart = input => {
   return async dispatch => {
     const {userId, productId} = input
     const {data} = await axios.post(`/api/cart/${productId}`, {userId: userId})
-    dispatch(getCart(data))
+    dispatch(addProductToCart(data))
   }
 }
 
@@ -81,6 +82,8 @@ export default function(state = initialState, action) {
     case GET_CART:
       return action.cart
     case EDIT_CART:
+      return action.cart
+    case ADD_PRODUCT_TO_CART:
       return action.cart
     default:
       return state
