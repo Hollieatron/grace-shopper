@@ -7,6 +7,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const EDIT_CART = 'EDIT_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
+const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 /**
  * INITIAL STATE
  */
@@ -42,6 +43,7 @@ const initialState = [
 const getCart = cart => ({type: GET_CART, cart})
 const editCart = cart => ({type: EDIT_CART, cart})
 const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
+const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
 
 /**
  * THUNK CREATORS
@@ -73,6 +75,14 @@ export const putCart = input => {
   }
 }
 
+export const deleteCart = input => {
+  return async dispatch => {
+    const {userId, productId} = input
+    const {data} = await axios.delete(`/api/cart/${productId}/${userId}`)
+    dispatch(deleteProductFromCart(data))
+  }
+}
+
 /**
  * REDUCER
  */
@@ -84,6 +94,8 @@ export default function(state = initialState, action) {
     case EDIT_CART:
       return action.cart
     case ADD_PRODUCT_TO_CART:
+      return action.cart
+    case DELETE_PRODUCT_FROM_CART:
       return action.cart
     default:
       return state
