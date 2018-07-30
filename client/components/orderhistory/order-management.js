@@ -1,23 +1,22 @@
 import React, {Component} from 'react'
 import {Header, Container} from 'semantic-ui-react'
-import {fetchUserOrderHistory} from '../../store'
+import {fetchOrderHistory} from '../../store'
 import {connect} from 'react-redux'
-import OrderHistoryItem from './order-history-item'
+import OrderManagementItem from './order-management-item'
 
 const mapState = state => ({
   user: state.user,
-  orderhistory: state.userorderhistory
+  orderhistory: state.orderhistory
 })
 
 const mapDispatch = dispatch => ({
-  getOrderHistory: id => dispatch(fetchUserOrderHistory(id))
+  getOrderHistory: () => dispatch(fetchOrderHistory())
 })
 
-class UserOrderHistory extends Component {
+class OrderManagement extends Component {
   componentDidMount() {
-    const {getOrderHistory, user} = this.props
-    console.log(user)
-    getOrderHistory(user.id)
+    const {getOrderHistory} = this.props
+    getOrderHistory()
   }
 
   render() {
@@ -29,10 +28,10 @@ class UserOrderHistory extends Component {
           style={styles.div}
         >
           <Header as="h1" dividing textAlign="center" style={styles.header}>
-            Order History
+            All Orders
           </Header>
           {orderhistory.map(order => (
-            <OrderHistoryItem {...order} key={order.id} />
+            <OrderManagementItem {...order} key={order.id}/>
           ))}
         </div>
       )
@@ -66,4 +65,4 @@ const styles = {
   }
 }
 
-export default connect(mapState, mapDispatch)(UserOrderHistory)
+export default connect(mapState, mapDispatch)(OrderManagement)

@@ -8,7 +8,8 @@ import {
   AccountPage,
   AccountManagement,
   EditAccount,
-  UserCartPage
+  UserCartPage,
+  OrderManagement
 } from '../components'
 
 const AdminRoutes = () => {
@@ -18,6 +19,7 @@ const AdminRoutes = () => {
       <Route exact path="/admin/products/add" component={ProductForm} />
       <Route exact path="/admin/category/add" component={CategoryForm} />
       <Route exact path="/admin/account/manage" component={AccountManagement} />
+      <Route exact path="/admin/orders/manage" component={OrderManagement} />
       <Route
         exact
         path="/admin/products/edit/:id"
@@ -35,7 +37,6 @@ const AdminRoutes = () => {
       />
       <Route path="/account/:id/info/edit" component={EditAccount} />
       <Route path="/account/info" component={AccountPage} />
-      <Route path="/account/orderhistory" component={UserOrderHistory} />
       <Route path="/cart" component={UserCartPage} />
       <Route path="/" component={Home} />
     </Switch>

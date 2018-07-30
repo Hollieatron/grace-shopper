@@ -13,6 +13,7 @@ import reviews from './reviews-reducers/index'
 import users from './user-reducers/users'
 import cart from './cart-reducers/index'
 import userorderhistory from './order-reducers/user-order-history'
+import orderhistory from './order-reducers/order-history'
 
 const reducer = combineReducers({
   user,
@@ -25,7 +26,8 @@ const reducer = combineReducers({
   category,
   reviews,
   cart,
-  userorderhistory
+  userorderhistory,
+  orderhistory
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -42,3 +44,4 @@ export * from './category-reducers/categories'
 export * from './category-reducers/category'
 export * from './cart-reducers/'
 export * from './order-reducers/user-order-history'
+export * from './order-reducers/order-history'
