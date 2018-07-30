@@ -80,7 +80,10 @@ class SingleProductPage extends Component {
         </Message>
       )
       // if product is in stock, render add to cart button
-    } else if (message === 'out-of-stock') {
+    } else if (
+      message === 'out-of-stock' ||
+      inventoryReq === product.inventory
+    ) {
       return (
         <Message negative>
           You have all {name}s currently available in your cart.
