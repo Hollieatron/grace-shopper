@@ -62,50 +62,27 @@ describe('Routes', () => {
       })
     })
 
-    // describe('POST /campus', () => {
-    //   it('creates a new campus and sends back the new campus', async () => {
-    //     await agent
-    //       .post('/api/campus')
-    //       .send({
-    //         name: 'Truman State University',
-    //         imageUrl: 'http://images.truman.edu/trumanlogo_og_image.jpg',
-    //         address: '100 E Normal St, Kirksville, MO 63501',
-    //         description: 'Princeton of the plains, Harvard of the Midwest'
-    //       })
-    //       .expect(201)
-    //       .then(res => {
-    //         expect(res.body).to.be.an('object')
-    //         expect(res.body.name).to.equal('Truman State University')
-    //         expect(res.body.address).to.equal(
-    //           '100 E Normal St, Kirksville, MO 63501'
-    //         )
-    //       })
-    //   })
-    // })
-
-    // describe('PUT /campus/:id', () => {
-    //   it('updates an campus', () => {
-    //     return agent
-    //       .put('/api/campus/' + harvard.id)
-    //       .send({
-    //         name: 'Harvard Sucks, Yale Rules!!!',
-    //         imageUrl:
-    //           'https://upload.wikimedia.org/wikipedia/en/2/29/Harvard_shield_wreath.svg',
-    //         address: 'Cambridge, MA 02138',
-    //         description: 'terrible school'
-    //       })
-    //       .expect(200)
-    //       .expect(res => {
-    //         expect(res.body.message).to.equal('Updated successfully!')
-    //         expect(res.body.campus.id).to.not.be.an('undefined')
-    //         expect(res.body.campus.name).to.equal(
-    //           'Harvard Sucks, Yale Rules!!!'
-    //         )
-    //         expect(res.body.campus.address).to.equal('Cambridge, MA 02138')
-    //         expect(res.body.campus.description).to.equal('terrible school')
-    //       })
-    //   })
-
+    describe('POST /campus', () => {
+      it('creates a new campus and sends back the new campus', async () => {
+        await agent
+          .post('/api/campus')
+          .send({
+            name: 'Truman State University',
+            imageUrl: 'http://images.truman.edu/trumanlogo_og_image.jpg',
+            address: '100 E Normal St, Kirksville, MO 63501',
+            description: 'Princeton of the plains, Harvard of the Midwest'
+          })
+          .expect(201)
+          .then(res => {
+            expect(res.body).to.be.an('object')
+            expect(res.body.name).to.equal('Truman State University')
+            expect(res.body.address).to.equal(
+              '100 E Normal St, Kirksville, MO 63501'
+            )
+          })
+      })
+    })
+    
     //   it('saves updates to the DB', () => {
     //     return agent
     //       .put('/api/campus/' + harvard.id)
