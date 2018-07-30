@@ -75,7 +75,6 @@ class OrderManagementItem extends React.Component {
                   status === 'Created' &&
                   (option.text === 'Processing' || option.text === 'Created')
                 ) {
-                  console.log('hello')
                   return option
                 }
                 if (

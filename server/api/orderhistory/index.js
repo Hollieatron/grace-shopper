@@ -3,15 +3,6 @@ const {OrderHistory, Order} = require('../../db/models')
 
 module.exports = router
 
-router.get('/', async (req, res, next) => {
-  try {
-    const orderhistory = await Order.findAll({include: [OrderHistory]})
-    res.json(orderhistory)
-  } catch (err) {
-    next(err)
-  }
-})
-
 router.get('/user/:id', async (req, res, next) => {
   try {
     const userId = req.params.id

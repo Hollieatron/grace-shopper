@@ -35,7 +35,7 @@ const editOrderStatus = orderhistory => ({
 
 export const fetchOrderHistory = () => {
   return async dispatch => {
-    const {data} = await axios.get(`/api/orderhistory/`)
+    const {data} = await axios.get(`/api/admin/orderhistory/orders`)
     dispatch(getOrderHistory(data))
   }
 }

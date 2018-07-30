@@ -1,7 +1,9 @@
 const router = require('express').Router()
-const {Product, Category, User, Order} = require('../../db/models')
+const {Product, Category, User, Order, OrderHistory} = require('../../db/models')
 module.exports = router
 
+
+//Admin Product related routes
 router.post('/products', async (req, res, next) => {
   try {
     const {name, price, description, imageUrl, category, inventory} = req.body
@@ -60,6 +62,8 @@ router.put('/product/edit/:id', async (req, res, next) => {
   }
 })
 
+
+//Admin Category Related Routes
 router.post('/categories', async (req, res, next) => {
   try {
     const {name, imageUrl} = req.body
@@ -91,6 +95,8 @@ router.put('/category/edit/:id', async (req, res, next) => {
   }
 })
 
+
+//User Admin Routes
 router.get('/users', async (req, res, next) => {
   try {
     const users = await User.findAll({})
@@ -137,6 +143,16 @@ router.put('/users/:id', async (req, res, next) => {
     res.json(updated)
   } catch (error) {
     next(error)
+  }
+})
+
+//Order History Admin Routes
+router.get('/orderhistory/orders', async (req, res, next) => {
+  try {
+    const orderhistory = await Order.findAll({include: [OrderHistory]})
+    res.json(orderhistory)
+  } catch (err) {
+    next(err)
   }
 })
 
