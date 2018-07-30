@@ -70,7 +70,29 @@ class OrderManagementItem extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             <Form.Select
               compact
-              options={options}
+              options={options.filter(option => {
+                if (
+                  status === 'Created' &&
+                  (option.text === 'Processing' || option.text === 'Created')
+                ) {
+                  console.log('hello')
+                  return option
+                }
+                if (
+                  status === 'Processing' &&
+                  (option.text === 'Processing' ||
+                    option.text === 'Cancelled' ||
+                    option.text === 'Completed')
+                ) {
+                  return option
+                }
+                if (
+                  (status === 'Completed' || status === 'Cancelled') &&
+                  (option.text === 'Cancelled' || option.text === 'Completed')
+                ) {
+                  return option
+                }
+              })}
               defaultValue={status}
               onChange={this.handleChange}
             />
