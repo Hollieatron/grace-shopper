@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart, fetchCart} from '../../store'
+import {fetchProduct, postCart, putCart} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -24,7 +24,7 @@ const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
     addToCart: input => dispatch(postCart(input)),
-    getCart: id => dispatch(fetchCart(id))
+    editProductQuantity: data => dispatch(putCart(data))
   }
 }
 
@@ -32,25 +32,42 @@ class SingleProductPage extends Component {
   constructor() {
     super()
     this.state = {
-      success: false
+      success: '',
+      inCart: false,
+      inventoryReq: 1
     }
   }
 
   componentDidMount() {
-    const {getProduct} = this.props
+    const {getProduct, cart} = this.props
     const id = Number(this.props.match.params.id)
+
     getProduct(id)
+
+    cart.forEach(elem => {
+      if (elem.productId === id) {
+        this.setState({inCart: true, inventoryReq: elem.inventoryReq})
+      }
+    })
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart, user, getCart} = this.props
-    addToCart({productId, userId: userId})
-    getCart(user.id)
-    this.setState({success: true})
+    const {addToCart, editProductQuantity} = this.props
+    const {inCart, inventoryReq} = this.state
+    const quantity = inventoryReq + 1
+
+    if (!inCart) {
+      addToCart({productId, userId: userId})
+      this.setState({inCart: true, success: 'created'})
+    } else {
+      editProductQuantity({quantity, productId, userId})
+      this.setState({success: 'updated', inventoryReq: quantity})
+    }
   }
 
   renderAddToCart() {
     const {product, user} = this.props
+    const {success, inventoryReq} = this.state
 
     // if product is in stock, render add to cart button
     if (product.inventory > 0) {
@@ -67,9 +84,16 @@ class SingleProductPage extends Component {
               Only {product.inventory} left!
             </Label>
           </Button>
-          {this.state.success ? (
+          {success === 'created' ? (
             <Message compact positive>
               {product.name} successfully added to cart!
+            </Message>
+          ) : (
+            ''
+          )}
+          {success === 'updated' ? (
+            <Message compact positive>
+              There are {inventoryReq} {product.name}s in your cart!
             </Message>
           ) : (
             ''
