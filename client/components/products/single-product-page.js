@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart, fetchCart} from '../../store'
+import {fetchProduct, postCart, putCart} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -24,7 +24,7 @@ const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
     addToCart: input => dispatch(postCart(input)),
-    getCart: id => dispatch(fetchCart(id))
+    editProductQuantity: data => dispatch(putCart(data))
   }
 }
 
@@ -32,28 +32,64 @@ class SingleProductPage extends Component {
   constructor() {
     super()
     this.state = {
-      success: false
+      message: '',
+      inCart: false,
+      inventoryReq: 0
     }
   }
 
   componentDidMount() {
-    const {getProduct} = this.props
+    const {getProduct, cart} = this.props
     const id = Number(this.props.match.params.id)
+
     getProduct(id)
+
+    cart.forEach(elem => {
+      if (elem.productId === id) {
+        this.setState({inCart: true, inventoryReq: elem.inventoryReq})
+      }
+    })
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart, user, getCart} = this.props
-    addToCart({productId, userId: userId})
-    getCart(user.id)
-    this.setState({success: true})
+    const {addToCart, editProductQuantity, product} = this.props
+    const {inCart, inventoryReq} = this.state
+    const quantity = inventoryReq + 1
+
+    if (!inCart) {
+      addToCart({productId, userId: userId})
+      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    } else if (product.inventory === inventoryReq) {
+      this.setState({message: 'out-of-stock'})
+    } else {
+      editProductQuantity({quantity, productId, userId})
+      this.setState({message: 'updated', inventoryReq: quantity})
+    }
   }
 
   renderAddToCart() {
     const {product, user} = this.props
+    const {inventory, name} = product
+    const {message, inventoryReq} = this.state
 
-    // if product is in stock, render add to cart button
-    if (product.inventory > 0) {
+    // if product is out of stock, render out of stock message
+    if (inventory === 0) {
+      return (
+        <Message negative>
+          Sorry, this product is currently out of stock.
+        </Message>
+      )
+      // if product is in stock, render add to cart button
+    } else if (
+      message === 'out-of-stock' ||
+      inventoryReq === product.inventory
+    ) {
+      return (
+        <Message negative>
+          You have all {name}s currently available in your cart.
+        </Message>
+      )
+    } else if (inventory > 0 && message !== 'out-of-stock') {
       return (
         <div>
           <Button as="div" labelPosition="right">
@@ -64,31 +100,24 @@ class SingleProductPage extends Component {
               <Icon name="shop" />Add to Cart
             </Button>
             <Label as="a" basic color="red" pointing="left">
-              Only {product.inventory} left!
+              Only {inventory} left!
             </Label>
           </Button>
-          {this.state.success ? (
+          {message === 'updated' ? (
             <Message compact positive>
-              {product.name} successfully added to cart!
+              There are {inventoryReq} {name}s in your cart!
             </Message>
           ) : (
             ''
           )}
         </div>
       )
-      // if product is out of stock, render out of stock message
-    } else {
-      return (
-        <Message negative>
-          Sorry, this product is currently out of stock.
-        </Message>
-      )
     }
   }
 
   render() {
     const {product, user} = this.props
-    const {success} = this.state
+    const {message} = this.state
     const id = Number(this.props.match.params.id)
 
     return (
