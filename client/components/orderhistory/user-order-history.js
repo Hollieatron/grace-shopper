@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Grid, Header, Divider, Button, Icon} from 'semantic-ui-react'
+import {Header, Container} from 'semantic-ui-react'
 import {fetchUserOrderHistory} from '../../store'
 import {connect} from 'react-redux'
 import OrderHistoryItem from './order-history-item'
@@ -21,17 +21,33 @@ class UserOrderHistory extends Component {
 
   render() {
     const {orderhistory} = this.props
-    return (
-      <div
-        className="ui raised very padded text container segment"
-        style={styles.div}
-      >
-        <Header as="h1" dividing textAlign="center" style={styles.header}>
-          Order History
-        </Header>
-        <OrderHistoryItem id={5} status={'Complete'} />
-      </div>
-    )
+    if (orderhistory && orderhistory.length > 0) {
+      return (
+        <div
+          className="ui raised very padded text container segment"
+          style={styles.div}
+        >
+          <Header as="h1" dividing textAlign="center" style={styles.header}>
+            Order History
+          </Header>
+          {orderhistory.map(order => (
+            <OrderHistoryItem {...order} key={order.id} />
+          ))}
+        </div>
+      )
+    } else {
+      return (
+        <div
+          className="ui raised very padded text container segment"
+          style={styles.div}
+        >
+          <Header as="h1" dividing textAlign="center" style={styles.header}>
+            Order History
+          </Header>
+          <Container> No Current Order History</Container>
+        </div>
+      )
+    }
   }
 }
 

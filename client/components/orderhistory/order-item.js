@@ -11,7 +11,6 @@ const OrderItem = props => {
     productPrice
   } = props
   return (
-    // <Grid divided="vertically">
     <Grid.Row columns={2}>
       <Grid.Column floated="left">
         <Image src={productImage} size="tiny" />
@@ -38,7 +37,6 @@ const OrderItem = props => {
         </Table>
       </Grid.Column>
     </Grid.Row>
-    // </Grid>
   )
 }
 
