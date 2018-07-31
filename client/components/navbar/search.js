@@ -1,14 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setText} from '../../store'
-import {Input, Menu} from 'semantic-ui-react'
+import {setText, fetchSearchProducts} from '../../store'
+import {Form, Menu} from 'semantic-ui-react'
 
 const mapState = state => ({
-  text: state.searchText
+  searchText: state.search.searchText
 })
 
 const mapDispatch = dispatch => ({
-  setText: text => dispatch(setText(text))
+  setText: text => dispatch(setText(text)),
+  getSearchProducts: searchText => dispatch(fetchSearchProducts(searchText))
 })
 
 class Search extends React.Component {
@@ -18,23 +19,29 @@ class Search extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSearchSubmit = evt => {
-    evt.preventDefault()
-    const {searchText} = this.props
+  handleSearchSubmit() {
+    const {searchText, getSearchProducts} = this.props
+    console.log(this.props)
+    getSearchProducts(searchText)
   }
-  handleChange = evt => {
+
+  handleChange = (evt, {value}) => {
     const {setText} = this.props
-    setText(evt.target.value)
+    setText(value)
   }
 
   render() {
+    const {searchText} = this.props
     return (
-      <Menu.Item onSubmit={this.handleSearchSubmit}>
-        <Input
-          icon="search"
-          placeholder="Search..."
-          onChange={this.handleChange}
-        />
+      <Menu.Item>
+        <Form onSubmit={this.handleSearchSubmit}>
+          <Form.Input
+            icon="search"
+            value={searchText}
+            placeholder="Search..."
+            onChange={this.handleChange}
+          />
+        </Form>
       </Menu.Item>
     )
   }

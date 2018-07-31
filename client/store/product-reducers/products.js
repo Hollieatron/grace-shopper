@@ -6,6 +6,7 @@ import history from '../../history'
  */
 import {ADD_PRODUCT, EDIT_PRODUCT} from './product'
 const GET_PRODUCTS = 'GET_PRODUCTS'
+const GET_SEARCH_PRODUCTS = 'GET_SEARCH_PRODUCTS'
 
 /**
  * INITIAL STATE
@@ -26,6 +27,11 @@ const initialProducts = [
  */
 const getProducts = products => ({
   type: GET_PRODUCTS,
+  products
+})
+
+export const getSearchProducts = products => ({
+  type: GET_SEARCH_PRODUCTS,
   products
 })
 
@@ -52,6 +58,8 @@ export default function(state = initialProducts, action) {
           : product
       })
     case GET_PRODUCTS:
+      return action.products
+    case GET_SEARCH_PRODUCTS:
       return action.products
     default:
       return state
