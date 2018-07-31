@@ -117,10 +117,9 @@ async function seed() {
   await seedCart()
 
   async function seedOrderHistory() {
-
     for (let i = 0; i < orders.length; i++) {
       await orders[i].setUser(users[0])
-      await orders[i].setOrderhistories(orderhistory.slice(i, i+3))
+      await orders[i].setOrderhistories(orderhistory.slice(i, i + 3))
     }
   }
 
