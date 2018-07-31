@@ -9,6 +9,7 @@ const EDIT_CART = 'EDIT_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
+const EDIT_PRODUCT_IN_GUEST_CART = 'EDIT_PRODUCT_IN_GUEST_CART'
 
 /**
  * INITIAL STATE
@@ -40,9 +41,15 @@ const getCart = cart => ({type: GET_CART, cart})
 const editCart = cart => ({type: EDIT_CART, cart})
 const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
-export const addProductToGuestCart = product => ({
+export const postGuestCart = product => ({
   type: ADD_PRODUCT_TO_GUEST_CART,
   product
+})
+
+export const putGuestCart = action => ({
+  type: EDIT_PRODUCT_IN_GUEST_CART,
+  productId: action.productId,
+  inventoryReq: action.inventoryReq
 })
 /**
  * THUNK CREATORS
@@ -62,9 +69,6 @@ export const postCart = input => {
     dispatch(addProductToCart(data))
   }
 }
-
-// thunk return product updated
-// action type accepts product
 
 export const putCart = input => {
   return async dispatch => {
@@ -118,6 +122,15 @@ export default function(state = initialState, action) {
           product: action.product
         })
       }
+    case EDIT_PRODUCT_IN_GUEST_CART:
+      return [...state].map(cart => {
+        if (cart.productId === action.productId) {
+          cart.inventoryReq = action.inventoryReq
+          return cart
+        } else {
+          return cart
+        }
+      })
     default:
       return state
   }

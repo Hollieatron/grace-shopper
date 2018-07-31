@@ -3,7 +3,8 @@ import {
   fetchProduct,
   postCart,
   putCart,
-  addProductToGuestCart
+  postGuestCart,
+  putGuestCart
 } from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -30,7 +31,8 @@ const mapDispatch = dispatch => {
     getProduct: id => dispatch(fetchProduct(id)),
     addToCart: input => dispatch(postCart(input)),
     editProductQuantity: data => dispatch(putCart(data)),
-    addToGuestCart: product => dispatch(addProductToGuestCart(product))
+    addToGuestCart: product => dispatch(postGuestCart(product)),
+    editGuestQuantity: productId => dispatch(putGuestCart(productId))
   }
 }
 
@@ -65,35 +67,36 @@ class SingleProductPage extends Component {
       editProductQuantity,
       product,
       addToGuestCart,
-      cart
+      cart,
+      editGuestQuantity
     } = this.props
     let {inCart, inventoryReq} = this.state
     const quantity = inventoryReq + 1
-
-    // if the product isn't in the cart and the user is a guest
-    if (!inCart && cart[0].guest) {
-      inventoryReq = 1
-      addToGuestCart(product)
-      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
-    }
-
-    // if the product isn't in the cart and the user is logged in
-    if (!inCart && !cart[0].guest) {
-      addToCart({productId, userId: userId})
-      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
-    }
-
-    // if (!inCart && cart[0].guest) {
-    //   addToGuestCart(product)
-    //   this.setState({inCart: true, message: 'updated', inventoryReq: 1})
-    // }
 
     // if the product inventory and the required inventory are the same
     if (product.inventory === inventoryReq) {
       this.setState({message: 'out-of-stock'})
     }
 
-    // if the product is in the cart and user is logged in
+    // if the product isn't in the cart && it's a guest
+    if (!inCart && cart[0].guest) {
+      addToGuestCart(product)
+      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    }
+
+    // if product is inCart and the user is a guest
+    if (inCart && cart[0].guest) {
+      editGuestQuantity({productId, inventoryReq: quantity})
+      this.setState({message: 'updated', inventoryReq: quantity})
+    }
+
+    // if the product isn't in the cart && user is logged in
+    if (!inCart && !cart[0].guest) {
+      addToCart({productId, userId: userId})
+      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    }
+
+    // if the product is in the cart && user is logged in
     if (inCart && !cart[0].guest) {
       editProductQuantity({quantity, productId, userId})
       this.setState({message: 'updated', inventoryReq: quantity})
