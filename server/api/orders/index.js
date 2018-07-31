@@ -1,11 +1,10 @@
 const router = require('express').Router()
-const {Order, OrderHistory, User} = require('../../db/models')
+const {Order, OrderHistory, User, Product} = require('../../db/models')
 
 module.exports = router
 
 router.post('/user/:id', async (req, res, next) => {
   try {
-    console.log(req.body)
     const {
       userId,
       email,
@@ -17,7 +16,7 @@ router.post('/user/:id', async (req, res, next) => {
     } = req.body
     const {cart} = req.body
     const order = await Order.create({
-      status: 'Processing',
+      status: 'Created',
       email: email,
       zip: zip,
       state: state,
@@ -27,19 +26,33 @@ router.post('/user/:id', async (req, res, next) => {
       userId: userId
     })
     if (userId) {
-      const user = await User.findbyId(userId)
-      order.setUser(user)
+      const user = await User.findById(userId)
+      await order.setUser(user)
     }
-    const mapped = cart.map(product =>
+    const mappedOrders = cart.map(product =>
       OrderHistory.create({
-        productId: product[0].id,
-        productName: product[0].name,
-        productPrice: product[0].price,
-        productDesc: product[0].description,
-        inventorySold: product[0].inventory
+        productId: product.product.id,
+        productName: product.product.name,
+        productPrice: product.product.price,
+        productDesc: product.product.description,
+        inventorySold: product.inventoryReq,
+        productImage: product.product.imageUrl
       })
     )
-    await Promise.all(mapped)
+    const mappedProducts = cart.map(product =>
+      Product.update(
+        {inventory: product.product.inventory - product.inventoryReq},
+        {
+          where: {
+            id: product.product.id
+          }
+        }
+      )
+    )
+
+    const orderhistories = await Promise.all(mappedOrders)
+    await Promise.all(mappedProducts)
+    await order.setOrderhistories(orderhistories)
     res.json(order)
   } catch (err) {
     next(err)

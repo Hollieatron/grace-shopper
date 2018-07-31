@@ -77,7 +77,7 @@ router.delete('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
     const cart = await Cart.destroy({where: {userId: userId}})
-
+    
     res.json(cart)
   } catch (err) {
     next(err)
