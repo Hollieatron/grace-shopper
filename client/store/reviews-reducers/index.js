@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../../history'
 
 /**
  * ACTION TYPES
@@ -9,7 +8,7 @@ const GET_REVIEWS = 'GET_REVIEWS'
 /**
  * INITIAL STATE
  */
-const initialProducts = [
+const initialReviews = [
   {
     id: 0,
     title: '',
@@ -27,6 +26,11 @@ const getReviews = reviews => ({
   reviews
 })
 
+const addReview = review => ({
+  type: ADD_REVIEW,
+  review
+})
+
 /**
  * THUNK CREATORS
  */
@@ -41,10 +45,15 @@ export const fetchReviewsOfProduct = id => async dispatch => {
   dispatch(getReviews(data))
 }
 
+export const postReviewOfProduct = (id, review) => async dispatch => {
+  const {data} = await axios.post(`/api/reviews/product/${id}`, {review})
+  dispatch(getReviews(data))
+}
+
 /**
  * REDUCER
  */
-export default function(state = initialProducts, action) {
+export default function(state = initialReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
       return action.reviews
