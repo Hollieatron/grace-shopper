@@ -17,10 +17,11 @@ const UserRoutes = () => {
       <Route path="/account/:id/info/edit" component={EditAccount} />
       <Route path="/account/info" component={AccountPage} />
       <Route path="/account/orderhistory" component={UserOrderHistory} />
+
       <Route
         path="/cart/checkout"
         render={routeProps => (
-          <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
+          <StripeProvider apiKey="pk_test_UniUJcxzZgf0zmgciwrViyLC">
             <Elements>
               <Checkout {...routeProps} />
             </Elements>

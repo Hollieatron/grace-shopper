@@ -1,17 +1,15 @@
 import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
-import {Form, Divider, Button, Icon, Header, Message} from 'semantic-ui-react'
+import {Form, Divider, Button, Icon, Header} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {Link, withRouter} from 'react-router-dom'
-import {fetchCart} from '../../store'
+
+import axios from 'axios'
+import history from '../../history'
 
 const mapState = state => ({
   user: state.user,
   cart: state.cart
-})
-
-const mapDispatch = dispatch => ({
-  getCart: id => dispatch(fetchCart(id))
 })
 
 class CheckoutForm extends Component {
@@ -27,33 +25,29 @@ class CheckoutForm extends Component {
     }
   }
 
-  componentDidMount() {
-    const {getCart, user} = this.props
-    getCart(user.id)
-  }
   handleChange = event => {
     this.setState({[event.target.name]: event.target.value})
   }
   submit = async event => {
     event.preventDefault()
-    console.log(event.target)
+    const {cart} = this.props
     const firstName = event.target.firstName.value
     const lastName = event.target.lastName.value
     const email = event.target.email.value
     const address = event.target.address.value
-    const state = Number(event.target.state.value)
+    const state = event.target.state.value
     const zip = Number(event.target.zip.value)
-    const newOrder = {firstName, lastName, email, address, state, zip}
+    const amount = this.calculateSubtotal(cart)
+    const newOrder = {firstName, lastName, email, address, state, zip, amount}
 
-    let {token} = await this.props.stripe.createToken()
-    console.log('token', token)
+    let {token} = await this.props.stripe.createToken({email: email})
+
     let response = await axios.post('/api/charge', {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain'},
-      body: token.id
+      ...newOrder,
+      stripeToken: token.id
     })
-    console.log(response)
-    if (response.ok) console.log('Purchase Complete!')
+
+    if (response) history.push('/cart/checkout/complete')
   }
 
   calculateSubtotal(cart) {
@@ -62,17 +56,16 @@ class CheckoutForm extends Component {
     for (let i = 0; i < cart.length; i++) {
       subtotal += cart[i].inventoryReq * cart[i].product.price
     }
-
-    return `$${subtotal}.00`
+    return subtotal
   }
 
   render() {
-    const {cart} = this.props
+    const {cart, user} = this.props
     return (
       <div>
         <br />
         <div className="ui raised very padded text container segment">
-          <Form error onSubmit={this.submit}>
+          <Form onSubmit={this.submit}>
             <h3>Billing Information</h3>
             <Divider />
             <Form.Group>
@@ -81,28 +74,25 @@ class CheckoutForm extends Component {
                 name="firstName"
                 value={this.state.firstName}
                 onChange={this.handleChange}
-                placeholder="First Name"
+                placeholder={user.firstName}
                 width={6}
               />
-              <Message error content="Please enter a valid first name!" />
               <Form.Input
                 label="Last Name"
                 name="lastName"
                 value={this.state.lastName}
                 onChange={this.handleChange}
-                placeholder="Last Name"
+                placeholder={user.lastName}
                 width={6}
               />
-              <Message error content="Please enter a valid last name!" />
               <Form.Input
                 label="Email"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
-                placeholder="Email"
+                placeholder={user.email}
                 width={6}
               />
-              <Message error content="Please enter a valid email!" />
             </Form.Group>
             <Form.Group>
               <Form.Input
@@ -113,7 +103,6 @@ class CheckoutForm extends Component {
                 placeholder="Address"
                 width={11}
               />
-              <Message error content="Please enter a valid address!" />
               <Form.Input
                 label="ZIP"
                 name="zip"
@@ -122,7 +111,6 @@ class CheckoutForm extends Component {
                 placeholder="ZIP"
                 width={3}
               />
-              <Message error content="Please enter a valid ZIP!" />
               <Form.Input
                 label="State"
                 name="state"
@@ -131,7 +119,6 @@ class CheckoutForm extends Component {
                 placeholder="State"
                 width={2}
               />
-              <Message error content="Please enter a valid state!" />
             </Form.Group>
             <br />
             <CardElement
@@ -144,7 +131,7 @@ class CheckoutForm extends Component {
             />
             <Divider />
             <Header as="h3" textAlign="right">
-              Total: {this.calculateSubtotal(cart)}
+              Total: ${this.calculateSubtotal(cart)}.00
             </Header>
             <Button basic color="red" animated="vertical" floated="right">
               <Button.Content hidden>
@@ -160,6 +147,4 @@ class CheckoutForm extends Component {
   }
 }
 
-export default injectStripe(
-  withRouter(connect(mapState, mapDispatch)(CheckoutForm))
-)
+export default injectStripe(withRouter(connect(mapState)(CheckoutForm)))

@@ -43,7 +43,7 @@ const AdminRoutes = () => {
       <Route
         path="/cart/checkout"
         render={routeProps => (
-          <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
+          <StripeProvider apiKey="pk_test_UniUJcxzZgf0zmgciwrViyLC">
             <Elements>
               <Checkout {...routeProps} />
             </Elements>
