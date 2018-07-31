@@ -49,20 +49,13 @@ class SingleProductPage extends Component {
 
   componentDidMount() {
     const {getProduct, user, cart} = this.props
-    const {isGuest} = this.state
-    // const guestCart = this.props.cart[0]
     const id = +this.props.match.params.id
 
-    // get the product
     getProduct(id)
 
     // if user is logged in, set isGuest to false
     if (user.id) {
       this.setState({isGuest: false})
-    }
-
-    // if user is logged in, check if the product is already in the cart
-    if (!isGuest) {
       cart.forEach(elem => {
         if (elem.productId === id) {
           this.setState({inCart: true, inventoryReq: elem.inventoryReq})
@@ -77,12 +70,12 @@ class SingleProductPage extends Component {
       editProductQuantity,
       product,
       addToGuestCart,
-      cart,
       editGuestQuantity
     } = this.props
-    let {inCart, inventoryReq} = this.state
+
+    let {inCart, inventoryReq, isGuest} = this.state
     const quantity = inventoryReq + 1
-    let guest = cart[0].guest || undefined
+    // let guest = cart[0].guest || undefined
 
     // if the product inventory and the required inventory are the same
     if (product.inventory === inventoryReq) {
@@ -90,25 +83,25 @@ class SingleProductPage extends Component {
     }
 
     // if the product isn't in the cart && it's a guest
-    if (!inCart && guest) {
+    if (!inCart && isGuest) {
       addToGuestCart(product)
       this.setState({inCart: true, message: 'updated', inventoryReq: 1})
     }
 
     // if product is inCart and the user is a guest
-    if (inCart && cart[0].guest) {
+    if (inCart && isGuest) {
       editGuestQuantity({productId, inventoryReq: quantity})
       this.setState({message: 'updated', inventoryReq: quantity})
     }
 
     // if the product isn't in the cart && user is logged in
-    if (!inCart && !cart[0].guest) {
+    if (!inCart && !isGuest) {
       addToCart({productId, userId: userId})
       this.setState({inCart: true, message: 'updated', inventoryReq: 1})
     }
 
     // if the product is in the cart && user is logged in
-    if (inCart && !cart[0].guest) {
+    if (inCart && !isGuest) {
       editProductQuantity({quantity, productId, userId})
       this.setState({message: 'updated', inventoryReq: quantity})
     }

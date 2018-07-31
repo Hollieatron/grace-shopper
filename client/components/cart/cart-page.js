@@ -14,24 +14,14 @@ const mapDispatch = dispatch => ({
 })
 
 class CartPage extends Component {
-  constructor() {
-    super()
-    // this.state = {
-    //   isGuest: true
-    // }
-  }
-
   componentDidMount() {
     const {getCart, user} = this.props
 
-    // if user exists, set isGuest to false && get cart
     if (user.id) {
-      // this.setState({isGuest: false})
       getCart(user.id)
     }
   }
 
-  // calculate cart subtotal
   calculateSubtotal(cart) {
     let subtotal = 0
 
@@ -46,7 +36,6 @@ class CartPage extends Component {
     const {cart} = this.props
     const productId = this.props.cart[0].productId
 
-    // if productId is null return cart currently empty
     if (!productId) {
       return <Message>Cart is currently empty.</Message>
     } else

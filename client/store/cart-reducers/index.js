@@ -12,7 +12,7 @@ const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
 const EDIT_PRODUCT_IN_GUEST_CART = 'EDIT_PRODUCT_IN_GUEST_CART'
 const DELETE_PRODUCT_FROM_GUEST_CART = 'DELETE_PRODUCT_FROM_GUEST_CART'
-
+const SET_USER_CART_ON_LOGIN_FROM_GUEST = 'SET_USER_CART_ON_LOGIN_FROM_GUEST'
 /**
  * INITIAL STATE
  */
@@ -83,6 +83,11 @@ export const emptyUserCart = action => ({
   action
 })
 
+export const setUserCartOnLogin = cart => ({
+  type: SET_USER_CART_ON_LOGIN_FROM_GUEST,
+  cart
+})
+
 /**
  * THUNK CREATORS
  */
@@ -136,6 +141,8 @@ export default function(state = guestInitialState, action) {
     case DELETE_PRODUCT_FROM_CART:
       if (state.length === 1) return userInitialState
       else return action.cart
+    case SET_USER_CART_ON_LOGIN_FROM_GUEST:
+      return action.cart
     case EMPTY_USER_CART_ON_LOGOUT:
       return guestInitialState
     case ADD_PRODUCT_TO_GUEST_CART:
