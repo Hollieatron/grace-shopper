@@ -9,7 +9,9 @@ const ProductGrid = ({products}) => {
   } else {
     return (
       <Card.Group itemsPerRow={6}>
-        {products.map(product => <ProductCard key={product.id} {...product} />)}
+        {products.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </Card.Group>
     )
   }
