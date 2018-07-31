@@ -46,6 +46,7 @@ const createApp = () => {
 
   // body parsing middleware
   app.use(express.json())
+  app.use(require('body-parser').text())
   app.use(express.urlencoded({extended: true}))
 
   // compression middleware

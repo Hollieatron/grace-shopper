@@ -37,6 +37,7 @@ const AdminRoutes = () => {
       <Route path="/account/:id/info/edit" component={EditAccount} />
       <Route path="/account/info" component={AccountPage} />
       <Route path="/account/orderhistory" component={UserOrderHistory} />
+
       <Route path="/" component={Home} />
     </Switch>
   )

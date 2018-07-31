@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {me} from '../../store'
-import {Button, Icon, Grid, Header, Segment} from 'semantic-ui-react'
+import {Button, Icon, Grid, Header} from 'semantic-ui-react'
 import AccountInfo from './account-information'
 
 class AccountPage extends Component {
