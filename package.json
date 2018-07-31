@@ -1,7 +1,7 @@
 {
   "name": "graceshopper",
   "version": "1.0.0",
-  "description": "A sales site for soon to figure out products",
+  "description": "The world's leading Robot Store for professional Robot technology",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -13,7 +13,7 @@
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint-fix": "npm run lint -- --fix",
     "precommit": "# lint-staged # un-comment to enable",
-    "prepare": "npm-merge-driver install",
+    "prepare": "if [ -d .git ]; then npm-merge-driver install; fi",
     "prettify": "prettier --write \"**/*.{js,jsx,json,css,scss,md}\"",
     "postinstall": "touch secrets.js",
     "seed": "node script/seed.js",
