@@ -8,7 +8,7 @@ import {
   ProductCatalog,
   SingleProductPage,
   Home,
-  UserCartPage,
+  CartPage,
   ProductSearch
 } from './components'
 import AdminRoutes from './router/admin-routes'
@@ -31,6 +31,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={CartPage} />
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route path="/products/search/:searchText" component={ProductSearch} />
         <Route

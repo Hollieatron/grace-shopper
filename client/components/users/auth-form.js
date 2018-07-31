@@ -9,7 +9,7 @@ import {Button, Form, Grid, Header, Message, Segment} from 'semantic-ui-react'
  */
 
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error, cart} = props
   return (
     <div className="login-form">
       <style>{`
@@ -24,7 +24,7 @@ const AuthForm = props => {
           <Header as="h2" color="blue" textAlign="center">
             {displayName}
           </Header>
-          <Form size="large" onSubmit={handleSubmit} name={name}>
+          <Form size="large" onSubmit={handleSubmit(cart)} name={name}>
             <Segment stacked>
               <Form.Input
                 fluid
@@ -77,21 +77,20 @@ const mapSignup = state => {
   return {
     name: 'signup',
     displayName: 'Sign Up',
-    error: state.user.error
+    error: state.user.error,
+    cart: state.cart
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
-    }
+const mapDispatch = dispatch => ({
+  handleSubmit: cart => evt => {
+    evt.preventDefault()
+    const formName = evt.target.name
+    const email = evt.target.email.value
+    const password = evt.target.password.value
+    dispatch(auth(email, password, formName, cart))
   }
-}
+})
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)

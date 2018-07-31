@@ -1,4 +1,7 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux'
+import {persistStore, persistReducer} from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
@@ -15,6 +18,13 @@ import cart from './cart-reducers/index'
 import userorderhistory from './order-reducers/user-order-history'
 import orderhistory from './order-reducers/order-history'
 
+const rootPersistConfig = {
+  key: 'root',
+  storage: storage,
+  stateReconciler: autoMergeLevel2,
+  whitelist: ['cart']
+}
+
 const reducer = combineReducers({
   user,
   users,
@@ -29,10 +39,16 @@ const reducer = combineReducers({
   userorderhistory,
   orderhistory
 })
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
-const store = createStore(reducer, middleware)
+
+const pReducer = persistReducer(rootPersistConfig, reducer)
+
+const store = createStore(pReducer, middleware)
+export const persistor = persistStore(store)
+persistor.purge()
 
 export default store
 export * from './user-reducers/user'

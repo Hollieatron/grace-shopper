@@ -13,10 +13,13 @@ const mapDispatch = dispatch => ({
   getCart: id => dispatch(fetchCart(id))
 })
 
-class UserCartPage extends Component {
+class CartPage extends Component {
   componentDidMount() {
     const {getCart, user} = this.props
-    getCart(user.id)
+
+    if (user.id) {
+      getCart(user.id)
+    }
   }
 
   calculateSubtotal(cart) {
@@ -31,7 +34,9 @@ class UserCartPage extends Component {
 
   renderCartItems() {
     const {cart} = this.props
-    if (!cart[0] || cart[0].product.length < 1 || !cart[0].product.name) {
+    const productId = this.props.cart[0].productId
+
+    if (!productId) {
       return <Message>Cart is currently empty.</Message>
     } else
       return cart.map(item => (
@@ -45,6 +50,7 @@ class UserCartPage extends Component {
 
   render() {
     const {cart} = this.props
+    const productId = this.props.cart[0].productId
 
     return (
       <div
@@ -58,7 +64,7 @@ class UserCartPage extends Component {
         <Divider />
         <div style={styles.subtotal}>
           <Header sub>Subtotal</Header>
-          <span>{cart[0] ? this.calculateSubtotal(cart) : `$0.00`}</span>
+          <span>{productId ? this.calculateSubtotal(cart) : `$0.00`}</span>
         </div>
         <Divider />
 
@@ -85,4 +91,4 @@ const styles = {
   }
 }
 
-export default connect(mapState, mapDispatch)(UserCartPage)
+export default connect(mapState, mapDispatch)(CartPage)
