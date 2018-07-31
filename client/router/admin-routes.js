@@ -42,14 +42,13 @@ const AdminRoutes = () => {
       <Route path="/account/orderhistory" component={UserOrderHistory} />
       <Route
         path="/cart/checkout"
-        component={Checkout}
-        // render={routeProps => (
-        //   <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
-        //     <Elements>
-        //       <Checkout {...routeProps} />
-        //     </Elements>
-        //   </StripeProvider>
-        // )}
+        render={routeProps => (
+          <StripeProvider apiKey="pk_test_LwL4RUtinpP3PXzYirX2jNfR">
+            <Elements>
+              <Checkout {...routeProps} />
+            </Elements>
+          </StripeProvider>
+        )}
       />
       <Route path="/cart" component={UserCartPage} />
       <Route path="/" component={Home} />
