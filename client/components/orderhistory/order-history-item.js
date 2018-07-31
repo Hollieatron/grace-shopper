@@ -7,6 +7,7 @@ const OrderHistoryItem = ({orderhistories, status, id, createdAt}) => {
   const year = uneditedDate.getFullYear()
   const month = uneditedDate.getMonth()
   const date = uneditedDate.getDate()
+
   return (
     <Grid celled>
       <Grid padded>
