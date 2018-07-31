@@ -3,6 +3,7 @@ import {updateOrderStatus} from '../../store'
 import {connect} from 'react-redux'
 import {Segment, Accordion, Icon, Form} from 'semantic-ui-react'
 import OrderItem from './order-item'
+import axios from 'axios'
 
 const mapDispatch = dispatch => ({
   editOrderStatus: (id, status) => dispatch(updateOrderStatus(id, status))
@@ -31,9 +32,13 @@ class OrderManagementItem extends React.Component {
     this.setState({status: value})
   }
 
-  handleSubmit() {
+  async handleSubmit() {
     const {editOrderStatus} = this.props
     const {orderId, status} = this.state
+    await axios.put(`/api/orderhistory/user/${this.props.userId}`, {
+      orderId,
+      status
+    })
     editOrderStatus(orderId, status)
   }
 
