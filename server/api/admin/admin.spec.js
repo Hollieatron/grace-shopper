@@ -20,13 +20,13 @@ describe('Routes', () => {
       return agent
         .put('/api/admin/product/edit/' + product1.id)
         .send({
-            name: 'Henry',
-            price: 39,
-            description:
-              'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.',
-            imageUrl: 'https://robohash.org/fgykjfth',
-            inventory: 1
-          })
+          name: 'Henry',
+          price: 39,
+          description:
+            'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.',
+          imageUrl: 'https://robohash.org/fgykjfth',
+          inventory: 1
+        })
         .expect(200)
         .expect(res => {
           expect(res.body.product.id).to.not.be.an('undefined')

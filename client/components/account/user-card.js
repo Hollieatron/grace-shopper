@@ -2,9 +2,12 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Grid, Segment, Button, Icon, Checkbox} from 'semantic-ui-react'
-import {deleteUserFromServer, updateUserToAdmin} from '../../store'
+import {deleteUserFromServer, updateUserToAdmin, me} from '../../store'
 
 class UserInfoCard extends Component {
+  componentDidMount() {
+    this.props.getUser()
+  }
   handleClick = id => {
     this.props.deleteUser(id)
   }
@@ -15,6 +18,7 @@ class UserInfoCard extends Component {
 
   render() {
     const {id, username, firstName, lastName, email, isAdmin} = this.props
+    const {user} = this.props
     return (
       <Grid.Column>
         <Segment>
@@ -31,11 +35,16 @@ class UserInfoCard extends Component {
           {isAdmin.toString()}
           <div style={style.checkbox}>
             {isAdmin ? (
-              <Checkbox
-                toggle
-                defaultChecked
-                onChange={() => this.handleChange(this.props)}
-              />
+              <div>
+                {' '}
+                {user.id !== id ? (
+                  <Checkbox
+                    toggle
+                    defaultChecked
+                    onChange={() => this.handleChange(this.props)}
+                  />
+                ) : null}
+              </div>
             ) : (
               <Checkbox toggle onChange={() => this.handleChange(this.props)} />
             )}
@@ -52,9 +61,14 @@ const style = {
   }
 }
 
-const mapDispatch = dispatch => ({
-  deleteUser: id => dispatch(deleteUserFromServer(id)),
-  updateAdmin: user => dispatch(updateUserToAdmin(user))
+const mapState = state => ({
+  user: state.user
 })
 
-export default connect(null, mapDispatch)(UserInfoCard)
+const mapDispatch = dispatch => ({
+  deleteUser: id => dispatch(deleteUserFromServer(id)),
+  updateAdmin: user => dispatch(updateUserToAdmin(user)),
+  getUser: () => dispatch(me())
+})
+
+export default connect(mapState, mapDispatch)(UserInfoCard)
