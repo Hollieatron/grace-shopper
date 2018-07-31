@@ -1,6 +1,8 @@
 import axios from 'axios'
 import history from '../history'
 
+import {getSearchProducts} from './product-reducers/products'
+
 /**
  * ACTION TYPES
  */
@@ -19,6 +21,13 @@ export const setText = text => ({type: SET_TEXT, text})
 /**
  * THUNK CREATORS
  */
+
+export const fetchSearchProducts = searchText => async dispatch => {
+  console.log(searchText)
+  const {data} = await axios.get(`/api/products/search?productName=${searchText}`)
+  dispatch(getSearchProducts(data))
+  history.push(`/products/search/${searchText}`)
+}
 
 /**
  * REDUCER
