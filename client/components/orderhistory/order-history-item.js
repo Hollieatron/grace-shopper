@@ -2,7 +2,7 @@ import React from 'react'
 import {Header, Grid, Segment} from 'semantic-ui-react'
 import OrderItem from './order-item'
 
-const OrderHistoryItem = ({orderhistories, status, id, createdAt}) => {
+const OrderHistoryItem = ({orderhistories, status, id, createdAt, amount}) => {
   const uneditedDate = new Date(createdAt)
   const year = uneditedDate.getFullYear()
   const month = uneditedDate.getMonth()
@@ -27,7 +27,7 @@ const OrderHistoryItem = ({orderhistories, status, id, createdAt}) => {
           <Grid.Column width="11" />
           <Grid.Column width="5">
             <Segment>
-              <Header>Subtotal: ${30.0}</Header>
+              <Header>Subtotal: ${amount}.00</Header>
             </Segment>
           </Grid.Column>
         </Grid.Row>
