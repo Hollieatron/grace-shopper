@@ -56,6 +56,9 @@ class SingleProductPage extends Component {
     // if user is logged in, set isGuest to false
     if (user.id) {
       this.setState({isGuest: false})
+    }
+
+    if (cart) {
       cart.forEach(elem => {
         if (elem.productId === id) {
           this.setState({inCart: true, inventoryReq: elem.inventoryReq})
@@ -75,7 +78,6 @@ class SingleProductPage extends Component {
 
     let {inCart, inventoryReq, isGuest} = this.state
     const quantity = inventoryReq + 1
-    // let guest = cart[0].guest || undefined
 
     // if the product inventory and the required inventory are the same
     if (product.inventory === inventoryReq) {
@@ -119,7 +121,6 @@ class SingleProductPage extends Component {
           Sorry, this product is currently out of stock.
         </Message>
       )
-      // if product is in stock, render add to cart button
     } else if (
       message === 'out-of-stock' ||
       inventoryReq === product.inventory
@@ -129,6 +130,7 @@ class SingleProductPage extends Component {
           You have all {name}s currently available in your cart.
         </Message>
       )
+      // if product is in stock, render add to cart button
     } else if (inventory > 0 && message !== 'out-of-stock') {
       return (
         <div>
