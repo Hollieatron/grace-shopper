@@ -12,7 +12,7 @@ const mapDispatch = dispatch => ({
   getProductReviews: id => dispatch(fetchReviewsOfProduct(id))
 })
 
-class ProductCard extends React.Component {  
+class ProductCard extends React.Component {
   componentDidMount() {
     const {id, getProductReviews} = this.props
     getProductReviews(id)
@@ -20,9 +20,7 @@ class ProductCard extends React.Component {
 
   render() {
     const {id, imageUrl, name, price, description, reviews} = this.props
-    if(reviews && reviews.length) {
 
-    }
     return (
       <Card>
         <Image src={imageUrl} />
@@ -32,7 +30,7 @@ class ProductCard extends React.Component {
           </Card.Header>
           <Card.Meta>Price: ${price}</Card.Meta>
           <Card.Description>{description.slice(0, 40)}.</Card.Description>
-          <Rating icon="star" defaultRating={ || 0} maxRating={5} disabled />
+          <Rating icon="star" defaultRating={0} maxRating={5} disabled />
         </Card.Content>
       </Card>
     )
