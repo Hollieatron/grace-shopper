@@ -16,7 +16,6 @@ const mapDispatch = dispatch => ({
 class UserOrderHistory extends Component {
   componentDidMount() {
     const {getOrderHistory, user} = this.props
-    console.log(user)
     getOrderHistory(user.id)
   }
 

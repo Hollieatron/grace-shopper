@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Header, Container} from 'semantic-ui-react'
+import {Header, Container, Input} from 'semantic-ui-react'
 import {fetchOrderHistory} from '../../store'
 import {connect} from 'react-redux'
 import OrderManagementItem from './order-management-item'
@@ -14,14 +14,29 @@ const mapDispatch = dispatch => ({
 })
 
 class OrderManagement extends Component {
+  constructor() {
+    super()
+    this.state = {
+      searchText: 0
+    }
+  }
   componentDidMount() {
     const {getOrderHistory} = this.props
     getOrderHistory()
   }
 
+  handleChange = (evt, {value}) => {
+    this.setState({searchText: Number(value)})
+  }
+
   render() {
     const {orderhistory} = this.props
-    if (orderhistory && orderhistory.length > 0) {
+    const {searchText} = this.state
+    let orders = orderhistory
+    if (orderhistory && orderhistory.length > 0 && searchText > 0) {
+      orders = orderhistory.filter(order => order.id === searchText)
+    }
+    if (orders.length > 0) {
       return (
         <div
           className="ui raised very padded text container segment"
@@ -30,8 +45,13 @@ class OrderManagement extends Component {
           <Header as="h1" dividing textAlign="center" style={styles.header}>
             All Orders
           </Header>
-          {orderhistory.map(order => (
-            <OrderManagementItem {...order} key={order.id}/>
+          <Input
+            focus
+            placeholder="Find a specific order..."
+            onChange={this.handleChange}
+          />
+          {orders.map(order => (
+            <OrderManagementItem {...order} key={order.id} />
           ))}
         </div>
       )
@@ -44,7 +64,12 @@ class OrderManagement extends Component {
           <Header as="h1" dividing textAlign="center" style={styles.header}>
             Order History
           </Header>
-          <Container> No Current Order History</Container>
+          <Input
+            focus
+            placeholder="Find a specific order..."
+            onChange={this.handleChange}
+          />
+          <Container> No Orders Matched</Container>
         </div>
       )
     }

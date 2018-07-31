@@ -6,7 +6,7 @@ router.use('/categories', require('./categories'))
 router.use('/users', require('./users'))
 router.use('/reviews', require('./reviews'))
 router.use('/cart', require('./cart'))
-router.use('/orderhistory', require('./orderhistory'))
+
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.dataValues.isAdmin) {
@@ -18,6 +18,17 @@ function isAdmin(req, res, next) {
   }
 }
 
+function isUser(req, res, next) {
+  if (req.user) {
+    next()
+  } else {
+    const error = new Error('get outta here')
+    error.status = 401
+    next(error)
+  }
+}
+
+router.use('/orderhistory', isUser, require('./orderhistory'))
 router.use('/admin', isAdmin, require('./admin'))
 
 router.use((req, res, next) => {
