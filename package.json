@@ -1,7 +1,7 @@
 {
   "name": "graceshopper",
   "version": "1.0.0",
-  "description": "A sales site for soon to figure out products",
+  "description": "The world's leading Robot Store for professional Robot technology",
   "engines": {
     "node": ">= 7.0.0"
   },
