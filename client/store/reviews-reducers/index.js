@@ -9,7 +9,7 @@ const GET_REVIEWS = 'GET_REVIEWS'
 /**
  * INITIAL STATE
  */
-const initialProducts = [
+const initialReviews = [
   {
     id: 0,
     title: '',
@@ -44,7 +44,7 @@ export const fetchReviewsOfProduct = id => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = initialProducts, action) {
+export default function(state = initialReviews, action) {
   switch (action.type) {
     case GET_REVIEWS:
       return action.reviews
