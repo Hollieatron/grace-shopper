@@ -84,6 +84,7 @@ class CheckoutForm extends Component {
                 placeholder="First Name"
                 width={6}
               />
+              <Message error content="Please enter a valid first name!" />
               <Form.Input
                 label="Last Name"
                 name="lastName"
@@ -92,6 +93,7 @@ class CheckoutForm extends Component {
                 placeholder="Last Name"
                 width={6}
               />
+              <Message error content="Please enter a valid last name!" />
               <Form.Input
                 label="Email"
                 name="email"
@@ -100,6 +102,7 @@ class CheckoutForm extends Component {
                 placeholder="Email"
                 width={6}
               />
+              <Message error content="Please enter a valid email!" />
             </Form.Group>
             <Form.Group>
               <Form.Input
@@ -110,6 +113,7 @@ class CheckoutForm extends Component {
                 placeholder="Address"
                 width={11}
               />
+              <Message error content="Please enter a valid address!" />
               <Form.Input
                 label="ZIP"
                 name="zip"
@@ -118,6 +122,7 @@ class CheckoutForm extends Component {
                 placeholder="ZIP"
                 width={3}
               />
+              <Message error content="Please enter a valid ZIP!" />
               <Form.Input
                 label="State"
                 name="state"
@@ -126,6 +131,7 @@ class CheckoutForm extends Component {
                 placeholder="State"
                 width={2}
               />
+              <Message error content="Please enter a valid state!" />
             </Form.Group>
             <br />
             <CardElement
