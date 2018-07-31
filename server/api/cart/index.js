@@ -76,9 +76,27 @@ router.delete('/:productId/:userId', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    const cart = await Cart.destroy({where: {userId: userId}})
-    
-    res.json(cart)
+    let cart = {
+      guest: true,
+      inventoryReq: 0,
+      productId: 0,
+      product: {
+        id: 0,
+        name: '',
+        price: 0,
+        description: '',
+        imageUrl: '',
+        inventory: 0,
+        manufacturerId: 0,
+        sellerId: 0
+      }
+    }
+
+    if (userId > 0) {
+      await Cart.destroy({where: {userId: userId}})
+    }
+
+    res.status(201).json(cart)
   } catch (err) {
     next(err)
   }
