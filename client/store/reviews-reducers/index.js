@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../../history'
 
 /**
  * ACTION TYPES
@@ -27,6 +26,11 @@ const getReviews = reviews => ({
   reviews
 })
 
+const addReview = review => ({
+  type: ADD_REVIEW,
+  review
+})
+
 /**
  * THUNK CREATORS
  */
@@ -38,6 +42,11 @@ export const fetchReviews = () => async dispatch => {
 
 export const fetchReviewsOfProduct = id => async dispatch => {
   const {data} = await axios.get(`/api/reviews/product/${id}`)
+  dispatch(getReviews(data))
+}
+
+export const postReviewOfProduct = (id, review) => async dispatch => {
+  const {data} = await axios.post(`/api/reviews/product/${id}`, {review})
   dispatch(getReviews(data))
 }
 

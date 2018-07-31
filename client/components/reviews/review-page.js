@@ -3,6 +3,7 @@ import {fetchReviewsOfProduct} from '../../store/reviews-reducers'
 import {connect} from 'react-redux'
 import {Header, Segment} from 'semantic-ui-react'
 import ReviewCard from './review-card'
+import AddReviewCard from './add-review'
 
 const mapState = state => ({
   reviews: state.reviews
@@ -21,7 +22,7 @@ class ReviewPage extends Component {
   }
 
   render() {
-    const {reviews} = this.props
+    const {reviews, productId} = this.props
 
     return (
       <div
@@ -36,6 +37,7 @@ class ReviewPage extends Component {
             Sorry, there's currently no reviews for this product.
           </Segment>
         )}
+        <AddReviewCard productId={productId}/>
       </div>
     )
   }

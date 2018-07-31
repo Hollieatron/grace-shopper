@@ -13,7 +13,11 @@ const Review = db.define('review', {
     type: Sequelize.TEXT,
     allowNull: false,
     validate: {
-      len: [200]
+      isLong(value) {
+        if(value.length < 200) {
+          throw new Error('Must be longer than 200 characters!')
+        }
+      }
     }
   }
 })
