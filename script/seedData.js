@@ -799,11 +799,12 @@ const userData = [
   {
     firstName: 'Kenny',
     lastName: 'Farrent',
-    email: 'kfarrent0@intel.com',
+    email: 'test',
     username: 'kfarrent0',
-    password: 'DXlKv9',
+    password:
+      '11ba679415558be8b9a0b90008a60e7b2dd6a7a351cae380fc9a1ab9b1f287e9',
     isAdmin: true,
-    salt: 'v8iC2zJxrGm'
+    salt: 'm6cet2/3ZobfZu2NlWyJ7w=='
   },
   {
     firstName: 'Nonie',
