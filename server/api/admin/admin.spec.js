@@ -18,7 +18,7 @@ describe('Routes', () => {
   describe('PUT /product/edit/:id', () => {
     it('updates a product', () => {
       return agent
-        .put('/api/admin/product/edit/' + prodcut1.id)
+        .put('/api/admin/product/edit/' + product1.id)
         .send({
             name: 'Henry',
             price: 39,

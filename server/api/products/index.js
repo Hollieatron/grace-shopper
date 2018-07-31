@@ -33,3 +33,15 @@ router.get('/product/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/search', async (req, res, next) => {
+  try{
+    const productName = req.query.productName
+    const products = await Product.findAll({where: {
+      name: productName
+    }})
+    res.status(200).json(products)
+  } catch(err){
+    next(err)
+  }
+})
