@@ -5,7 +5,8 @@ module.exports = router
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({where: {email: req.body.email}})
-    await Cart.findOrCreate({where: {userId: user.id}})
+    const cart = await Cart.findOrCreate({where: {userId: user.id}})
+    cart.update({guest: false})
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
@@ -40,6 +41,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
+  console.log(req.user)
   res.json(req.user)
 })
 

@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart, putCart} from '../../store'
+import {
+  fetchProduct,
+  postCart,
+  putCart,
+  addProductToGuestCart
+} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -24,7 +29,8 @@ const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
     addToCart: input => dispatch(postCart(input)),
-    editProductQuantity: data => dispatch(putCart(data))
+    editProductQuantity: data => dispatch(putCart(data)),
+    addToGuestCart: product => dispatch(addProductToGuestCart(product))
   }
 }
 
@@ -44,24 +50,51 @@ class SingleProductPage extends Component {
 
     getProduct(id)
 
-    cart.forEach(elem => {
-      if (elem.productId === id) {
-        this.setState({inCart: true, inventoryReq: elem.inventoryReq})
-      }
-    })
+    if (cart && !cart.guest) {
+      cart.forEach(elem => {
+        if (elem.productId === id) {
+          this.setState({inCart: true, inventoryReq: elem.inventoryReq})
+        }
+      })
+    }
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart, editProductQuantity, product} = this.props
-    const {inCart, inventoryReq} = this.state
+    const {
+      addToCart,
+      editProductQuantity,
+      product,
+      addToGuestCart,
+      cart
+    } = this.props
+    let {inCart, inventoryReq} = this.state
     const quantity = inventoryReq + 1
 
-    if (!inCart) {
+    // if the product isn't in the cart and the user is a guest
+    if (!inCart && cart[0].guest) {
+      inventoryReq = 1
+      addToGuestCart(product)
+      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    }
+
+    // if the product isn't in the cart and the user is logged in
+    if (!inCart && !cart[0].guest) {
       addToCart({productId, userId: userId})
       this.setState({inCart: true, message: 'updated', inventoryReq: 1})
-    } else if (product.inventory === inventoryReq) {
+    }
+
+    // if (!inCart && cart[0].guest) {
+    //   addToGuestCart(product)
+    //   this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    // }
+
+    // if the product inventory and the required inventory are the same
+    if (product.inventory === inventoryReq) {
       this.setState({message: 'out-of-stock'})
-    } else {
+    }
+
+    // if the product is in the cart and user is logged in
+    if (inCart && !cart[0].guest) {
       editProductQuantity({quantity, productId, userId})
       this.setState({message: 'updated', inventoryReq: quantity})
     }
@@ -117,7 +150,6 @@ class SingleProductPage extends Component {
 
   render() {
     const {product, user} = this.props
-    const {message} = this.state
     const id = Number(this.props.match.params.id)
 
     return (

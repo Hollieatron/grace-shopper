@@ -8,18 +8,16 @@ const GET_CART = 'GET_CART'
 const EDIT_CART = 'EDIT_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
+const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
+
 /**
  * INITIAL STATE
  */
 
 const initialState = [
   {
-    id: 0,
-    guest: false,
+    guest: true,
     inventoryReq: 0,
-    createdAt: '',
-    updatedAt: '',
-    userId: 0,
     productId: 0,
     product: {
       id: 0,
@@ -28,8 +26,6 @@ const initialState = [
       description: '',
       imageUrl: '',
       inventory: 0,
-      createdAt: '',
-      updatedAt: '',
       manufacturerId: 0,
       sellerId: 0
     }
@@ -44,7 +40,10 @@ const getCart = cart => ({type: GET_CART, cart})
 const editCart = cart => ({type: EDIT_CART, cart})
 const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
-
+export const addProductToGuestCart = product => ({
+  type: ADD_PRODUCT_TO_GUEST_CART,
+  product
+})
 /**
  * THUNK CREATORS
  */
@@ -63,6 +62,9 @@ export const postCart = input => {
     dispatch(addProductToCart(data))
   }
 }
+
+// thunk return product updated
+// action type accepts product
 
 export const putCart = input => {
   return async dispatch => {
@@ -97,6 +99,25 @@ export default function(state = initialState, action) {
       return action.cart
     case DELETE_PRODUCT_FROM_CART:
       return action.cart
+    case ADD_PRODUCT_TO_GUEST_CART:
+      if (state[0].inventoryReq === 0)
+        return [
+          {
+            ...state[0],
+            guest: true,
+            inventoryReq: 1,
+            productId: action.product.id,
+            product: action.product
+          }
+        ]
+      else {
+        return [...state].concat({
+          guest: true,
+          inventoryReq: 1,
+          productId: action.product.id,
+          product: action.product
+        })
+      }
     default:
       return state
   }

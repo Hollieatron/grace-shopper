@@ -8,7 +8,6 @@ import {
   AccountPage,
   AccountManagement,
   EditAccount,
-  UserCartPage,
   OrderManagement
 } from '../components'
 
@@ -38,7 +37,6 @@ const AdminRoutes = () => {
       <Route path="/account/:id/info/edit" component={EditAccount} />
       <Route path="/account/info" component={AccountPage} />
       <Route path="/account/orderhistory" component={UserOrderHistory} />
-      <Route path="/cart" component={UserCartPage} />
       <Route path="/" component={Home} />
     </Switch>
   )
