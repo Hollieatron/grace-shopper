@@ -2,15 +2,17 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import {StripeProvider, Elements} from 'react-stripe-elements'
 import {
   Login,
   Signup,
   ProductCatalog,
   SingleProductPage,
   Home,
-  UserCartPage,
   ProductSearch,
-  CheckoutComplete
+  CheckoutComplete,
+  CartPage,
+  Checkout
 } from './components'
 import AdminRoutes from './router/admin-routes'
 import UserRoutes from './router/user-routes'
@@ -32,6 +34,7 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/cart" component={CartPage} />
         <Route path="/products/product/:id" component={SingleProductPage} />
         <Route path="/products/search/:searchText" component={ProductSearch} />
         <Route
@@ -39,6 +42,16 @@ class Routes extends Component {
           component={ProductCatalog}
         />
         <Route path="/cart/checkout/complete" component={CheckoutComplete} />
+        <Route
+          path="/cart/checkout"
+          render={routeProps => (
+            <StripeProvider apiKey="pk_test_UniUJcxzZgf0zmgciwrViyLC">
+              <Elements>
+                <Checkout {...routeProps} />
+              </Elements>
+            </StripeProvider>
+          )}
+        />
         {isAdmin && <AdminRoutes />}
         {isLoggedIn && <UserRoutes />}
         <Route path="/" component={Home} />
