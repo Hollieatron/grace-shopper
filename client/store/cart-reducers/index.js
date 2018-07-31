@@ -13,6 +13,8 @@ const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
 const EDIT_PRODUCT_IN_GUEST_CART = 'EDIT_PRODUCT_IN_GUEST_CART'
 const DELETE_PRODUCT_FROM_GUEST_CART = 'DELETE_PRODUCT_FROM_GUEST_CART'
 const SET_USER_CART_ON_SIGNUP = 'SET_USER_CART_ON_SIGNUP'
+const DESTROY_CART = 'DESTROY_CART'
+
 /**
  * INITIAL STATE
  */
@@ -48,6 +50,8 @@ const editCart = cart => ({type: EDIT_CART, cart})
 const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 
 const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
+
+const destroyCart = () => ({type: DESTROY_CART})
 
 // guest
 export const postGuestCart = product => ({
@@ -114,6 +118,13 @@ export const deleteCart = input => {
   }
 }
 
+export const deleteTotalCart = id => {
+  return async dispatch => {
+    const {data} = await axios.delete(`/api/cart/${id}`)
+    dispatch(destroyCart())
+  }
+}
+
 /**
  * REDUCER
  */
@@ -128,6 +139,8 @@ export default function(state = initialState, action) {
       return action.cart
     case ADD_PRODUCT_TO_CART:
       return action.cart
+    case DESTROY_CART:
+      return initialState
     case DELETE_PRODUCT_FROM_CART:
       if (state.length === 1) return initialState
       else return action.cart

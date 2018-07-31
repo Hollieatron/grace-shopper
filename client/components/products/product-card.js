@@ -1,22 +1,24 @@
 import React, {Component} from 'react'
 import {postCart, putCart, postGuestCart, putGuestCart} from '../../store'
 import {Link} from 'react-router-dom'
-import {Card, Image, Rating, Button, Icon} from 'semantic-ui-react'
 import {connect} from 'react-redux'
+import {Card, Image, Rating, Button, Icon} from 'semantic-ui-react'
+import {fetchReviewsOfProduct} from '../../store'
+// import { access } from 'fs';
 
 const mapState = state => ({
   user: state.user,
-  cart: state.cart
+  cart: state.cart,
+  reviews: state.reviews
 })
 
-const mapDispatch = dispatch => {
-  return {
-    addToCart: input => dispatch(postCart(input)),
-    editProductQuantity: data => dispatch(putCart(data)),
-    addToGuestCart: product => dispatch(postGuestCart(product)),
-    editGuestQuantity: productId => dispatch(putGuestCart(productId))
-  }
-}
+const mapDispatch = dispatch => ({
+  addToCart: input => dispatch(postCart(input)),
+  editProductQuantity: data => dispatch(putCart(data)),
+  addToGuestCart: product => dispatch(postGuestCart(product)),
+  editGuestQuantity: productId => dispatch(putGuestCart(productId)),
+  getProductReviews: id => dispatch(fetchReviewsOfProduct(id))
+})
 
 class ProductCard extends Component {
   constructor() {
@@ -29,9 +31,10 @@ class ProductCard extends Component {
   }
 
   componentDidMount() {
-    const {user, cart, product} = this.props
+    const {user, cart, product, getProductReviews} = this.props
     const {id} = product
 
+    getProductReviews(id)
     // if user is logged in, set isGuest to false
     if (user.id) {
       this.setState({isGuest: false})
@@ -52,7 +55,6 @@ class ProductCard extends Component {
       editGuestQuantity,
       product
     } = this.props
-
     let {inCart, inventoryReq, isGuest} = this.state
     const quantity = inventoryReq + 1
 
@@ -117,8 +119,12 @@ class ProductCard extends Component {
   }
 
   render() {
-    const {product} = this.props
+    const {product, reviews} = this.props
     const {id, imageUrl, name, price, description} = product
+    if(reviews.length > 0){
+      const average = reviews.reduce((accum, currentValue) => accum + currentValue) / reviews.length
+      console.log(average)
+    }
     return (
       <Card>
         <Image src={imageUrl} />

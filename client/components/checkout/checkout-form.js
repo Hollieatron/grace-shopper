@@ -3,7 +3,7 @@ import {CardElement, injectStripe} from 'react-stripe-elements'
 import {Form, Divider, Button, Icon, Header} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import {me} from '../../store'
+import {me, deleteTotalCart} from '../../store'
 import axios from 'axios'
 import history from '../../history'
 
@@ -14,7 +14,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => {
   return {
-    getUser: () => dispatch(me())
+    getUser: () => dispatch(me()),
+    deleteCart: id => dispatch(deleteTotalCart(id))
   }
 }
 
@@ -38,7 +39,7 @@ class CheckoutForm extends Component {
   }
   submit = async event => {
     event.preventDefault()
-    const {cart, user} = this.props
+    const {cart, user, deleteCart} = this.props
     const userId = user.id
     const firstName = event.target.firstName.value
     const lastName = event.target.lastName.value
@@ -68,12 +69,11 @@ class CheckoutForm extends Component {
     if (response) {
       newOrder.paymentConfirmed = true
       await axios.post(`/api/orders/user/${userId}`, {...newOrder, cart})
-      await axios.delete(`/api/cart/${userId}`)
+      deleteCart(userId)
       history.push('/cart/checkout/complete')
     } else {
       newOrder.paymentConfirmed = false
       await axios.post(`/api/orders/user/${userId}`, {...newOrder, cart})
-      console.log('no payment')
     }
   }
 
