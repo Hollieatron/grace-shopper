@@ -7,6 +7,7 @@ import axios from 'axios'
 const GET_CART = 'GET_CART'
 const EDIT_CART = 'EDIT_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
+const EMPTY_USER_CART_ON_LOGOUT = 'EMPTY_USER_CART_ON_LOGOUT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
 const EDIT_PRODUCT_IN_GUEST_CART = 'EDIT_PRODUCT_IN_GUEST_CART'
@@ -16,7 +17,8 @@ const DELETE_PRODUCT_FROM_GUEST_CART = 'DELETE_PRODUCT_FROM_GUEST_CART'
  * INITIAL STATE
  */
 
-const initialState = [
+// guest
+const guestInitialState = [
   {
     guest: true,
     inventoryReq: 0,
@@ -34,6 +36,7 @@ const initialState = [
   }
 ]
 
+// user
 const userInitialState = [
   {
     guest: false,
@@ -49,6 +52,7 @@ const userInitialState = [
  * ACTION CREATORS
  */
 
+// user
 const getCart = cart => ({type: GET_CART, cart})
 
 const editCart = cart => ({type: EDIT_CART, cart})
@@ -57,6 +61,7 @@ const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
 
 const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
 
+// guest
 export const postGuestCart = product => ({
   type: ADD_PRODUCT_TO_GUEST_CART,
   product
@@ -71,6 +76,11 @@ export const putGuestCart = action => ({
 export const deleteGuestCart = productId => ({
   type: DELETE_PRODUCT_FROM_GUEST_CART,
   productId
+})
+
+export const emptyUserCart = action => ({
+  type: EMPTY_USER_CART_ON_LOGOUT,
+  action
 })
 
 /**
@@ -115,7 +125,7 @@ export const deleteCart = input => {
  * REDUCER
  */
 
-export default function(state = initialState, action) {
+export default function(state = guestInitialState, action) {
   switch (action.type) {
     case GET_CART:
       return action.cart
@@ -126,6 +136,8 @@ export default function(state = initialState, action) {
     case DELETE_PRODUCT_FROM_CART:
       if (state.length === 1) return userInitialState
       else return action.cart
+    case EMPTY_USER_CART_ON_LOGOUT:
+      return guestInitialState
     case ADD_PRODUCT_TO_GUEST_CART:
       if (state[0].inventoryReq === 0)
         return [
@@ -156,7 +168,7 @@ export default function(state = initialState, action) {
         }
       })
     case DELETE_PRODUCT_FROM_GUEST_CART:
-      if (state.length === 1) return initialState
+      if (state.length === 1) return guestInitialState
       else return [...state].filter(cart => cart.productId !== action.productId)
     default:
       return state
