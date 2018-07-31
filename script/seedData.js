@@ -878,31 +878,49 @@ const manufacturerData = [
 
 const categoryData = [
   {
-    name: 'Electronics',
+    name: 'Robot Kits',
     imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
   },
   {
-    name: 'Computers',
+    name: 'Household Robots',
     imageUrl: 'http://dummyimage.com/250x250.png/ff4444/ffffff'
   },
-  {name: 'Movies', imageUrl: 'http://dummyimage.com/250x250.png/cc0000/ffffff'},
   {
-    name: 'Grocery',
+    name: 'Commercial Robots',
+    imageUrl: 'http://dummyimage.com/250x250.png/cc0000/ffffff'
+  },
+  {
+    name: 'Personal Robots',
     imageUrl: 'http://dummyimage.com/250x250.png/ff4444/ffffff'
   },
-  {name: 'Tools', imageUrl: 'http://dummyimage.com/250x250.bmp/cc0000/ffffff'},
-  {name: 'Home', imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'},
-  {name: 'Beauty', imageUrl: 'http://dummyimage.com/250x250.bmp/ff4444/ffffff'},
   {
-    name: 'Outdoors',
+    name: 'Mobile Robots',
     imageUrl: 'http://dummyimage.com/250x250.bmp/cc0000/ffffff'
   },
   {
-    name: 'Clothing',
+    name: 'Robot Testing & Tools',
+    imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
+  },
+  {
+    name: 'Mini Robots',
+    imageUrl: 'http://dummyimage.com/250x250.bmp/ff4444/ffffff'
+  },
+  {
+    name: 'Robot Toys',
+    imageUrl: 'http://dummyimage.com/250x250.bmp/cc0000/ffffff'
+  },
+  {
+    name: 'Fighter Robots',
     imageUrl: 'http://dummyimage.com/250x250.png/dddddd/000000'
   },
-  {name: 'Beauty', imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'},
-  {name: 'Toys', imageUrl: 'http://dummyimage.com/250x250.jpg/5fa2dd/ffffff'}
+  {
+    name: 'Trade Show Robots',
+    imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
+  },
+  {
+    name: 'Robot Parts',
+    imageUrl: 'http://dummyimage.com/250x250.jpg/5fa2dd/ffffff'
+  }
 ]
 
 const cartData = [
