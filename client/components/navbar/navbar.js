@@ -65,6 +65,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
             <Icon name="shop" />
           </Button.Content>
         </Button>
+        <Button color="blue">0</Button>
       </Menu.Item>
     </Menu.Menu>
   </Menu>

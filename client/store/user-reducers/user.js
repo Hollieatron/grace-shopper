@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../../history'
-import {emptyUserCart, setUserCartOnLogin} from '../../store'
+import {emptyUserCart, setUserCartOnSignup} from '../../store'
 
 /**
  * ACTION TYPES
@@ -47,7 +47,8 @@ export const auth = (email, password, method, cart) => async dispatch => {
         user: res.data,
         cart: cart
       })
-      dispatch(setUserCartOnLogin(data))
+
+      dispatch(setUserCartOnSignup(data))
     } catch (err) {
       console.error(err)
     }

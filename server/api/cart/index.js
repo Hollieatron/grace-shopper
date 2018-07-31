@@ -6,7 +6,6 @@ module.exports = router
 router.get('/:id', async (req, res, next) => {
   try {
     const userId = req.params.id
-    await Cart.destroy({where: {productId: null, userId}})
     const cart = await Cart.findAll({
       where: {
         userId
@@ -23,13 +22,12 @@ router.post('/:productId', async (req, res, next) => {
   try {
     const productId = req.params.productId
     const {userId} = req.body
-    const [cart] = await Cart.findOrCreate({
+    await Cart.findOrCreate({
       where: {
         userId,
         productId
       }
     })
-    await Cart.destroy({where: {productId: null, userId}})
     const newCart = await Cart.findAll({
       where: {
         userId
