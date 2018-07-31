@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Image, Grid, Table, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {putCart, deleteCart} from '../../store'
+import {putCart, deleteCart, putGuestCart, deleteGuestCart} from '../../store'
 
 const mapState = state => ({
   cart: state.cart,
@@ -11,7 +11,9 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   editProductQuantity: data => dispatch(putCart(data)),
-  deleteProductFromCart: id => dispatch(deleteCart(id))
+  deleteProductFromCart: data => dispatch(deleteCart(data)),
+  editGuestQuantity: productId => dispatch(putGuestCart(productId)),
+  deleteFromGuestCart: action => dispatch(deleteGuestCart(action))
 })
 
 class CartItem extends Component {
@@ -19,7 +21,7 @@ class CartItem extends Component {
     super()
     this.state = {
       productId: 0,
-      quantity: 1,
+      quantity: 0,
       userId: 0
     }
     this.handleChange = this.handleChange.bind(this)
@@ -30,6 +32,7 @@ class CartItem extends Component {
     const {inventoryReq, product, user} = this.props
     const userId = user.id
     const productId = product.id
+
     this.setState({
       quantity: inventoryReq,
       productId: productId,
@@ -39,9 +42,15 @@ class CartItem extends Component {
 
   handleQuantitySubmit(event) {
     event.preventDefault()
-    const {editProductQuantity} = this.props
+    const {editProductQuantity, cart, editGuestQuantity} = this.props
     const {quantity, productId, userId} = this.state
-    editProductQuantity({quantity, productId, userId})
+
+    if (!cart[0].guest) {
+      editProductQuantity({quantity, productId, userId})
+    }
+    if (cart[0].guest) {
+      editGuestQuantity({productId, inventoryReq: quantity})
+    }
   }
 
   handleChange(event) {
@@ -51,9 +60,14 @@ class CartItem extends Component {
   }
 
   handleDeleteSubmit() {
-    const {deleteProductFromCart} = this.props
+    const {deleteProductFromCart, cart, deleteFromGuestCart} = this.props
     const {userId, productId} = this.state
-    deleteProductFromCart({productId, userId})
+    if (!cart[0].guest) {
+      deleteProductFromCart({productId, userId})
+    }
+    if (cart[0].guest) {
+      deleteFromGuestCart(productId)
+    }
   }
 
   render() {

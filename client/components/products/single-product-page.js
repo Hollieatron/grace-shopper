@@ -1,5 +1,11 @@
 import React, {Component} from 'react'
-import {fetchProduct, postCart, putCart} from '../../store'
+import {
+  fetchProduct,
+  postCart,
+  putCart,
+  postGuestCart,
+  putGuestCart
+} from '../../store'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {
@@ -24,7 +30,9 @@ const mapDispatch = dispatch => {
   return {
     getProduct: id => dispatch(fetchProduct(id)),
     addToCart: input => dispatch(postCart(input)),
-    editProductQuantity: data => dispatch(putCart(data))
+    editProductQuantity: data => dispatch(putCart(data)),
+    addToGuestCart: product => dispatch(postGuestCart(product)),
+    editGuestQuantity: productId => dispatch(putGuestCart(productId))
   }
 }
 
@@ -34,34 +42,68 @@ class SingleProductPage extends Component {
     this.state = {
       message: '',
       inCart: false,
-      inventoryReq: 0
+      inventoryReq: 0,
+      isGuest: true
     }
   }
 
   componentDidMount() {
-    const {getProduct, cart} = this.props
-    const id = Number(this.props.match.params.id)
+    const {getProduct, user, cart} = this.props
+    const id = +this.props.match.params.id
 
     getProduct(id)
 
-    cart.forEach(elem => {
-      if (elem.productId === id) {
-        this.setState({inCart: true, inventoryReq: elem.inventoryReq})
-      }
-    })
+    // if user is logged in, set isGuest to false
+    if (user.id) {
+      this.setState({isGuest: false})
+    }
+
+    if (cart) {
+      cart.forEach(elem => {
+        if (elem.productId === id) {
+          this.setState({inCart: true, inventoryReq: elem.inventoryReq})
+        }
+      })
+    }
   }
 
   addToCartSubmit(productId, userId) {
-    const {addToCart, editProductQuantity, product} = this.props
-    const {inCart, inventoryReq} = this.state
+    const {
+      addToCart,
+      editProductQuantity,
+      product,
+      addToGuestCart,
+      editGuestQuantity
+    } = this.props
+
+    let {inCart, inventoryReq, isGuest} = this.state
     const quantity = inventoryReq + 1
 
-    if (!inCart) {
+    // if the product inventory and the required inventory are the same
+    if (product.inventory === inventoryReq) {
+      this.setState({message: 'out-of-stock'})
+    }
+
+    // if the product isn't in the cart && it's a guest
+    if (!inCart && isGuest) {
+      addToGuestCart(product)
+      this.setState({inCart: true, message: 'updated', inventoryReq: 1})
+    }
+
+    // if product is inCart and the user is a guest
+    if (inCart && isGuest) {
+      editGuestQuantity({productId, inventoryReq: quantity})
+      this.setState({message: 'updated', inventoryReq: quantity})
+    }
+
+    // if the product isn't in the cart && user is logged in
+    if (!inCart && !isGuest) {
       addToCart({productId, userId: userId})
       this.setState({inCart: true, message: 'updated', inventoryReq: 1})
-    } else if (product.inventory === inventoryReq) {
-      this.setState({message: 'out-of-stock'})
-    } else {
+    }
+
+    // if the product is in the cart && user is logged in
+    if (inCart && !isGuest) {
       editProductQuantity({quantity, productId, userId})
       this.setState({message: 'updated', inventoryReq: quantity})
     }
@@ -79,7 +121,6 @@ class SingleProductPage extends Component {
           Sorry, this product is currently out of stock.
         </Message>
       )
-      // if product is in stock, render add to cart button
     } else if (
       message === 'out-of-stock' ||
       inventoryReq === product.inventory
@@ -89,6 +130,7 @@ class SingleProductPage extends Component {
           You have all {name}s currently available in your cart.
         </Message>
       )
+      // if product is in stock, render add to cart button
     } else if (inventory > 0 && message !== 'out-of-stock') {
       return (
         <div>
@@ -117,7 +159,6 @@ class SingleProductPage extends Component {
 
   render() {
     const {product, user} = this.props
-    const {message} = this.state
     const id = Number(this.props.match.params.id)
 
     return (
