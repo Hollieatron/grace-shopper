@@ -10,6 +10,7 @@ const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const ADD_PRODUCT_TO_GUEST_CART = 'ADD_PRODUCT_TO_GUEST_CART'
 const EDIT_PRODUCT_IN_GUEST_CART = 'EDIT_PRODUCT_IN_GUEST_CART'
+const DELETE_PRODUCT_FROM_GUEST_CART = 'DELETE_PRODUCT_FROM_GUEST_CART'
 
 /**
  * INITIAL STATE
@@ -33,14 +34,29 @@ const initialState = [
   }
 ]
 
+const userInitialState = [
+  {
+    guest: false,
+    id: 0,
+    inventoryReq: 1,
+    product: null,
+    productId: null,
+    userId: 0
+  }
+]
+
 /**
  * ACTION CREATORS
  */
 
 const getCart = cart => ({type: GET_CART, cart})
+
 const editCart = cart => ({type: EDIT_CART, cart})
+
 const addProductToCart = cart => ({type: ADD_PRODUCT_TO_CART, cart})
+
 const deleteProductFromCart = cart => ({type: DELETE_PRODUCT_FROM_CART, cart})
+
 export const postGuestCart = product => ({
   type: ADD_PRODUCT_TO_GUEST_CART,
   product
@@ -51,6 +67,12 @@ export const putGuestCart = action => ({
   productId: action.productId,
   inventoryReq: action.inventoryReq
 })
+
+export const deleteGuestCart = productId => ({
+  type: DELETE_PRODUCT_FROM_GUEST_CART,
+  productId
+})
+
 /**
  * THUNK CREATORS
  */
@@ -102,7 +124,8 @@ export default function(state = initialState, action) {
     case ADD_PRODUCT_TO_CART:
       return action.cart
     case DELETE_PRODUCT_FROM_CART:
-      return action.cart
+      if (state.length === 1) return userInitialState
+      else return action.cart
     case ADD_PRODUCT_TO_GUEST_CART:
       if (state[0].inventoryReq === 0)
         return [
@@ -123,14 +146,18 @@ export default function(state = initialState, action) {
         })
       }
     case EDIT_PRODUCT_IN_GUEST_CART:
+      let inventory = parseInt(action.inventoryReq, 10)
       return [...state].map(cart => {
         if (cart.productId === action.productId) {
-          cart.inventoryReq = action.inventoryReq
+          cart.inventoryReq = inventory
           return cart
         } else {
           return cart
         }
       })
+    case DELETE_PRODUCT_FROM_GUEST_CART:
+      if (state.length === 1) return initialState
+      else return [...state].filter(cart => cart.productId !== action.productId)
     default:
       return state
   }

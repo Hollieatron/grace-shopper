@@ -42,17 +42,27 @@ class SingleProductPage extends Component {
     this.state = {
       message: '',
       inCart: false,
-      inventoryReq: 0
+      inventoryReq: 0,
+      isGuest: true
     }
   }
 
   componentDidMount() {
-    const {getProduct, cart} = this.props
-    const id = Number(this.props.match.params.id)
+    const {getProduct, user, cart} = this.props
+    const {isGuest} = this.state
+    // const guestCart = this.props.cart[0]
+    const id = +this.props.match.params.id
 
+    // get the product
     getProduct(id)
 
-    if (cart && !cart.guest) {
+    // if user is logged in, set isGuest to false
+    if (user.id) {
+      this.setState({isGuest: false})
+    }
+
+    // if user is logged in, check if the product is already in the cart
+    if (!isGuest) {
       cart.forEach(elem => {
         if (elem.productId === id) {
           this.setState({inCart: true, inventoryReq: elem.inventoryReq})
@@ -72,6 +82,7 @@ class SingleProductPage extends Component {
     } = this.props
     let {inCart, inventoryReq} = this.state
     const quantity = inventoryReq + 1
+    let guest = cart[0].guest || undefined
 
     // if the product inventory and the required inventory are the same
     if (product.inventory === inventoryReq) {
@@ -79,7 +90,7 @@ class SingleProductPage extends Component {
     }
 
     // if the product isn't in the cart && it's a guest
-    if (!inCart && cart[0].guest) {
+    if (!inCart && guest) {
       addToGuestCart(product)
       this.setState({inCart: true, message: 'updated', inventoryReq: 1})
     }

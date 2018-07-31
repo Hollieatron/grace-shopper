@@ -4,6 +4,7 @@
   "rules": {
     "semi": 0,
     "react/prefer-stateless-function": "false",
-    "complexity": "off"
+    "complexity": "off",
+    "no-case-declarations": "off"
   }
 }

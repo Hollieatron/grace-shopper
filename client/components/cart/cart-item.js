@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {Image, Grid, Table, Button} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {putCart, deleteCart, putGuestCart} from '../../store'
+import {putCart, deleteCart, putGuestCart, deleteGuestCart} from '../../store'
 
 const mapState = state => ({
   cart: state.cart,
@@ -11,8 +11,9 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   editProductQuantity: data => dispatch(putCart(data)),
-  deleteProductFromCart: id => dispatch(deleteCart(id)),
-  editGuestQuantity: productId => dispatch(putGuestCart(productId))
+  deleteProductFromCart: data => dispatch(deleteCart(data)),
+  editGuestQuantity: productId => dispatch(putGuestCart(productId)),
+  deleteFromGuestCart: action => dispatch(deleteGuestCart(action))
 })
 
 class CartItem extends Component {
@@ -28,7 +29,7 @@ class CartItem extends Component {
   }
 
   componentDidMount() {
-    const {inventoryReq, product, user, cart} = this.props
+    const {inventoryReq, product, user} = this.props
     const userId = user.id
     const productId = product.id
 
@@ -43,6 +44,7 @@ class CartItem extends Component {
     event.preventDefault()
     const {editProductQuantity, cart, editGuestQuantity} = this.props
     const {quantity, productId, userId} = this.state
+
     if (!cart[0].guest) {
       editProductQuantity({quantity, productId, userId})
     }
@@ -58,9 +60,14 @@ class CartItem extends Component {
   }
 
   handleDeleteSubmit() {
-    const {deleteProductFromCart} = this.props
+    const {deleteProductFromCart, cart, deleteFromGuestCart} = this.props
     const {userId, productId} = this.state
-    deleteProductFromCart({productId, userId})
+    if (!cart[0].guest) {
+      deleteProductFromCart({productId, userId})
+    }
+    if (cart[0].guest) {
+      deleteFromGuestCart(productId)
+    }
   }
 
   render() {

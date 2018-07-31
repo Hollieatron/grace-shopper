@@ -28,7 +28,14 @@ router.post('/:productId', async (req, res, next) => {
         productId
       }
     })
-    res.status(200).send(cart)
+    await Cart.destroy({where: {productId: null, userId}})
+    const newCart = await Cart.findAll({
+      where: {
+        userId
+      },
+      include: [Product]
+    })
+    res.status(200).send(newCart)
   } catch (err) {
     next(err)
   }
