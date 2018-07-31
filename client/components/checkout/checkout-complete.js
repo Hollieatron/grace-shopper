@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {Form, Divider, Button, Icon, Header} from 'semantic-ui-react'
+import {Button, Divider, Header, Grid} from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {me} from '../../store'
+import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   user: state.user
@@ -11,19 +12,24 @@ const mapDispatch = dispatch => ({
   getUser: () => dispatch(me())
 })
 class CheckoutComplete extends Component {
-  componentDidMount() {
-    this.props.getUser()
-  }
   render() {
-    const {user} = this.props
     return (
       <div className="ui raised very padded text container segment">
         <Header textAlign="center" as="h2">
           Thank you for your purchase!
         </Header>
+        <Divider />
         <Header textAlign="center" as="h3">
-          An email has been sent to {user.email}
+          A confirmation email has been sent!
         </Header>
+        <br />
+        <Grid textAlign="center">
+          <Grid.Column>
+            <Button basic color="blue" as={Link} to="/" size="mini">
+              Back to Shopping
+            </Button>
+          </Grid.Column>
+        </Grid>
       </div>
     )
   }

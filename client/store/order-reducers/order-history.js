@@ -11,9 +11,12 @@ const UPDATE_ORDER_STATUS = 'UPDATE_ORDER_STATUS'
  * INITIAL STATE
  */
 
-const initialState = [{id: 0,
-status: ''
-}]
+const initialState = [
+  {
+    id: 0,
+    status: ''
+  }
+]
 
 /**
  * ACTION CREATORS
@@ -42,11 +45,12 @@ export const fetchOrderHistory = () => {
 
 export const updateOrderStatus = (orderId, status) => {
   return async dispatch => {
-    const {data} = await axios.put(`/api/admin/orderhistory/order/${orderId}`, {status: status})
+    const {data} = await axios.put(`/api/admin/orderhistory/order/${orderId}`, {
+      status: status
+    })
     dispatch(getOrderHistory(data))
   }
 }
-
 
 /**
  * REDUCER

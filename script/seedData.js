@@ -915,10 +915,42 @@ const cartData = [
 ]
 
 const orderData = [
-  {status: 'Completed'},
-  {status: 'Processing'},
-  {status: 'Cancelled'},
-  {status: 'Completed'}
+  {
+    status: 'Completed',
+    email: 'test',
+    address: '213',
+    state: '213',
+    zip: 213,
+    amount: 21,
+    paymentConfirmed: false
+  },
+  {
+    status: 'Processing',
+    email: 'test',
+    address: '213',
+    state: '213',
+    zip: 213,
+    amount: 21,
+    paymentConfirmed: false
+  },
+  {
+    status: 'Cancelled',
+    email: 'test',
+    address: '213',
+    state: '213',
+    zip: 213,
+    amount: 21,
+    paymentConfirmed: false
+  },
+  {
+    status: 'Completed',
+    email: 'test',
+    address: '213',
+    state: '213',
+    zip: 213,
+    amount: 21,
+    paymentConfirmed: false
+  }
 ]
 
 const orderHistoryData = [

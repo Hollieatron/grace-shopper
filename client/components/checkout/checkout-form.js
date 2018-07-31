@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import {Form, Divider, Button, Icon, Header} from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {Link, withRouter} from 'react-router-dom'
-
+import {withRouter} from 'react-router-dom'
+import {me} from '../../store'
 import axios from 'axios'
 import history from '../../history'
 
@@ -11,6 +11,12 @@ const mapState = state => ({
   user: state.user,
   cart: state.cart
 })
+
+const mapDispatch = dispatch => {
+  return {
+    getUser: () => dispatch(me())
+  }
+}
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -24,13 +30,16 @@ class CheckoutForm extends Component {
       zip: ''
     }
   }
-
+  componentDidMount() {
+    this.props.getUser()
+  }
   handleChange = event => {
     this.setState({[event.target.name]: event.target.value})
   }
   submit = async event => {
     event.preventDefault()
-    const {cart} = this.props
+    const {cart, user} = this.props
+    const userId = user.id
     const firstName = event.target.firstName.value
     const lastName = event.target.lastName.value
     const email = event.target.email.value
@@ -38,16 +47,34 @@ class CheckoutForm extends Component {
     const state = event.target.state.value
     const zip = Number(event.target.zip.value)
     const amount = this.calculateSubtotal(cart)
-    const newOrder = {firstName, lastName, email, address, state, zip, amount}
-
+    let paymentConfirmed = false
+    const newOrder = {
+      userId,
+      firstName,
+      lastName,
+      email,
+      address,
+      state,
+      zip,
+      amount,
+      paymentConfirmed
+    }
     let {token} = await this.props.stripe.createToken({email: email})
 
     let response = await axios.post('/api/charge', {
       ...newOrder,
       stripeToken: token.id
     })
-
-    if (response) history.push('/cart/checkout/complete')
+    if (response) {
+      newOrder.paymentConfirmed = true
+      await axios.post(`/api/orders/user/${userId}`, {...newOrder, cart})
+      await axios.delete(`/api/cart/${userId}`)
+      history.push('/cart/checkout/complete')
+    } else {
+      newOrder.paymentConfirmed = false
+      await axios.post(`/api/orders/user/${userId}`, {...newOrder, cart})
+      console.log('no payment')
+    }
   }
 
   calculateSubtotal(cart) {
@@ -147,4 +174,6 @@ class CheckoutForm extends Component {
   }
 }
 
-export default injectStripe(withRouter(connect(mapState)(CheckoutForm)))
+export default injectStripe(
+  withRouter(connect(mapState, mapDispatch)(CheckoutForm))
+)
