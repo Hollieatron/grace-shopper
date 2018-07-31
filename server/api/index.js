@@ -6,7 +6,8 @@ router.use('/categories', require('./categories'))
 router.use('/users', require('./users'))
 router.use('/reviews', require('./reviews'))
 router.use('/cart', require('./cart'))
-
+router.use('/charge', require('./charge'))
+router.use('/orders', require('./orders'))
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.dataValues.isAdmin) {

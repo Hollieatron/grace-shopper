@@ -3,6 +3,7 @@ import {Header, Divider, Button, Icon, Message} from 'semantic-ui-react'
 import {fetchCart} from '../../store'
 import {connect} from 'react-redux'
 import CartItem from './cart-item'
+import {Link} from 'react-router-dom'
 
 const mapState = state => ({
   user: state.user,
@@ -70,7 +71,7 @@ class CartPage extends Component {
         </div>
         <Divider />
 
-        <Button icon labelPosition="right" floated="right">
+        <Button as={Link} to='/cart/checkout' icon labelPosition="right" floated="right">
           Checkout
           <Icon name="right arrow" />
         </Button>

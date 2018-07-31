@@ -48,7 +48,6 @@ const pReducer = persistReducer(rootPersistConfig, reducer)
 
 const store = createStore(pReducer, middleware)
 export const persistor = persistStore(store)
-persistor.purge()
 
 export default store
 export * from './user-reducers/user'
