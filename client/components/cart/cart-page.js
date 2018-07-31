@@ -21,6 +21,7 @@ class CartPage extends Component {
     }
   }
 
+
   componentDidMount() {
     const {getCart, user} = this.props
     const {isGuest} = this.state
