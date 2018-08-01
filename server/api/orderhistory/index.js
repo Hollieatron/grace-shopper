@@ -1,7 +1,14 @@
 const router = require('express').Router()
 const {OrderHistory, Order} = require('../../db/models')
+const nodemailer = require('nodemailer')
 
-module.exports = router
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'graceshoppertest@gmail.com',
+    pass: 'test1234!'
+  }
+})
 
 router.get('/user/:id', async (req, res, next) => {
   try {
@@ -17,3 +24,29 @@ router.get('/user/:id', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/user/:id', async (req, res, next) => {
+  try {
+    const {orderId, status} = req.body
+
+    const mailOptions = {
+      from: 'graceshoppertest@gmail.com',
+      to: 'hollieatron.industries@gmail.com', //email goes here
+      subject: 'Your Order Status Has Been Updated',
+      text: 'Order Number: ' + orderId + ' is now ' + status + '.'
+    }
+    transporter.sendMail(mailOptions, function(err, info) {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('Email sent: ' + info.response)
+      }
+    })
+
+    res.send(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+module.exports = router

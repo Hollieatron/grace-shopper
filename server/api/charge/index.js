@@ -21,7 +21,7 @@ router.post('/', (req, res, next) => {
       currency: 'usd',
       description: 'Hollieatron Industries Order',
       source: stripeToken,
-      receipt_email: 'hollieatron.industries@gmail.com'
+      receipt_email: 'hollieatron.industries@gmail.com' //email goes here
     },
     (error, charge) => {
       if (error) {
@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
       } else {
         const mailOptions = {
           from: 'graceshoppertest@gmail.com',
-          to: 'hollieatron.industries@gmail.com',
+          to: 'hollieatron.industries@gmail.com', //email goes here
           subject: 'Thank you for your purchase!',
           text: '$' + req.body.amount + ' paid!'
         }
@@ -45,5 +45,7 @@ router.post('/', (req, res, next) => {
     }
   )
 })
+
+
 
 module.exports = router
