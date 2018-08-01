@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {postReviewOfProduct} from '../../store/reviews-reducers'
 import {Form, Input, Segment, TextArea, Button} from 'semantic-ui-react'
+import FormErrors from './form-errors'
 
 const mapDispatch = dispatch => ({
   addReview: (id, review) => dispatch(postReviewOfProduct(id, review))
@@ -13,12 +14,55 @@ class AddReviewCard extends React.Component {
     this.state = {
       title: '',
       rating: '',
-      description: ''
+      description: '',
+      formErrors: {title: '', description: ''},
+      titleValid: false,
+      descriptionValid: false,
+      formValid: false
     }
   }
 
-  handleChange = (e, v) => {
-    this.setState({[e.target.name]: e.target.value})
+  handleChange = e => {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({[name]: value}, () => {
+      this.validateField(name, value)
+    })
+  }
+
+  validateField = (fieldName, value) => {
+    let fieldValidationErrors = this.state.formErrors
+    let titleValid = this.state.titleValid
+    let descriptionValid = this.state.descriptionValid
+
+    switch (fieldName) {
+      case 'title':
+        titleValid = value.length > 5
+        fieldValidationErrors.title = titleValid ? '' : ' is too short!'
+        break
+      case 'description':
+        descriptionValid = value.length > 200
+        fieldValidationErrors.description = descriptionValid
+          ? ''
+          : ' is too short!'
+        break
+      default:
+        break
+    }
+    this.setState(
+      {
+        formErrors: fieldValidationErrors,
+        titleValid: titleValid,
+        descriptionValid: descriptionValid
+      },
+      this.validateForm
+    )
+  }
+
+  validateForm = () => {
+    this.setState({
+      formValid: this.state.titleValid && this.state.descriptionValid
+    })
   }
 
   handleSubmit = () => {
@@ -37,6 +81,9 @@ class AddReviewCard extends React.Component {
     const {title, rating, description} = this.state
     return (
       <Segment>
+        <div style={{marginBottom: 10}}>
+          <FormErrors formErrors={this.state.formErrors} />
+        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group inline>
             <Form.Field
@@ -50,7 +97,7 @@ class AddReviewCard extends React.Component {
             <label>Rating </label>
             <Form.Field
               control={Input}
-              type='radio'
+              type="radio"
               label="One"
               name="rating"
               value="1"
@@ -59,7 +106,7 @@ class AddReviewCard extends React.Component {
             />
             <Form.Field
               control={Input}
-              type='radio'
+              type="radio"
               label="Two"
               name="rating"
               value="2"
@@ -68,7 +115,7 @@ class AddReviewCard extends React.Component {
             />
             <Form.Field
               control={Input}
-              type='radio'
+              type="radio"
               label="Three"
               name="rating"
               value="3"
@@ -77,7 +124,7 @@ class AddReviewCard extends React.Component {
             />
             <Form.Field
               control={Input}
-              type='radio'
+              type="radio"
               label="Four"
               name="rating"
               value="4"
@@ -86,7 +133,7 @@ class AddReviewCard extends React.Component {
             />
             <Form.Field
               control={Input}
-              type='radio'
+              type="radio"
               label="Five"
               name="rating"
               value="5"
@@ -103,7 +150,9 @@ class AddReviewCard extends React.Component {
             onChange={this.handleChange}
             required
           />
-          <Form.Field control={Button}>Submit</Form.Field>
+          <Form.Field control={Button} disabled={!this.state.formValid}>
+            Submit
+          </Form.Field>
         </Form>
       </Segment>
     )

@@ -17,7 +17,12 @@ const CategoryGrid = ({categories}) => {
       ) : (
         <div>No Categories</div>
       )}
-      <CategoryCard key={-1} id={0} name={'All Products'} imageUrl={'http://dummyimage.com/250x250.bmp/cc0000/ffffff'}/>
+      <CategoryCard
+        key={-1}
+        id={0}
+        name="All Products"
+        imageUrl="https://robohash.org/XWS.png?set=set3&size=150x150"
+      />
     </Card.Group>
   )
 }

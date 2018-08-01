@@ -121,9 +121,10 @@ class ProductCard extends Component {
   render() {
     const {product, reviews} = this.props
     const {id, imageUrl, name, price, description} = product
-    if(reviews.length > 0){
-      const average = reviews.reduce((accum, currentValue) => accum + currentValue) / reviews.length
-      console.log(average)
+    if (reviews.length > 0) {
+      const average =
+        reviews.reduce((accum, currentValue) => accum + currentValue) /
+        reviews.length
     }
     return (
       <Card>

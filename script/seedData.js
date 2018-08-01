@@ -95,7 +95,7 @@ const productData = [
     inventory: 10
   },
   {
-    name: 'Ashely',
+    name: 'Ashley',
     price: 98,
     description:
       'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.\n\nVestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.',
@@ -111,7 +111,7 @@ const productData = [
     inventory: 0
   },
   {
-    name: 'Kass',
+    name: 'Kazz',
     price: 71,
     description:
       'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.\n\nMorbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.',
@@ -119,7 +119,7 @@ const productData = [
     inventory: 10
   },
   {
-    name: 'Curtis',
+    name: 'Courtney',
     price: 98,
     description:
       'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.',
@@ -263,7 +263,7 @@ const productData = [
     inventory: 4
   },
   {
-    name: 'Bess',
+    name: 'Bell',
     price: 91,
     description:
       'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.',
@@ -690,7 +690,7 @@ const productData = [
     inventory: 7
   },
   {
-    name: 'Sayers',
+    name: 'Sayer',
     price: 31,
     description:
       'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.',
@@ -878,48 +878,48 @@ const manufacturerData = [
 
 const categoryData = [
   {
-    name: 'Robot Kits',
-    imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
+    name: 'Alien Robots',
+    imageUrl: 'https://robohash.org/2ZZ.png?set=set3&size=150x150'
   },
   {
-    name: 'Household Robots',
-    imageUrl: 'http://dummyimage.com/250x250.png/ff4444/ffffff'
-  },
-  {
-    name: 'Commercial Robots',
-    imageUrl: 'http://dummyimage.com/250x250.png/cc0000/ffffff'
-  },
-  {
-    name: 'Personal Robots',
-    imageUrl: 'http://dummyimage.com/250x250.png/ff4444/ffffff'
-  },
-  {
-    name: 'Mobile Robots',
-    imageUrl: 'http://dummyimage.com/250x250.bmp/cc0000/ffffff'
-  },
-  {
-    name: 'Robot Testing & Tools',
-    imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
-  },
-  {
-    name: 'Mini Robots',
-    imageUrl: 'http://dummyimage.com/250x250.bmp/ff4444/ffffff'
-  },
-  {
-    name: 'Robot Toys',
-    imageUrl: 'http://dummyimage.com/250x250.bmp/cc0000/ffffff'
+    name: 'Battle Droids',
+    imageUrl: 'https://robohash.org/RTY.png?set=set3&size=150x150'
   },
   {
     name: 'Fighter Robots',
-    imageUrl: 'http://dummyimage.com/250x250.png/dddddd/000000'
+    imageUrl: 'https://robohash.org/SLK.png?set=set3&size=150x150'
   },
   {
-    name: 'Trade Show Robots',
-    imageUrl: 'http://dummyimage.com/250x250.jpg/cc0000/ffffff'
+    name: 'Flying Robots',
+    imageUrl: 'https://robohash.org/9VC.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Household Robots',
+    imageUrl: 'https://robohash.org/GUY.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Human Cyborgs',
+    imageUrl: 'https://robohash.org/PSD.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Musical Robots',
+    imageUrl: 'https://robohash.org/FGH.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Personal Robots',
+    imageUrl: 'https://robohash.org/E7F.png?set=set3&size=150x150'
   },
   {
     name: 'Robot Parts',
-    imageUrl: 'http://dummyimage.com/250x250.jpg/5fa2dd/ffffff'
+    imageUrl: 'https://robohash.org/MNB.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Robot Tools',
+    imageUrl: 'https://robohash.org/PDW.png?set=set3&size=150x150'
+  },
+  {
+    name: 'Space Robots',
+    imageUrl: 'https://robohash.org/QXS.png?set=set3&size=150x150'
   }
 ]
 
